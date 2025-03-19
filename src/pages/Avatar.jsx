@@ -5,7 +5,8 @@ import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
-import Loadingswaping from "../component/Loadingswaping";
+import LoadingSwaping from "../component/LoadingSwaping";
+import BGImage from "../assets/logo/BG.jpg";
 
 // Dynamically import all avatars
 const maleAvatars = import.meta.glob("../assets/Avatars/male-*.png", {
@@ -85,9 +86,15 @@ function Avatar() {
     Setswaloader(loading ? "block" : "none");
   }, [loading]);
 
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 ">
-      <Loadingswaping visibilyy={swaploader} />
+  return loading ? (
+    <div className=" w-full h-screen">
+      <LoadingSwaping visibility={swaploader} />
+    </div>
+  ) : (
+    <div
+      className="flex flex-col items-center justify-center w-full bg-cover bg-center bg-repeat  h-screen gap-10 py-10 "
+      style={{ backgroundImage: `url(${BGImage})` }}
+    >
       <Logo />
 
       {/* Magical Toggle Button */}
@@ -136,7 +143,7 @@ function Avatar() {
       {/* Avatar Grid */}
       <div
         className={cn(
-          "grid justify-center items-center gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-[10vw] w-full"
+          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full"
         )}
       >
         {(gender === "male" ? maleImages : femaleImages).map(

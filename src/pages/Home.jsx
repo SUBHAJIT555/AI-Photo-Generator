@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../component/Logo";
 import CameraIcon from "../assets/logo/AI_photobooth_icon.png";
+
 import BackgroundVideo from "../assets/logo/home.mp4"; // Import your video file
 
 function Home() {
