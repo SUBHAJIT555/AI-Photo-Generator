@@ -5,11 +5,7 @@ import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
-// import Loading from "../component/Loadingswaping";
 import Loadingswaping from "../component/Loadingswaping";
-// import { MdVisibilityOff } from "react-icons/md";
-
-// import LoadingVideo from "../component/Loading";
 
 // Dynamically import all avatars
 const maleAvatars = import.meta.glob("../assets/Avatars/male-*.png", {
@@ -24,20 +20,18 @@ function Avatar() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const publicAxios = useAxiosPublic();
-
-  const [maleImages, setMaleImages] = useState([]);
-  const [femaleImages, setFemaleImages] = useState([]);
   const [swaploader, Setswaloader] = useState("none");
 
   const navigate = useNavigate();
 
+  const [maleImages, setMaleImages] = useState([]);
+  const [femaleImages, setFemaleImages] = useState([]);
+
   useEffect(() => {
-    // Convert imported files into an array
     setMaleImages(Object.values(maleAvatars).map((img) => img.default));
     setFemaleImages(Object.values(femaleAvatars).map((img) => img.default));
   }, []);
 
-  // Function to convert image to base64
   const convertToBase64 = async (imageUrl) => {
     try {
       const response = await fetch(imageUrl);
@@ -54,14 +48,11 @@ function Avatar() {
     }
   };
 
-  // Handle swap button click
   const handleSwap = async () => {
     try {
       setLoading(true);
       if (selectedImage) {
         const targetBase64 = await convertToBase64(selectedImage);
-
-        // Get the captured image from local storage
         const capturedImage = await getData("capturedImage");
 
         if (!capturedImage) {
@@ -69,12 +60,10 @@ function Avatar() {
           return;
         }
 
-        // Prepare data for submission
         const formData = new FormData();
-        formData.append("source", capturedImage); // Captured image (already base64)
-        formData.append("target", targetBase64); // Avatar image as base64
+        formData.append("source", capturedImage);
+        formData.append("target", targetBase64);
 
-        // Send data to backend
         const data = await publicAxios.post("faceswap_handler.php", formData);
 
         if (data?.data?.result_url) {
@@ -93,37 +82,59 @@ function Avatar() {
   };
 
   useEffect(() => {
-    if (loading) {
-      Setswaloader("block");
-    } else {
-      Setswaloader("none");
-    }
+    Setswaloader(loading ? "block" : "none");
   }, [loading]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 ">
       <Loadingswaping visibilyy={swaploader} />
       <Logo />
-      {/* Gender Toggle */}
-      <div className="inline-flex items-center gap-2">
-        <label className="cursor-pointer text-zinc-200 text-md">Male</label>
-        <div className="relative inline-block h-5 w-11">
+
+      {/* Magical Toggle Button */}
+      <div className="flex items-center gap-4">
+        <span className="text-lg font-semibold text-white">Male</span>
+        <div
+          className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
+            gender === "female"
+              ? "border-pink-500 shadow-[0_0_15px_pink]"
+              : "border-blue-500 shadow-[0_0_15px_blue]"
+          }`}
+        >
           <input
             type="checkbox"
-            className="h-5 transition-colors duration-300 rounded-full appearance-none cursor-pointer peer w-11 bg-zinc-600 checked:bg-zinc-600"
+            className="absolute w-full h-full opacity-0 cursor-pointer"
             checked={gender === "female"}
-            onChange={() =>
-              setGender((prev) => (prev === "male" ? "female" : "male"))
-            }
+            onChange={() => setGender(gender === "male" ? "female" : "male")}
           />
-          <label className="absolute top-0 left-0 w-5 h-5 transition-transform duration-300 bg-white border rounded-full shadow-sm cursor-pointer border-zinc-600 peer-checked:translate-x-6 peer-checked:border-zinc-600"></label>
+          <div
+            className={`absolute left-1 w-[5vw] h-[5vw] rounded-full transition-all duration-500 transform shadow-lg ${
+              gender === "female" ? "translate-x-[9vw] bg-pink-400" : "bg-blue-400"
+            }`}
+          >
+            {[...Array(6)].map((_, i) => (
+              <span
+                key={i}
+                className="absolute block bg-white rounded-full opacity-50"
+                style={{
+                  width: `${Math.random() * 4 + 2}px`,
+                  height: `${Math.random() * 4 + 2}px`,
+                  top: `${Math.random() * 80}%`,
+                  left: `${Math.random() * 80}%`,
+                  animation: `sparkle-animation ${
+                    Math.random() * 3 + 2
+                  }s linear infinite`,
+                }}
+              />
+            ))}
+          </div>
         </div>
-        <label className="cursor-pointer text-zinc-200 text-md">Female</label>
+        <span className="text-lg font-semibold text-white">Female</span>
       </div>
+
       {/* Avatar Grid */}
       <div
         className={cn(
-          `grid justify-center items-center gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 overflow-hidden px-[10vw] w-full`
+          "grid justify-center items-center gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-[10vw] w-full"
         )}
       >
         {(gender === "male" ? maleImages : femaleImages).map(
@@ -147,6 +158,7 @@ function Avatar() {
           )
         )}
       </div>
+
       {/* Swap Button */}
       <button
         onClick={handleSwap}
@@ -161,6 +173,15 @@ function Avatar() {
       >
         {loading ? <span>Loading...</span> : <span>Swap</span>}
       </button>
+
+      <style>
+        {`
+          @keyframes sparkle-animation {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
+          }
+        `}
+      </style>
     </div>
   );
 }
