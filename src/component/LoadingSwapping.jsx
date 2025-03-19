@@ -1,7 +1,7 @@
 import loadingVideo from "../assets/loading.mp4";
 import PropTypes from "prop-types";
 
-const LoadingSwaping = ({ visibility }) => {
+const LoadingSwapping = ({ visibility }) => {
   return (
     <div style={{ display: visibility }} className="fixed  h-[100vh] w-[100vw]">
       {/* <h1>hello</h1> */}
@@ -13,8 +13,8 @@ const LoadingSwaping = ({ visibility }) => {
   );
 };
 
-LoadingSwaping.propTypes = {
+LoadingSwapping.propTypes = {
   visibility: PropTypes.string.isRequired,
 };
 
-export default LoadingSwaping;
+export default LoadingSwapping;
