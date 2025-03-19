@@ -5,9 +5,9 @@ import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
-import Loading from "../component/Loadingswaping";
+// import Loading from "../component/Loadingswaping";
 import Loadingswaping from "../component/Loadingswaping";
-import { MdVisibilityOff } from "react-icons/md";
+// import { MdVisibilityOff } from "react-icons/md";
 
 // import LoadingVideo from "../component/Loading";
 
@@ -75,10 +75,7 @@ function Avatar() {
         formData.append("target", targetBase64); // Avatar image as base64
 
         // Send data to backend
-        const data = await publicAxios.post(
-          "faceswap-handler-two.php",
-          formData
-        );
+        const data = await publicAxios.post("faceswap_handler.php", formData);
 
         if (data?.data?.result_url) {
           navigate(`/preview?resultUrl=${data.data.result_url}`, {
