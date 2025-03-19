@@ -92,7 +92,7 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4">
-        <span className="text-white text-[3vw]">Male</span>
+        <span className="text-lg font-semibold text-white">Male</span>
         <div
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
             gender === "female"
@@ -107,7 +107,7 @@ function Avatar() {
             onChange={() => setGender(gender === "male" ? "female" : "male")}
           />
           <div
-            className={`absolute left-1 w-[5vw] h-[5vw] bg-white rounded-full transition-all duration-500 transform shadow-lg ${
+            className={`absolute left-1 w-[5vw] h-[5vw] rounded-full transition-all duration-500 transform shadow-lg ${
               gender === "female" ? "translate-x-[9vw] bg-pink-400" : "bg-blue-400"
             }`}
           >
@@ -128,7 +128,7 @@ function Avatar() {
             ))}
           </div>
         </div>
-        <span className="text-white text-[3vw] font-ethnic">Female</span>
+        <span className="text-lg font-semibold text-white">Female</span>
       </div>
 
       {/* Avatar Grid */}
