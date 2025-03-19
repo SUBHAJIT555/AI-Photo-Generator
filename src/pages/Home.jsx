@@ -30,7 +30,7 @@ function Home() {
       <div className="flex items-center justify-center">
         <Link to="/instruction">
           <button
-            className="relative px-14 py-3 z-[2] font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-indigo-600 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(99,102,241,0.6)] 
+            className="relative px-24 py-1 z-[2] font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-indigo-600 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(99,102,241,0.6)] 
     hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95"
           >
             {/* Sparkles */}
@@ -53,7 +53,7 @@ function Home() {
             </div>
 
             {/* Button Text */}
-            <span className="tracking-wider text-[2vw]">
+            <span className="tracking-wider text-[3vw]">
               Start
             </span>
 

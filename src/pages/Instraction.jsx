@@ -15,18 +15,21 @@ function Instruction() {
           <div className="absolute inset-0 z-0 bg-gradient-to-br from-zinc-700 via-zinc-800 to-zinc-900 animate-gradient"></div>
 
           {/* Content Layer */}
-          <div className="relative z-10 flex flex-col items-center">
-            <h1 className="text-[4vw] font-bold text-zinc-200 mb-6 underline underline-offset-4">
-              Instruction
+          <div className="relative z-10 flex flex-col items-center animate-fadeIn">
+            {/* Stylish Heading with Gradient */}
+            <h1 className="text-[4vw] font-bold mb-6 tracking-widest bg-gradient-to-r from-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg">
+              - INSTRUCTIONS -
             </h1>
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
+
+            {/* Instruction Text with a Soft Glow Effect */}
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 mb-5 hover:scale-105 hover:text-orange-300 drop-shadow-md">
               Only one person should be in the photo.
             </p>
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
-              Stay still for a few seconds after tapping the screen for the
-              clear photo.
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 mb-5 hover:scale-105 hover:text-orange-300 drop-shadow-md">
+              Stay still for a few seconds after tapping the screen for a clear
+              photo.
             </p>
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 hover:scale-105 hover:text-orange-300 drop-shadow-md">
               Keep your eye open for the best photo.
             </p>
           </div>
