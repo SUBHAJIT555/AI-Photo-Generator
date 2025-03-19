@@ -110,7 +110,7 @@ function Preview() {
 
   return (
     <div
-      className="flex flex-col items-center w-full bg-cover bg-center h-screen min-h-screen text-white  justify-evenly"
+      className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-center bg-cover justify-evenly"
       style={{ backgroundImage: `url(${BGImage})` }}
     >
       <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly ">
@@ -142,12 +142,6 @@ function Preview() {
             className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
           >
             <IoPrintSharp className="text-xl md:text-3xl" />
-          </button>
-          <button
-            onClick={handleDownload}
-            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-          >
-            <IoDownloadSharp className="text-xl md:text-3xl" />
           </button>
           <button
             onClick={() => setIsQRModalOpen(true)}

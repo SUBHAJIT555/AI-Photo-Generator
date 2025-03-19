@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
+import blackLogo from "../assets/logo/blackLogo.svg";
 
 const QRModal = ({ isOpen, onClose, data }) => {
   useEffect(() => {
@@ -33,7 +34,7 @@ const QRModal = ({ isOpen, onClose, data }) => {
       >
         <button
           onClick={onClose}
-          className="absolute p-2 bg-[#ff5900] rounded-full border-2 border-[#ff5900] text-[#fff] top-4 right-4 hover:text-[#ff5900] hover:bg-[#fff]"
+          className="absolute p-2 bg-[#000] rounded-full border-2 border-[#000] text-[#fff] top-4 right-4 hover:text-[#000] hover:bg-[#fff]"
         >
           <IoMdClose />
         </button>
@@ -44,10 +45,10 @@ const QRModal = ({ isOpen, onClose, data }) => {
             <QRCodeSVG
               size={600}
               value={data}
-              fgColor="#ff5900"
+              fgColor="#000"
               bgColor="#fff"
               imageSettings={{
-                src: "https://blog.talabat.com/wp-content/uploads/2020/07/cropped-Talabat-New-Brand-Icon-2.png",
+                src: blackLogo,
                 x: undefined,
                 y: undefined,
                 height: 100,
