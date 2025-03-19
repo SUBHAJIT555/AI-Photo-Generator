@@ -72,7 +72,7 @@ function Preview() {
 
       // console.log(pdfBase64);
 
-      download(pdfBytes, generateUniqueFilename("pdf"));
+    //  download(pdfBytes, generateUniqueFilename("pdf"));
 
       // Send the PDF to PrintNode
       const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY; // Replace with actual API key
