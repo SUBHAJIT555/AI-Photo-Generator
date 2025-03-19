@@ -148,32 +148,6 @@ function Capture() {
               </div>
             )}
           </div>
-          <div className="flex flex-col items-center mt-8">
-            {/* Fallback: if videoStream hasn't started and no camera is found, show a message */}
-            {!videoStream ? (
-              columns.length > 0 ? (
-                <button
-                  onClick={startCamera}
-                  className="px-5 py-3 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
-                >
-                  Start Camera
-                </button>
-              ) : (
-                <p className="text-zinc-200">No Camera Found</p>
-              )
-            ) : (
-              <button
-                disabled={loading}
-                onClick={captureImage}
-                className={cn(
-                  "capitalize text-zinc-200 tracking-tight font-light bg-zinc-700 py-3 px-5 rounded-full border-2 border-transparent hover:bg-zinc-900 hover:border-zinc-200",
-                  loading && "opacity-50 cursor-not-allowed"
-                )}
-              >
-                {loading ? "Capturing..." : "Click here to capture"}
-              </button>
-            )}
-          </div>
         </div>
       ) : (
         // Captured Image Section
@@ -184,24 +158,54 @@ function Capture() {
             className="border-4 border-white shadow-lg rounded-2xl"
             style={{ width: "640px", height: "480px" }}
           />
-          <div className="flex gap-4 mt-8">
-            <button
-              onClick={() => {
-                startCamera();
-                setCapturedImage(null);
-              }}
-              className="px-5 py-2 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
-            >
-              Retake
-            </button>
+        </div>
+      )}
 
+      {!capturedImage ? (
+        <div className="flex flex-col items-center mt-8">
+          {/* Fallback: if videoStream hasn't started and no camera is found, show a message */}
+          {!videoStream ? (
+            columns.length > 0 ? (
+              <button
+                onClick={startCamera}
+                className="px-5 py-3 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
+              >
+                Start Camera
+              </button>
+            ) : (
+              <p className="text-zinc-200">No Camera Found</p>
+            )
+          ) : (
             <button
-              onClick={submitImage}
-              className="px-5 py-2 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
+              disabled={loading}
+              onClick={captureImage}
+              className={cn(
+                "capitalize text-zinc-200 tracking-tight font-light bg-zinc-700 py-3 px-5 rounded-full border-2 border-transparent hover:bg-zinc-900 hover:border-zinc-200",
+                loading && "opacity-50 cursor-not-allowed"
+              )}
             >
-              Submit
+              {loading ? "Capturing..." : "Click here to capture"}
             </button>
-          </div>
+          )}
+        </div>
+      ) : (
+        <div className="flex gap-4 mt-8">
+          <button
+            onClick={() => {
+              startCamera();
+              setCapturedImage(null);
+            }}
+            className="px-5 py-2 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
+          >
+            Retake
+          </button>
+
+          <button
+            onClick={submitImage}
+            className="px-5 py-2 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
+          >
+            Submit
+          </button>
         </div>
       )}
     </div>
