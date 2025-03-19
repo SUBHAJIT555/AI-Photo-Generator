@@ -92,7 +92,7 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4">
-        <span className="text-lg font-semibold text-white">Male</span>
+        <span className="text-[3vw] text-white">Male</span>
         <div
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
             gender === "female"
@@ -108,7 +108,9 @@ function Avatar() {
           />
           <div
             className={`absolute left-1 w-[5vw] h-[5vw] rounded-full transition-all duration-500 transform shadow-lg ${
-              gender === "female" ? "translate-x-[9vw] bg-pink-400" : "bg-blue-400"
+              gender === "female"
+                ? "translate-x-[9vw] bg-pink-400"
+                : "bg-blue-400"
             }`}
           >
             {[...Array(6)].map((_, i) => (
@@ -128,7 +130,7 @@ function Avatar() {
             ))}
           </div>
         </div>
-        <span className="text-lg font-semibold text-white">Female</span>
+        <span className="text-[3vw] text-white">Female</span>
       </div>
 
       {/* Avatar Grid */}
@@ -164,14 +166,52 @@ function Avatar() {
         onClick={handleSwap}
         disabled={!selectedImage || loading}
         className={cn(
-          "capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent",
+          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300",
           selectedImage || loading
-            ? "bg-zinc-700 hover:bg-zinc-900 hover:border-zinc-200"
-            : "bg-zinc-500 cursor-not-allowed",
+            ? "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.8)]"
+            : "bg-gray-500 cursor-not-allowed",
           loading && "opacity-50 cursor-not-allowed"
         )}
       >
-        {loading ? <span>Loading...</span> : <span>Swap</span>}
+        {/* Sparkles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(6)].map((_, i) => (
+            <span
+              key={i}
+              className="absolute block bg-white rounded-full opacity-50"
+              style={{
+                width: `${Math.random() * 4 + 2}px`,
+                height: `${Math.random() * 4 + 2}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animation: `sparkle-animation ${
+                  Math.random() * 3 + 2
+                }s linear infinite`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Button Text */}
+        {loading ? (
+          <span className="animate-pulse">Loading...</span>
+        ) : (
+          <span className="tracking-wider text-[2vw]">Swap</span>
+        )}
+
+        <style>
+          {`
+      @keyframes sparkle-animation {
+        0% { transform: translate(0, 0) scale(1); opacity: 1; }
+        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
+      }
+      @keyframes pulse-glow {
+        0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8); }
+        50% { box-shadow: 0 0 20px rgba(99, 102, 241, 1); }
+        100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8); }
+      }
+    `}
+        </style>
       </button>
 
       <style>
