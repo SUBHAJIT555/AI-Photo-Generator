@@ -7,7 +7,7 @@ function Home() {
     <div className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-gradient-to-t from-blue-900 via-black to-gray-900 justify-evenly">
       <Logo />
       <div className="text-zinc-100 text-[8vw] flex justify-center items-center">
-        <MdCamera />
+        <img src="../assets/logo_and" alt="" />
       </div>
       <div className="flex items-center justify-center">
         <Link to="/instruction">
