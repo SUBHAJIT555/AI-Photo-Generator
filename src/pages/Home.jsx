@@ -4,7 +4,7 @@ import Logo from "../component/Logo";
 
 function Home() {
   return (
-    <div className="flex flex-col items-center w-full h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-evenly">
+    <div className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-gradient-to-t from-blue-900 via-black to-gray-900 justify-evenly">
       <Logo />
       <div className="text-zinc-100 text-[8vw] flex justify-center items-center">
         <MdCamera />
