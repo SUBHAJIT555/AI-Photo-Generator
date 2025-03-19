@@ -63,18 +63,17 @@ function Capture() {
   };
 
   const submitImage = () => {
-  if (videoStream) {
-    videoStream.getTracks().forEach((track) => {
-      if (track.readyState === "live") {
-        track.stop();
-      }
-    });
-    setVideoStream(null);
-  }
-  saveData("capturedImage", capturedImage);
-  navigate("/avatar");
-};
-
+    if (videoStream) {
+      videoStream.getTracks().forEach((track) => {
+        if (track.readyState === "live") {
+          track.stop();
+        }
+      });
+      setVideoStream(null);
+    }
+    saveData("capturedImage", capturedImage);
+    navigate("/avatar");
+  };
 
   useEffect(() => {
     if (countdown === null) return;
@@ -124,7 +123,7 @@ function Capture() {
   }, [columns, videoStream, startCamera]);
 
   return (
-    <div className="flex flex-col items-center w-full h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-evenly">
+    <div className="flex flex-col items-center w-full h-screen justify-evenly">
       <Logo />
 
       {/* Hidden canvas for capturing the image */}
@@ -139,7 +138,7 @@ function Capture() {
               className="bg-black shadow-lg rounded-2xl"
               autoPlay
               muted
-              style={{ width: "100%", height: "100%"}}
+              style={{ width: "100%", height: "100%" }}
             />
             {countdown && (
               <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black bg-opacity-50 rounded-2xl">

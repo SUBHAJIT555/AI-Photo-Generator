@@ -3,7 +3,7 @@ import Logo from "../component/Logo";
 
 function SubmitOrRetake() {
   return (
-    <div className="flex flex-col items-center w-full h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-evenly">
+    <div className="flex flex-col items-center w-full h-screen justify-evenly">
       <Logo />
       <div className="w-1/2 captureArea h-1/2 bg-zinc-700 rounded-2xl"></div>
 

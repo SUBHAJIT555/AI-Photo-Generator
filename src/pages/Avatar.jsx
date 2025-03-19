@@ -86,7 +86,7 @@ function Avatar() {
   }, [loading]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <div className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 ">
       <Loadingswaping visibilyy={swaploader} />
       <Logo />
 
