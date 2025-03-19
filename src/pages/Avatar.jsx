@@ -5,8 +5,9 @@ import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
-import LoadingSwaping from "../component/LoadingSwaping";
+
 import BGImage from "../assets/logo/BG.jpg";
+import LoadingSwapping from "../component/LoadingSwapping";
 
 // Dynamically import all avatars
 const maleAvatars = import.meta.glob("../assets/Avatars/male-*.png", {
@@ -88,7 +89,7 @@ function Avatar() {
 
   return loading ? (
     <div className=" w-full h-screen">
-      <LoadingSwaping visibility={swaploader} />
+      <LoadingSwapping visibility={swaploader} />
     </div>
   ) : (
     <div
