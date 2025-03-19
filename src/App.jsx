@@ -1,7 +1,7 @@
 import { router } from "./routes/routes";
 import { RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import BGImage from "./assets/logo_and_bg/BG.jpg";
+import BGImage from "./assets/logo/BG.jpg";
 
 function App() {
   return (

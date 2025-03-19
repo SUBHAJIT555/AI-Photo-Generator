@@ -1,4 +1,4 @@
-import LogoImage from "../assets/logo_and_bg/logo.svg";
+import LogoImage from "../assets/logo/AI_photobooth_icon.png";
 function Logo() {
   return (
     <div className="flex justify-center items-center">
