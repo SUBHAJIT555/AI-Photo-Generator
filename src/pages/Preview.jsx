@@ -109,7 +109,7 @@ function Preview() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+    <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly ">
       <Logo />
       <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
         {finalUrl && (
