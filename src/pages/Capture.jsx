@@ -47,7 +47,7 @@ function Capture() {
 
   const captureImage = () => {
     setLoading(true);
-    setCountdown(3);
+    setCountdown(5);
   };
 
   const submitImage = () => {
@@ -127,9 +127,48 @@ function Capture() {
           <button
             onClick={captureImage}
             disabled={loading}
-            className="px-10 py-3 text-white bg-indigo-600 rounded-full shadow-lg hover:bg-indigo-800 disabled:opacity-50"
+            className={`relative px-14 py-3 text-white rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent 
+    ${
+      loading
+        ? "bg-indigo-400 cursor-not-allowed opacity-50"
+        : "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95"
+    }`}
           >
-            {loading ? "Capturing..." : "Capture"}
+            {/* Sparkles */}
+            {!loading && (
+              <div className="absolute inset-0 overflow-hidden">
+                {[...Array(6)].map((_, i) => (
+                  <span
+                    key={i}
+                    className="absolute block bg-white rounded-full opacity-50"
+                    style={{
+                      width: `${Math.random() * 4 + 2}px`,
+                      height: `${Math.random() * 4 + 2}px`,
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      animation: `sparkle-animation ${
+                        Math.random() * 3 + 2
+                      }s linear infinite`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Button Text */}
+            <span className="text-[1.2rem] tracking-widest">
+              {loading ? "Capturing..." : "Capture"}
+            </span>
+
+            {/* Magical Styles */}
+            <style>
+              {`
+      @keyframes sparkle-animation {
+        0% { transform: translate(0, 0) scale(1); opacity: 1; }
+        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
+      }
+    `}
+            </style>
           </button>
         ) : (
           <>
