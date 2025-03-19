@@ -88,18 +88,20 @@ function Avatar() {
   }, [loading]);
 
   return loading ? (
-    <div className=" w-full h-screen">
+    <div className="w-full h-screen ">
       <LoadingSwapping visibility={swaploader} />
     </div>
   ) : (
     <div
-      className="flex flex-col items-center justify-center w-full bg-cover bg-center bg-repeat  h-screen gap-10 py-10 "
+      className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 bg-center bg-repeat bg-cover "
       style={{ backgroundImage: `url(${BGImage})` }}
     >
-      <Logo />
+      <div className="mb-[8vw]">
+        <Logo />
+      </div>
 
       {/* Magical Toggle Button */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mb-[4vw]">
         <span className="text-[3vw] text-white">Male</span>
         <div
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
