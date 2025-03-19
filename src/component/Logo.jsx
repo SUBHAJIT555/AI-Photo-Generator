@@ -1,7 +1,7 @@
-import LogoImage from "../assets/logo/AI_photobooth_icon.png";
+import LogoImage from "../assets/logo/mainLogo.svg";
 function Logo() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <img src={LogoImage} alt="Codecobble" height={100} />
     </div>
   );
