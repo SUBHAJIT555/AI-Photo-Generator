@@ -53,7 +53,7 @@ function Home() {
 
             {/* Button Text */}
             <span className="tracking-wider text-[2vw]">
-              Click Here to Start
+              Start
             </span>
 
             {/* Magical Styles */}
