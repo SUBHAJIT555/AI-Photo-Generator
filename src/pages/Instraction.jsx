@@ -5,26 +5,33 @@ import BGImage from "../assets/logo/BG.jpg";
 function Instruction() {
   return (
     <div
-      className="flex flex-col items-center w-full bg-cover bg-center h-screen min-h-screen text-white  justify-evenly"
+      className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-center bg-cover justify-evenly"
       style={{ backgroundImage: `url(${BGImage})` }}
     >
       <div className="flex flex-col items-center w-full h-screen justify-evenly">
         <Logo />
-        <div className="w-1/2 px-8 py-12 flex flex-col gap-[1.5vw] justify-center items-center border-2 border-zinc-300 rounded-3xl bg-zinc-700/70">
-          <h1 className="text-[3vw] font-bold text-zinc-200 mb-6 underline underline-offset-4">
-            Instruction
-          </h1>
-          <p className="text-[2vw] font-light text-zinc-200 text-center">
-            only one person should be in the photo.
-          </p>
-          <p className="text-[2vw] font-light text-zinc-200 text-center">
-            Stay still for a few seconds after tapping the screen for the clear
-            photo.
-          </p>
-          <p className="text-[2vw] font-light text-zinc-200 text-center">
-            Keep your eye open for the best photo.
-          </p>
+        <div className="flex flex-col items-center justify-center w-[60vw] gap-6 px-10 border shadow-lg py-14 border-zinc-400 rounded-3xl backdrop-blur-md relative overflow-hidden">
+          {/* Background Animation Layer */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-br from-zinc-700 via-zinc-800 to-zinc-900 animate-gradient"></div>
+
+          {/* Content Layer */}
+          <div className="relative z-10 flex flex-col items-center">
+            <h1 className="text-[4vw] font-bold text-zinc-200 mb-6 underline underline-offset-4">
+              Instruction
+            </h1>
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
+              Only one person should be in the photo.
+            </p>
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
+              Stay still for a few seconds after tapping the screen for the
+              clear photo.
+            </p>
+            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider">
+              Keep your eye open for the best photo.
+            </p>
+          </div>
         </div>
+
         <Link to="/capture">
           <button
             className="relative px-14 py-3 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-indigo-600 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(99,102,241,0.6)] 
