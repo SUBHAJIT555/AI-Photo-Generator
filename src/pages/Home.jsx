@@ -7,7 +7,7 @@ function Home() {
     <div className="flex flex-col items-center w-full h-screen min-h-screen text-white justify-evenly">
       <Logo />
       <div className="text-zinc-100 text-[8vw] flex justify-center items-center">
-        <img src={CameraIcon} alt="" />
+        <img className="w-[15vw]" src={CameraIcon} alt="" />
       </div>
       <div className="flex items-center justify-center">
         <Link to="/instruction">
