@@ -6,13 +6,13 @@ import {
   IoQrCode,
 } from "react-icons/io5";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import Label from "../component/Label";
 import { saveAs } from "file-saver";
 // import toast from "react-hot-toast";
 import QRModal from "../component/QRModal";
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import download from "downloadjs";
+import BGImage from "../assets/logo/BG.jpg";
 
 function Preview() {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
@@ -109,19 +109,23 @@ function Preview() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly ">
-      <Logo />
-      <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
-        {finalUrl && (
-          <div className="h-[100%] w-full overflow-hidden">
-            <img
-              src={finalUrl}
-              alt="Generated result"
-              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-        )}
-        {/* {resultUrl && (
+    <div
+      className="flex flex-col items-center w-full bg-cover bg-center h-screen min-h-screen text-white  justify-evenly"
+      style={{ backgroundImage: `url(${BGImage})` }}
+    >
+      <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly ">
+        <Logo />
+        <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
+          {finalUrl && (
+            <div className="h-[100%] w-full overflow-hidden">
+              <img
+                src={finalUrl}
+                alt="Generated result"
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+          )}
+          {/* {resultUrl && (
           <div className="w-full h-full">
             <img
               src={resultUrl}
@@ -130,39 +134,40 @@ function Preview() {
             />
           </div>
         )} */}
-      </div>
+        </div>
 
-      <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
-        <button
-          onClick={printImageAsPDF}
-          className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-        >
-          <IoPrintSharp className="text-xl md:text-3xl" />
-        </button>
-        <button
-          onClick={handleDownload}
-          className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-        >
-          <IoDownloadSharp className="text-xl md:text-3xl" />
-        </button>
-        <button
-          onClick={() => setIsQRModalOpen(true)}
-          className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-        >
-          <IoQrCode className="text-xl md:text-3xl" />
-        </button>
-        <Link to="/">
-          <button className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700">
-            <IoHome className="text-xl md:text-3xl" />
+        <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
+          <button
+            onClick={printImageAsPDF}
+            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
+          >
+            <IoPrintSharp className="text-xl md:text-3xl" />
           </button>
-        </Link>
-      </div>
+          <button
+            onClick={handleDownload}
+            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
+          >
+            <IoDownloadSharp className="text-xl md:text-3xl" />
+          </button>
+          <button
+            onClick={() => setIsQRModalOpen(true)}
+            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
+          >
+            <IoQrCode className="text-xl md:text-3xl" />
+          </button>
+          <Link to="/">
+            <button className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700">
+              <IoHome className="text-xl md:text-3xl" />
+            </button>
+          </Link>
+        </div>
 
-      <QRModal
-        isOpen={isQRModalOpen}
-        onClose={() => setIsQRModalOpen(false)}
-        data={finalUrl}
-      />
+        <QRModal
+          isOpen={isQRModalOpen}
+          onClose={() => setIsQRModalOpen(false)}
+          data={finalUrl}
+        />
+      </div>
     </div>
   );
 }
