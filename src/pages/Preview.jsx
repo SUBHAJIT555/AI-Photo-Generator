@@ -9,30 +9,34 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 // import toast from "react-hot-toast";
 import QRModal from "../component/QRModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import download from "downloadjs";
 import BGImage from "../assets/logo/BG.jpg";
+import LoadingSwapping from "../component/LoadingSwapping";
 
 function Preview() {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const { resultUrl } = useLocation()?.state || {};
   const [searchParams] = useSearchParams();
-
+  const [loading, setLoading] = useState(false);
+  const [swaploader, setswaloader] = useState("none");
   const url = searchParams.get("resultUrl");
 
   const finalUrl = resultUrl || url;
-
+  useEffect(() => {
+    setswaloader(loading ? "block" : "none");
+  }, [loading]);
   // Function for unique filename
-  const generateUniqueFilename = (extensions) => {
-    const currentTime = new Date().getTime();
-    return `result_${currentTime}.${extensions}`;
-  };
+  // const generateUniqueFilename = (extensions) => {
+  //   const currentTime = new Date().getTime();
+  //   return `result_${currentTime}.${extensions}`;
+  // };
 
   // handle download button click
-  const handleDownload = () => {
-    saveAs(finalUrl, generateUniqueFilename("png"));
-  };
+  // const handleDownload = () => {
+  //   saveAs(finalUrl, generateUniqueFilename("png"));
+  // };
 
   // Helper function to convert Uint8Array to Base64
   const uint8ArrayToBase64 = (uint8Array) => {
@@ -46,6 +50,7 @@ function Preview() {
 
   const printImageAsPDF = async () => {
     try {
+      setLoading(true);
       // Fetch the image as a Blob
       const response = await fetch(finalUrl);
       const imageBlob = await response.blob();
@@ -72,7 +77,7 @@ function Preview() {
 
       // console.log(pdfBase64);
 
-    //  download(pdfBytes, generateUniqueFilename("pdf"));
+      //  download(pdfBytes, generateUniqueFilename("pdf"));
 
       // Send the PDF to PrintNode
       const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY; // Replace with actual API key
@@ -105,10 +110,16 @@ function Preview() {
       }
     } catch (error) {
       console.error("Error processing print job:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  return loading ? (
+    <div className="w-full h-screen ">
+      <LoadingSwapping visibility={swaploader} />
+    </div>
+  ) : (
     <div
       className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-center bg-cover justify-evenly"
       style={{ backgroundImage: `url(${BGImage})` }}
