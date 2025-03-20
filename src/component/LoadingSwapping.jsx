@@ -5,7 +5,13 @@ const LoadingSwapping = ({ visibility }) => {
   return (
     <div style={{ display: visibility }} className="fixed  h-screen w-[100vw]">
       {/* <h1>hello</h1> */}
-      <video autoPlay loop muted playsInline className="w-full">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+      >
         <source src={loadingVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>

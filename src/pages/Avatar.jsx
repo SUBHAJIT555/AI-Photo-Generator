@@ -20,9 +20,9 @@ const femaleAvatars = import.meta.glob("../assets/Avatars/female-*.png", {
 function Avatar() {
   const [gender, setGender] = useState("male");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const publicAxios = useAxiosPublic();
-  const [swaploader, Setswaloader] = useState("none");
+  const [swaploader, Setswaloader] = useState("block");
 
   const navigate = useNavigate();
 
