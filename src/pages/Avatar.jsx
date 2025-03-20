@@ -22,7 +22,7 @@ function Avatar() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const publicAxios = useAxiosPublic();
-  const [swaploader, Setswaloader] = useState("none");
+  const [swaploader, setswaloader] = useState("none");
 
   const navigate = useNavigate();
 
@@ -84,7 +84,7 @@ function Avatar() {
   };
 
   useEffect(() => {
-    Setswaloader(loading ? "block" : "none");
+    setswaloader(loading ? "block" : "none");
   }, [loading]);
 
   return loading ? (
