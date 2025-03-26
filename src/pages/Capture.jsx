@@ -156,7 +156,7 @@ function Capture() {
             )}
 
             {/* Button Text */}
-            <span className="text-[1.2rem] tracking-widest">
+            <span className="text-[4vw] tracking-widest">
               {loading ? "Capturing..." : "Capture"}
             </span>
 
@@ -200,7 +200,7 @@ function Capture() {
               </div>
 
               {/* Button Text */}
-              <span className="text-[1.2rem]">Retake</span>
+              <span className="text-[4vw] tracking-wider">Retake</span>
 
               {/* Magical Styles */}
               <style>
@@ -238,7 +238,7 @@ function Capture() {
               </div>
 
               {/* Button Text */}
-              <span className="text-[1.2rem]">Submit</span>
+              <span className="text-[4vw] tracking-wider">Submit</span>
 
               {/* Magical Styles */}
               <style>

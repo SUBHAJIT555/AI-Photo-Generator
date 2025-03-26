@@ -1,8 +1,24 @@
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Logo from "../component/Logo";
 import BGImage from "../assets/logo/BG.jpg";
 
 function Instruction() {
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const instructions = [
+    "Only one person should be in the photo.",
+    "Stay still for a few seconds after tapping the screen for a clear photo.",
+    "Keep your eye open for the best photo.",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % instructions.length);
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [instructions.length]);
+
   return (
     <div
       className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-center bg-cover justify-evenly"
@@ -22,16 +38,16 @@ function Instruction() {
             </h1>
 
             {/* Instruction Text with a Soft Glow Effect */}
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 mb-5 hover:scale-105 hover:text-orange-300 drop-shadow-md">
-              Only one person should be in the photo.
-            </p>
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 mb-5 hover:scale-105 hover:text-orange-300 drop-shadow-md">
-              Stay still for a few seconds after tapping the screen for a clear
-              photo.
-            </p>
-            <p className="text-[3vw] font-light text-zinc-200 text-center tracking-wider transition-all duration-300 hover:scale-105 hover:text-orange-300 drop-shadow-md">
-              Keep your eye open for the best photo.
-            </p>
+            {instructions.map((text, index) => (
+              <p
+                key={index}
+                className={`text-[3vw] font-thin text-zinc text-center tracking-wider transition-all duration-100 mb-5 drop-shadow-md ${
+                  activeIndex === index ? "scale-105 text-orange-300" : ""
+                }`}
+              >
+                {text}
+              </p>
+            ))}
           </div>
         </div>
 
@@ -60,7 +76,7 @@ function Instruction() {
             </div>
 
             {/* Button Text */}
-            <span className="text-[2vw] tracking-wider">
+            <span className="text-[4vw] tracking-widest">
               Click Here to Start
             </span>
 

@@ -1,6 +1,5 @@
 import Logo from "../component/Logo";
 import {
-  IoDownloadSharp,
   IoHome,
   IoPrintSharp,
   IoQrCode,
@@ -148,23 +147,25 @@ function Preview() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
+          
           <button
             onClick={printImageAsPDF}
-            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-          >
-            <IoPrintSharp className="text-xl md:text-3xl" />
+            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800">
+            <IoPrintSharp className="text-3xl md:text-5xl" />
           </button>
+          
           <button
             onClick={() => setIsQRModalOpen(true)}
-            className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700"
-          >
-            <IoQrCode className="text-xl md:text-3xl" />
+            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800">
+            <IoQrCode className="text-3xl md:text-5xl" />
           </button>
+          
           <Link to="/">
-            <button className="border-[2px] border-zinc-300 p-2 rounded-lg hover:bg-zinc-800 bg-zinc-700">
-              <IoHome className="text-xl md:text-3xl" />
+            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800">
+              <IoHome className="text-3xl md:text-6xl" />
             </button>
           </Link>
+          
         </div>
 
         <QRModal

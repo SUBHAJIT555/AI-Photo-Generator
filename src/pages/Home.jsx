@@ -53,7 +53,7 @@ function Home() {
             </div>
 
             {/* Button Text */}
-            <span className="text-[4vw]">
+            <span className="text-[4vw] tracking-wider">
               Start
             </span>
 
