@@ -26,7 +26,10 @@ function Instruction() {
     >
       <div className="flex flex-col items-center w-full h-screen justify-evenly">
         <Logo />
-        <div className="flex flex-col items-center justify-center w-[60vw] gap-6 px-10 border shadow-lg py-14 border-zinc-400 rounded-3xl backdrop-blur-md relative overflow-hidden">
+        <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-3xl left-10 top-[50vw] animate-float-scale"></div>
+        
+
+        <div className="flex flex-col items-center justify-center w-[60vw] gap-6 px-10  shadow-lg py-14 border-zinc-400 rounded-3xl backdrop-blur-md relative overflow-hidden">
           {/* Background Animation Layer */}
           <div className="absolute inset-0 z-0 bg-gradient-to-br from-zinc-700 via-zinc-800 to-zinc-900 animate-gradient"></div>
 
@@ -41,7 +44,7 @@ function Instruction() {
             {instructions.map((text, index) => (
               <p
                 key={index}
-                className={`text-[3vw] font-thin text-zinc text-center tracking-wider transition-all duration-100 mb-5 drop-shadow-md ${
+                className={`text-[3vw] font-thin text-zinc text-center tracking-wider transition-all duration-300 mb-5 drop-shadow-md ${
                   activeIndex === index ? "scale-105 text-orange-300" : ""
                 }`}
               >
@@ -54,7 +57,7 @@ function Instruction() {
         <Link to="/capture">
           <button
             className="relative px-14 py-3 font-light tracking-tight capitalize border-2 border-transparent rounded-full text-zinc-200 bg-indigo-600 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(99,102,241,0.6)] 
-    hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95"
+          hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95"
           >
             {/* Sparkles */}
             <div className="absolute inset-0 overflow-hidden">

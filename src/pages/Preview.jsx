@@ -14,6 +14,7 @@ import download from "downloadjs";
 import BGImage from "../assets/logo/BG.jpg";
 import LoadingSwapping from "../component/LoadingSwapping";
 
+
 function Preview() {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const { resultUrl } = useLocation()?.state || {};
@@ -26,18 +27,7 @@ function Preview() {
   useEffect(() => {
     setswaloader(loading ? "block" : "none");
   }, [loading]);
-  // Function for unique filename
-  // const generateUniqueFilename = (extensions) => {
-  //   const currentTime = new Date().getTime();
-  //   return `result_${currentTime}.${extensions}`;
-  // };
-
-  // handle download button click
-  // const handleDownload = () => {
-  //   saveAs(finalUrl, generateUniqueFilename("png"));
-  // };
-
-  // Helper function to convert Uint8Array to Base64
+  
   const uint8ArrayToBase64 = (uint8Array) => {
     let binary = "";
     const len = uint8Array.byteLength;
