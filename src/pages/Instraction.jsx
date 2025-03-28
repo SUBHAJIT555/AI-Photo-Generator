@@ -36,16 +36,16 @@ function Instruction() {
           {/* Content Layer */}
           <div className="relative z-10 flex flex-col items-center animate-fadeIn">
             {/* Stylish Heading with Gradient */}
-            <h1 className="text-[4vw] font-bold mb-6 tracking-widest bg-gradient-to-r from-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg">
-              - INSTRUCTIONS -
+            <h1 className="text-[4vw] font-extrabold mb-6 tracking-wide bg-gradient-to-r from-orange-400 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg ">
+               INSTRUCTIONS 
             </h1>
 
             {/* Instruction Text with a Soft Glow Effect */}
             {instructions.map((text, index) => (
               <p
                 key={index}
-                className={`text-[3vw] font-thin text-zinc text-center tracking-wider transition-all duration-300 mb-5 drop-shadow-md ${
-                  activeIndex === index ? "scale-105 text-orange-300" : ""
+                className={`text-[3vw] font-bold text-zinc text-center transition-all duration-300 mb-5 drop-shadow-md ${
+                  activeIndex === index ? "scale-105 text-orange-300 font-extrabold" : ""
                 }`}
               >
                 {text}
@@ -79,7 +79,7 @@ function Instruction() {
             </div>
 
             {/* Button Text */}
-            <span className="text-[4vw] tracking-widest">
+            <span className="text-[4vw] font-bold tracking-wide">
               Click Here to Start
             </span>
 

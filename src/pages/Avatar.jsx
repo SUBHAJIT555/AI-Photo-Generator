@@ -102,7 +102,7 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4 mb-[4vw]">
-        <span className="text-[3vw] text-white tracking-wider">Male</span>
+        <span className="text-[3.5vw] text-white font-bold">Male</span>
         <div
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
             gender === "female"
@@ -119,8 +119,8 @@ function Avatar() {
           <div
             className={`absolute left-1 w-[4vw] h-[4vw] rounded-full transition-all duration-500 transform shadow-lg ${
               gender === "female"
-                ? "translate-x-[9vw] bg-pink-400"
-                : "bg-blue-400"
+                ? "translate-x-[10vw] bg-pink-400"
+                : "bg-blue-300"
             }`}
           >
             {[...Array(6)].map((_, i) => (
@@ -140,13 +140,13 @@ function Avatar() {
             ))}
           </div>
         </div>
-        <span className="text-[3vw] text-white tracking-wider">Female</span>
+        <span className="text-[3.5vw] text-white font-bold">Female</span>
       </div>
 
       {/* Avatar Grid */}
       <div
         className={cn(
-          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full"
+          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full mb-[90px]"
         )}
       >
         {(gender === "male" ? maleImages : femaleImages).map(
@@ -155,7 +155,7 @@ function Avatar() {
               key={index}
               className={cn(
                 "group relative w-full max-w-[400px] mx-auto rounded-xl overflow-hidden cursor-pointer",
-                avatar === selectedImage ? "border-2 border-zinc-200" : ""
+                avatar === selectedImage ? "border-4 border-blue-500" : ""
               )}
               onClick={() => setSelectedImage(avatar)}
             >
@@ -206,7 +206,7 @@ function Avatar() {
         {loading ? (
           <span className="animate-pulse">Loading...</span>
         ) : (
-          <span className="tracking-wider text-[4vw] px-8">Swap</span>
+          <span className="tracking-wide font-extrabold text-[4vw] px-8">Swap</span>
         )}
 
         <style>

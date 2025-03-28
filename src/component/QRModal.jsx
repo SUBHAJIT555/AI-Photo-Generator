@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
-import blackLogo from "../assets/logo/blackLogo.svg";
+import blackLogo from "../assets/logo/The_Himalaya.webp";
 
 const QRModal = ({ isOpen, onClose, data }) => {
   useEffect(() => {
@@ -29,7 +29,7 @@ const QRModal = ({ isOpen, onClose, data }) => {
       onClick={onClose}
     >
       <div
-        className="relative max-w-4xl p-12 transition-all transform bg-[#fff] rounded-lg shadow-xl"
+        className="relative max-w-4xl p-12 transition-all transform bg-[#fff]  rounded-lg shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button

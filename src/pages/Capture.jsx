@@ -156,7 +156,7 @@ function Capture() {
             )}
 
             {/* Button Text */}
-            <span className="text-[4vw] tracking-widest">
+            <span className="text-[4vw] tracking-wide font-extrabold">
               {loading ? "Capturing..." : "Capture"}
             </span>
 
@@ -173,12 +173,17 @@ function Capture() {
         ) : (
           <>
             <button
-              onClick={() => {
-                startCamera();
-                setCapturedImage(null);
+              onClick={async () => {
+                if (videoStream) {
+                  stopVideo(); // Stop the previous stream
+                }
+
+                setCapturedImage(null); // Reset the captured image
+                setTimeout(() => {
+                  startCamera(); // Restart the camera with a slight delay
+                }, 100); // Adding a slight delay for smoother UI rendering
               }}
-              className="relative px-10 py-3 text-white bg-gray-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent 
-    hover:bg-gray-800 hover:border-gray-300 hover:shadow-[0_0_20px_rgba(156,163,175,1)] active:scale-95"
+              className="relative px-10 py-3 text-white bg-gray-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent hover:bg-gray-800 hover:border-gray-300 hover:shadow-[0_0_20px_rgba(156,163,175,1)] active:scale-95"
             >
               {/* Sparkles */}
               <div className="absolute inset-0 overflow-hidden">
@@ -200,7 +205,9 @@ function Capture() {
               </div>
 
               {/* Button Text */}
-              <span className="text-[4vw] tracking-wider">Retake</span>
+              <span className="text-[4vw] tracking-wide font-extrabold">
+                Retake
+              </span>
 
               {/* Magical Styles */}
               <style>
@@ -238,7 +245,9 @@ function Capture() {
               </div>
 
               {/* Button Text */}
-              <span className="text-[4vw] tracking-wider">Submit</span>
+              <span className="text-[4vw] tracking-wide font-extrabold">
+                Submit
+              </span>
 
               {/* Magical Styles */}
               <style>

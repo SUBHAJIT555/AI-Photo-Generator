@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "ethnic";
-  src: url("../public/Fonts/Vangeda-Regular.woff2") format("truetype");
+  font-family: "cornea";
+  src: url("../public/Fonts/Cornea.woff2") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 body {
-  font-family: "ethnic";
+  font-family: "cornea";
 }
 @keyframes float-scale {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(0.8);
   }
   50% {
     transform: translateY(-20px) scale(1.1);
