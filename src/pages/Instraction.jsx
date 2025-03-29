@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Logo from "../component/Logo";
-import BGImage from "../assets/logo/BG.jpg";
+import BGImage from "../assets/logo/BG.webp";
 
 function Instruction() {
   const [activeIndex, setActiveIndex] = useState(-1);

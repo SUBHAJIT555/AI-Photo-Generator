@@ -3,7 +3,7 @@ import Logo from "../component/Logo";
 import { saveData } from "../utils/localStorageDB";
 import { useNavigate } from "react-router-dom";
 import { cn } from "../utils/cn";
-import BGImage from "../assets/logo/BG.jpg";
+import BGImage from "../assets/logo/BG.webp";
 
 function Capture() {
   const videoRef = useRef(null);

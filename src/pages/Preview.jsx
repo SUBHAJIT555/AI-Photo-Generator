@@ -7,7 +7,7 @@ import QRModal from "../component/QRModal";
 import { useEffect, useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import download from "downloadjs";
-import BGImage from "../assets/logo/BG.jpg";
+import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 
 function Preview() {

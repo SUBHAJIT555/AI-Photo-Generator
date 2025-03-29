@@ -1,8 +1,8 @@
-import LogoImage from "../assets/logo/Himalaya-Pet_Logo_FA_White-on-Black_Big-2.png";
+import LogoImage from "../assets/logo/himalaya-pet.svg";
 function Logo() {
   return (
     <div className="flex items-center justify-center">
-      <img src={LogoImage} alt="Codecobble" className="w-1/2" />
+      <img src={LogoImage} alt="Codecobble" className="w-full" />
     </div>
   );
 }

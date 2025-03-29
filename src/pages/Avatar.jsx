@@ -6,7 +6,7 @@ import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
 
-import BGImage from "../assets/logo/BG.jpg";
+import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 
 // Dynamically import all avatars
