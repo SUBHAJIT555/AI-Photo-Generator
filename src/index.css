@@ -11,6 +11,7 @@
 body {
   font-family: "cornea";
   /* cursor: none; */
+  user-select: none;
 }
 @keyframes float-scale {
   0%, 100% {

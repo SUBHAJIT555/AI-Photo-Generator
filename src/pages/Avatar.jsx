@@ -96,12 +96,12 @@ function Avatar() {
       className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 bg-center bg-repeat bg-cover "
       style={{ backgroundImage: `url(${BGImage})` }}
     >
-      <div className="mb-[8vw]">
+      <div className="mb-[4vw]">
         <Logo />
       </div>
 
       {/* Magical Toggle Button */}
-      <div className="flex items-center gap-4 mb-[4vw]">
+      <div className="flex items-center gap-4 mb-[15vw]">
         <span className="text-[3.5vw] text-white font-bold">Male</span>
         <div
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300  ${
@@ -146,7 +146,7 @@ function Avatar() {
       {/* Avatar Grid */}
       <div
         className={cn(
-          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full mb-[90px]"
+          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full mb-[20vw]"
         )}
       >
         {(gender === "male" ? maleImages : femaleImages).map(
@@ -159,11 +159,12 @@ function Avatar() {
               )}
               onClick={() => setSelectedImage(avatar)}
             >
-              <div className="h-[85%] w-full overflow-hidden rounded-t-xl bg-gray-200">
+              <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-xl bg-gray-200">
                 <img
                   src={avatar}
                   alt={`Avatar ${index + 1}`}
                   className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                  style={{ marginBottom: "-75px" }}
                 />
               </div>
             </div>

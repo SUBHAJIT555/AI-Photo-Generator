@@ -34,7 +34,7 @@ const QRModal = ({ isOpen, onClose, data }) => {
       >
         <button
           onClick={onClose}
-          className="absolute p-2 bg-[#000] rounded-full border-2 border-[#000] text-[#fff] top-4 right-4 hover:text-[#000] hover:bg-[#fff]"
+          className="absolute p-2 bg-[#006b6e] rounded-full border-2 border-[#fff] text-[#fff] top-4 right-4 hover:text-[#006b6e] hover:bg-[#fff] hover:border-[#006b6e]"
         >
           <IoMdClose />
         </button>
@@ -43,9 +43,9 @@ const QRModal = ({ isOpen, onClose, data }) => {
           <div className="flex flex-col items-center space-y-4">
             {/*  */}
             <QRCodeSVG
-              size={600}
+              size={500}
               value={data}
-              fgColor="#000"
+              fgColor="#006b6e"
               bgColor="#fff"
               imageSettings={{
                 src: blackLogo,

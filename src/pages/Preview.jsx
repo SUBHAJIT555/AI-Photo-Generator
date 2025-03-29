@@ -119,8 +119,7 @@ function Preview() {
               <img
                 src={finalUrl}
                 alt="Generated result"
-                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-              />
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"/>
             </div>
           )}
           {/* {resultUrl && (
