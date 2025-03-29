@@ -137,20 +137,20 @@ function Preview() {
         <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
           <button
             onClick={printImageAsPDF}
-            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800"
+            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-default"
           >
             <IoPrintSharp className="text-3xl md:text-5xl" />
           </button>
 
           <button
             onClick={() => setIsQRModalOpen(true)}
-            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800"
+            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800 cursor-default"
           >
             <IoQrCode className="text-3xl md:text-5xl" />
           </button>
 
           <Link to="/">
-            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800">
+            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800 cursor-default">
               <IoHome className="text-3xl md:text-6xl" />
             </button>
           </Link>

@@ -104,7 +104,7 @@ function Avatar() {
       <div className="flex items-center gap-4 mb-[4vw]">
         <span className="text-[3.5vw] text-white font-bold">Male</span>
         <div
-          className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300 ${
+          className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300  ${
             gender === "female"
               ? "border-pink-500 shadow-[0_0_15px_pink]"
               : "border-blue-500 shadow-[0_0_15px_blue]"
@@ -112,7 +112,7 @@ function Avatar() {
         >
           <input
             type="checkbox"
-            className="absolute w-full h-full opacity-0 cursor-pointer"
+            className="absolute w-full h-full opacity-0 cursor-default"
             checked={gender === "female"}
             onChange={() => setGender(gender === "male" ? "female" : "male")}
           />
@@ -154,7 +154,7 @@ function Avatar() {
             <div
               key={index}
               className={cn(
-                "group relative w-full max-w-[400px] mx-auto rounded-xl overflow-hidden cursor-pointer",
+                "group relative w-full max-w-[400px] mx-auto rounded-xl overflow-hidden cursor-default",
                 avatar === selectedImage ? "border-4 border-blue-500" : ""
               )}
               onClick={() => setSelectedImage(avatar)}
@@ -176,7 +176,7 @@ function Avatar() {
         onClick={handleSwap}
         disabled={!selectedImage || loading}
         className={cn(
-          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300",
+          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300 cursor-default",
           selectedImage || loading
             ? "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.8)]"
             : "bg-gray-500 cursor-not-allowed",
@@ -206,7 +206,9 @@ function Avatar() {
         {loading ? (
           <span className="animate-pulse">Loading...</span>
         ) : (
-          <span className="tracking-wide font-extrabold text-[4vw] px-8">Swap</span>
+          <span className="tracking-wide font-extrabold text-[4vw] px-8">
+            Swap
+          </span>
         )}
 
         <style>
