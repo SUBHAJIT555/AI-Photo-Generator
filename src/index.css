@@ -10,7 +10,7 @@
 }
 body {
   font-family: "cornea";
-  /* cursor: none; */
+  cursor: none;
   user-select: none;
 }
 @keyframes float-scale {

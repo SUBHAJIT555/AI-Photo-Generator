@@ -116,7 +116,7 @@ function Preview() {
         <Logo />
         <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
           {finalUrl && (
-            <div className="h-[100%] w-full overflow-hidden">
+            <div className="h-[100%] w-full overflow-hidden cursor-none">
               <img
                 src={finalUrl}
                 alt="Generated result"
@@ -138,20 +138,20 @@ function Preview() {
         <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
           <button
             onClick={printImageAsPDF}
-            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-default"
+            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-none"
           >
             <IoPrintSharp className="text-3xl md:text-5xl" />
           </button>
 
           <button
             onClick={() => setIsQRModalOpen(true)}
-            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800 cursor-default"
+            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800 cursor-none"
           >
             <IoQrCode className="text-3xl md:text-5xl" />
           </button>
 
           <Link to="/">
-            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800 cursor-default">
+            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800 cursor-none">
               <IoHome className="text-3xl md:text-6xl" />
             </button>
           </Link>

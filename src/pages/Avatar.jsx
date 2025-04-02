@@ -112,7 +112,7 @@ function Avatar() {
         >
           <input
             type="checkbox"
-            className="absolute w-full h-full opacity-0 cursor-default"
+            className="absolute w-full h-full opacity-0 cursor-none"
             checked={gender === "female"}
             onChange={() => setGender(gender === "male" ? "female" : "male")}
           />
@@ -154,7 +154,7 @@ function Avatar() {
             <div
               key={index}
               className={cn(
-                "group relative w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden cursor-default",
+                "group relative w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden cursor-none",
                 avatar === selectedImage ? "border-4 border-blue-500" : ""
               )}
               onClick={() => setSelectedImage(avatar)}
@@ -182,7 +182,7 @@ function Avatar() {
         onClick={handleSwap}
         disabled={!selectedImage || loading}
         className={cn(
-          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300 cursor-default",
+          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300 cursor-none",
           selectedImage || loading
             ? "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.8)]"
             : "bg-gray-500 cursor-not-allowed",

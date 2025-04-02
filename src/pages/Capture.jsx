@@ -131,7 +131,7 @@ function Capture() {
     ${
       loading
         ? "bg-indigo-400 cursor-not-allowed opacity-50"
-        : "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95 cursor-default"
+        : "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95 cursor-none"
     }`}
           >
             {/* Sparkles */}
@@ -183,7 +183,7 @@ function Capture() {
                   startCamera(); // Restart the camera with a slight delay
                 }, 100); // Adding a slight delay for smoother UI rendering
               }}
-              className="relative px-10 py-3 text-white bg-gray-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent hover:bg-gray-800 hover:border-gray-300 hover:shadow-[0_0_20px_rgba(156,163,175,1)] active:scale-95 cursor-default"
+              className="relative px-10 py-3 text-white bg-gray-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent hover:bg-gray-800 hover:border-gray-300 hover:shadow-[0_0_20px_rgba(156,163,175,1)] active:scale-95 cursor-none"
             >
               {/* Sparkles */}
               <div className="absolute inset-0 overflow-hidden">
@@ -223,7 +223,7 @@ function Capture() {
             <button
               onClick={submitImage}
               className="relative px-10 py-3 text-white bg-blue-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent 
-    hover:bg-blue-800 hover:border-blue-300 hover:shadow-[0_0_20px_rgba(59,130,246,1)] active:scale-95 cursor-default"
+    hover:bg-blue-800 hover:border-blue-300 hover:shadow-[0_0_20px_rgba(59,130,246,1)] active:scale-95 cursor-none"
             >
               {/* Sparkles */}
               <div className="absolute inset-0 overflow-hidden">
