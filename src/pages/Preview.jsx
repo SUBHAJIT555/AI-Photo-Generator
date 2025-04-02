@@ -9,6 +9,7 @@ import { PDFDocument } from "pdf-lib";
 import download from "downloadjs";
 import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
+import printingVideo from "../assets/printing.webm";
 
 function Preview() {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
@@ -98,13 +99,13 @@ function Preview() {
       // This for loading 40sec
       setTimeout(() => {
         setLoading(false);
-      }, 40000);
+      }, 35000);
     }
   };
 
   return loading ? (
     <div className="w-full h-screen ">
-      <LoadingSwapping visibility={swaploader} />
+      <LoadingSwapping visibility={swaploader} src={printingVideo} />
     </div>
   ) : (
     <div
@@ -119,7 +120,8 @@ function Preview() {
               <img
                 src={finalUrl}
                 alt="Generated result"
-                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"/>
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
           )}
           {/* {resultUrl && (

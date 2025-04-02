@@ -43,7 +43,7 @@ const QRModal = ({ isOpen, onClose, data }) => {
           <div className="flex flex-col items-center space-y-4">
             {/*  */}
             <QRCodeSVG
-              size={500}
+              size={700}
               value={data}
               fgColor="#006b6e"
               bgColor="#fff"

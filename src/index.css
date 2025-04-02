@@ -25,3 +25,13 @@ body {
 .animate-float-scale {
   animation: float-scale 4s ease-in-out infinite;
 }
+
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

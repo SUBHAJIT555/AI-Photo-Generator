@@ -5,7 +5,7 @@ import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
-
+import loadingVideo from "../assets/loading.webm";
 import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 
@@ -89,7 +89,7 @@ function Avatar() {
 
   return loading ? (
     <div className="w-full h-screen ">
-      <LoadingSwapping visibility={swaploader} />
+      <LoadingSwapping visibility={swaploader} src={loadingVideo} />
     </div>
   ) : (
     <div
@@ -154,12 +154,12 @@ function Avatar() {
             <div
               key={index}
               className={cn(
-                "group relative w-full max-w-[400px] mx-auto rounded-xl overflow-hidden cursor-default",
+                "group relative w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden cursor-default",
                 avatar === selectedImage ? "border-4 border-blue-500" : ""
               )}
               onClick={() => setSelectedImage(avatar)}
             >
-              <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-xl bg-gray-200">
+              <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-xl">
                 <img
                   src={avatar}
                   alt={`Avatar ${index + 1}`}
@@ -167,6 +167,11 @@ function Avatar() {
                   style={{ marginBottom: "-75px" }}
                 />
               </div>
+              {avatar === selectedImage && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl">
+                  <div className="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shine_1.5s_infinite]"></div>
+                </div>
+              )}
             </div>
           )
         )}
