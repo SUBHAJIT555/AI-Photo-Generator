@@ -10,12 +10,12 @@
 }
 body {
   font-family: "cornea";
-  cursor: none !important;
+  /* cursor: none !important; */
   user-select: none;
 }
 /* styles.css or global.css */
 button, a, [role="button"], input, * {
-  cursor: none !important;
+  /* cursor: none !important; */
 }
 @keyframes float-scale {
   0%, 100% {
