@@ -1,123 +1,76 @@
-# Vite React Project
+# AI Photo Generator
 
-This is a Vite-based React project. Follow the steps below to download, set up, and run the project on your local machine.
+An application that uses artificial intelligence to swap faces with avatars in real-time.
+
+## Overview
+
+AI Photo Generator leverages cutting-edge AI models to allow users to swap their faces with pre-defined avatars. Users can take a photo using their camera and choose from 6 male and 6 female avatars to see their face swapped onto the selected avatar.
+
+## Features
+
+- Real-time face swapping
+- 6 male and 6 female avatars to choose from
+- Camera integration for capturing user images
+- High-quality AI-based face blending
+- Image download options
+
+## Tech Stack
+
+- Frontend: React
+- Backend: PHP
 
 ## Prerequisites
 
-Before you begin, make sure you have the following installed on your machine:
+Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (version 16 or above)
-- [Git](https://git-scm.com/)
+- Node.js (v14 or higher)
+- npm or yarn
+- Git
 
 ## Getting Started
 
-### 1. Clone the repository
+Follow these steps to set up the project locally:
 
-Start by cloning the project repository from GitHub:
+### Clone the repository
 
+```bash
+git clone https://github.com/yourorganization/AI-Photo-Generator.git
+cd AI-Photo-Generator
 ```
-git clone <repository_url>
-cd <project_directory>
-```
 
-### 2. Install dependencies
-
-Once you've cloned the repository, navigate to the project directory and install the required dependencies using npm or yarn:
-
-Using npm:
+### Install dependencies
 
 ```bash
 npm install
+# or
+yarn install
 ```
 
-Using yarn:
+### Configure environment variables
+
+1. Create a `.env` file in the root directory
+2. Add the following variables:
 
 ```
-yarn
+VITE_PRINTNODE_API_KEY=YOUR_API_KEY
+VITE_PRINTNODE_PRINTER_ID=YOUR_PRINTER_ID
+VITE_API_URL=API_URL
 ```
 
-### 3. Set up environment variables
+### Run the development server
 
-There is a .example.env file in the project root directory that contains environment variable placeholders. To configure your environment:
-
-Copy the .example.env file and rename it to .env:
-
-```
-cp .example.env .env
-```
-
-Open the .env file and replace the following variables with your actual values:
-VITE_PRINTNODE_API_KEY=<your_api_key>
-VITE_PRINTNODE_PRINTER_ID=<your_printer_id>
-VITE_API_URL=<your_api_url>
-Example:
-
-```
-VITE_PRINTNODE_API_KEY=your_api_key_here
-VITE_PRINTNODE_PRINTER_ID=your_printer_id_here
-VITE_API_URL=https://api.example.com
-```
-
-### 4. Run the development server
-
-Once your environment variables are set, you can start the development server:
-
-Using npm:
-
-```
+```bash
 npm run dev
-```
-
-Using yarn:
-
-```
+# or
 yarn dev
 ```
 
-The application should now be running at [http://localhost:5173](http://localhost:5173).
+The application will be available at `http://localhost:3000`.
 
-### Building for Production
+### Build for production
 
-To build the project for production, run:
-
-Using npm:
-
-```
+```bash
 npm run build
-```
-
-Using yarn:
-
-```
+# or
 yarn build
 ```
-
-This will create an optimized build of the project in the `dist` directory.
-
-### Running the Production Build
-
-To run the production build locally, you can use the preview command:
-
-Using npm:
-
-```
-npm run preview
-```
-
-Using yarn:
-
-```
-yarn preview
-```
-
-This will serve the production build of the project locally at [http://localhost:4173](http://localhost:4173).
-
-### Additional Notes
-
-- The .env file should never be committed to the repository. Ensure it is added to .gitignore to keep sensitive information private.
-- Make sure you have valid API keys and other environment-specific data to replace in the .env file.
-- For further configuration, refer to the Vite documentation.
-
-## License
-
-This project is licensed under the MIT License.
