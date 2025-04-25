@@ -51,8 +51,8 @@ const QRModal = ({ isOpen, onClose, data }) => {
                 src: blackLogo,
                 x: undefined,
                 y: undefined,
-                height: 60,
-                width: 100,
+                height: 90,
+                width: 90,
                 opacity: 1,
                 excavate: true,
               }}
