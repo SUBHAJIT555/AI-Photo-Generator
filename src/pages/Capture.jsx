@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "../component/Logo";
+import AnimatedButton from "../component/AnimatedButton";
 import { saveData } from "../utils/localStorageDB";
 import { useNavigate } from "react-router-dom";
-import { cn } from "../utils/cn";
 import BGImage from "../assets/logo/BG.webp";
 
 function Capture() {
@@ -42,6 +42,17 @@ function Capture() {
     if (videoStream) {
       videoStream.getTracks().forEach((track) => track.stop());
       setVideoStream(null);
+    }
+  }, [videoStream]);
+
+  const stopVideoAndClear = useCallback(() => {
+    if (videoStream) {
+      videoStream.getTracks().forEach((track) => track.stop());
+      setVideoStream(null);
+    }
+    // Clear the video element's srcObject to prevent visual glitches
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
     }
   }, [videoStream]);
 
@@ -94,16 +105,16 @@ function Capture() {
 
   return (
     <div
-      className="flex flex-col items-center w-full h-screen justify-evenly"
+      className="flex flex-col justify-evenly items-center w-full h-screen"
       style={{ backgroundImage: `url(${BGImage})` }}
     >
       <Logo />
       <canvas ref={canvasRef} style={{ display: "none" }} />
-      <div className="relative flex items-center justify-center w-3/4">
+      <div className="flex relative justify-center items-center w-3/4">
         {!capturedImage ? (
           <video
             ref={videoRef}
-            className="w-full max-w-2xl bg-black shadow-lg rounded-2xl"
+            className="w-full max-w-2xl bg-black rounded-2xl shadow-lg"
             autoPlay
             muted
           />
@@ -111,154 +122,48 @@ function Capture() {
           <img
             src={capturedImage}
             alt="Captured"
-            className="w-full max-w-2xl border-4 border-white shadow-lg rounded-2xl"
+            className="w-full max-w-2xl rounded-2xl border-4 border-white shadow-lg"
           />
         )}
         {countdown && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-2xl">
-            <p className="font-bold text-white text-9xl animate-ping">
+          <div className="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 rounded-2xl">
+            <p className="text-9xl font-bold text-white animate-ping font-grotesk">
               {countdown}
             </p>
           </div>
         )}
       </div>
-      <div className="flex mt-8 gap-x-10">
+      <div className="flex gap-x-10 mt-8">
         {!capturedImage ? (
-          <button
+          <AnimatedButton
+            text={loading ? "Capturing..." : "Capture"}
             onClick={captureImage}
-            disabled={loading}
-            className={`relative px-14 py-3 text-white rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent 
-    ${
-      loading
-        ? "bg-indigo-400 cursor-not-allowed opacity-50"
-        : "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,1)] active:scale-95 cursor-none"
-    }`}
-          >
-            {/* Sparkles */}
-            {!loading && (
-              <div className="absolute inset-0 overflow-hidden">
-                {[...Array(6)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="absolute block bg-white rounded-full opacity-50"
-                    style={{
-                      width: `${Math.random() * 4 + 2}px`,
-                      height: `${Math.random() * 4 + 2}px`,
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                      animation: `sparkle-animation ${
-                        Math.random() * 3 + 2
-                      }s linear infinite`,
-                    }}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Button Text */}
-            <span className="text-[4vw] tracking-wide font-extrabold">
-              {loading ? "Capturing..." : "Capture"}
-            </span>
-
-            {/* Magical Styles */}
-            <style>
-              {`
-      @keyframes sparkle-animation {
-        0% { transform: translate(0, 0) scale(1); opacity: 1; }
-        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
-      }
-    `}
-            </style>
-          </button>
+            className={loading ? "opacity-50 cursor-not-allowed" : ""}
+          />
         ) : (
           <>
-            <button
+            <AnimatedButton
+              text="Retake"
               onClick={async () => {
-                if (videoStream) {
-                  stopVideo(); // Stop the previous stream
-                }
+                // Reset the captured image first
+                setCapturedImage(null);
 
-                setCapturedImage(null); // Reset the captured image
+                // Stop the current video stream and clear the video element
+                stopVideoAndClear();
+
+                // Wait a bit longer for the stream to fully stop before restarting
                 setTimeout(() => {
-                  startCamera(); // Restart the camera with a slight delay
-                }, 100); // Adding a slight delay for smoother UI rendering
+                  startCamera();
+                }, 300);
               }}
-              className="relative px-10 py-3 text-white bg-gray-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent hover:bg-gray-800 hover:border-gray-300 hover:shadow-[0_0_20px_rgba(156,163,175,1)] active:scale-95 cursor-none"
-            >
-              {/* Sparkles */}
-              <div className="absolute inset-0 overflow-hidden">
-                {[...Array(6)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="absolute block bg-white rounded-full opacity-50"
-                    style={{
-                      width: `${Math.random() * 4 + 2}px`,
-                      height: `${Math.random() * 4 + 2}px`,
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                      animation: `sparkle-animation ${
-                        Math.random() * 3 + 2
-                      }s linear infinite`,
-                    }}
-                  />
-                ))}
-              </div>
+              className="bg-gray-600 hover:bg-gray-700"
+            />
 
-              {/* Button Text */}
-              <span className="text-[4vw] tracking-wide font-extrabold">
-                Retake
-              </span>
-
-              {/* Magical Styles */}
-              <style>
-                {`
-      @keyframes sparkle-animation {
-        0% { transform: translate(0, 0) scale(1); opacity: 1; }
-        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
-      }
-    `}
-              </style>
-            </button>
-
-            <button
+            <AnimatedButton
+              text="Submit"
               onClick={submitImage}
-              className="relative px-10 py-3 text-white bg-blue-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden z-[2] tracking-tight capitalize border-2 border-transparent 
-    hover:bg-blue-800 hover:border-blue-300 hover:shadow-[0_0_20px_rgba(59,130,246,1)] active:scale-95 cursor-none"
-            >
-              {/* Sparkles */}
-              <div className="absolute inset-0 overflow-hidden">
-                {[...Array(6)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="absolute block bg-white rounded-full opacity-50"
-                    style={{
-                      width: `${Math.random() * 4 + 2}px`,
-                      height: `${Math.random() * 4 + 2}px`,
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                      animation: `sparkle-animation ${
-                        Math.random() * 3 + 2
-                      }s linear infinite`,
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Button Text */}
-              <span className="text-[4vw] tracking-wide font-extrabold">
-                Submit
-              </span>
-
-              {/* Magical Styles */}
-              <style>
-                {`
-      @keyframes sparkle-animation {
-        0% { transform: translate(0, 0) scale(1); opacity: 1; }
-        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
-      }
-    `}
-              </style>
-            </button>
+              className="bg-blue-600 hover:bg-blue-700"
+            />
           </>
         )}
       </div>

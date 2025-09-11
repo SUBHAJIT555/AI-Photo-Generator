@@ -8,17 +8,32 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "grotesk";
+  src: url("../public/Fonts/SpaceGrotesk-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+/* Font utility classes */
+.font-cornea {
+  font-family: "cornea", sans-serif;
+}
+
+.font-grotesk {
+  font-family: "grotesk", sans-serif;
+}
 body {
   font-family: "cornea";
-  cursor: none !important;
+  /* cursor: none !important; */
   user-select: none;
 }
 /* styles.css or global.css */
-button, a, [role="button"], input, * {
+/* button, a, [role="button"], input, * {
   cursor: none !important;
-}
+} */
 @keyframes float-scale {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(0.8);
   }
   50% {
@@ -29,7 +44,6 @@ button, a, [role="button"], input, * {
 .animate-float-scale {
   animation: float-scale 4s ease-in-out infinite;
 }
-
 
 @keyframes shine {
   0% {

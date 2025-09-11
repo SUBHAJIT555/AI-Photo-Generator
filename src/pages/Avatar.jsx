@@ -1,6 +1,7 @@
 import Logo from "../component/Logo";
+import AnimatedButton from "../component/AnimatedButton";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "../utils/cn";
 import { getData } from "../utils/localStorageDB";
 import toast from "react-hot-toast";
@@ -21,6 +22,7 @@ function Avatar() {
   const [gender, setGender] = useState("male");
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const buttonRef = useRef(null);
   const publicAxios = useAxiosPublic();
   const [swaploader, setswaloader] = useState("none");
 
@@ -49,6 +51,14 @@ function Avatar() {
       return null;
     }
   };
+
+  // const handleMouseDown = (event) => {
+  //   createRipple(event);
+  // };
+
+  // const handleTouchStart = (event) => {
+  //   createRipple(event.touches[0]);
+  // };
 
   const handleSwap = async () => {
     try {
@@ -88,12 +98,12 @@ function Avatar() {
   }, [loading]);
 
   return loading ? (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen">
       <LoadingSwapping visibility={swaploader} src={loadingVideo} />
     </div>
   ) : (
     <div
-      className="flex flex-col items-center justify-center w-full h-screen gap-10 py-10 bg-center bg-repeat bg-cover "
+      className="flex flex-col gap-10 justify-center items-center py-10 w-full h-screen bg-center bg-repeat bg-cover"
       style={{ backgroundImage: `url(${BGImage})` }}
     >
       <div className="mb-[4vw]">
@@ -102,51 +112,40 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4 mb-[15vw]">
-        <span className="text-[3.5vw] text-white font-bold">Male</span>
+        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">Male</span>
         <div
-          className={`relative w-[15vw] h-[5vw] flex items-center bg-gray-800 border-2 border-gray-600 rounded-full transition-all duration-300  ${
+          ref={buttonRef}
+          // onMouseDown={handleMouseDown}
+          // onTouchStart={handleTouchStart}
+          className={`relative w-[15vw] h-[5vw] flex items-center bg-gradient-to-r from-blue-600 to-pink-500 rounded-full transition-all duration-300 overflow-hidden cursor-pointer ${
             gender === "female"
-              ? "border-pink-500 shadow-[0_0_15px_pink]"
-              : "border-blue-500 shadow-[0_0_15px_blue]"
+              ? "shadow-[0_0_15px_rgba(236,72,153,0.5)]" 
+              : "shadow-[0_0_15px_rgba(37,99,235,0.5)]"
           }`}
         >
           <input
             type="checkbox"
-            className="absolute w-full h-full opacity-0 cursor-none"
+            className="absolute w-full h-full opacity-0 cursor-pointer"
             checked={gender === "female"}
             onChange={() => setGender(gender === "male" ? "female" : "male")}
           />
           <div
-            className={`absolute left-1 w-[4vw] h-[4vw] rounded-full transition-all duration-500 transform shadow-lg ${
+            className={`absolute w-[4vw] h-[4vw] rounded-full transition-all duration-500 transform ${
               gender === "female"
                 ? "translate-x-[10vw] bg-pink-400"
-                : "bg-blue-300"
+                : "translate-x-1 bg-blue-400"
             }`}
           >
-            {[...Array(6)].map((_, i) => (
-              <span
-                key={i}
-                className="absolute block bg-white rounded-full opacity-50"
-                style={{
-                  width: `${Math.random() * 4 + 2}px`,
-                  height: `${Math.random() * 4 + 2}px`,
-                  top: `${Math.random() * 80}%`,
-                  left: `${Math.random() * 80}%`,
-                  animation: `sparkle-animation ${
-                    Math.random() * 3 + 2
-                  }s linear infinite`,
-                }}
-              />
-            ))}
+            <div className="absolute inset-0 bg-white rounded-full opacity-20"></div>
           </div>
         </div>
-        <span className="text-[3.5vw] text-white font-bold">Female</span>
+        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">Female</span>
       </div>
 
       {/* Avatar Grid */}
       <div
         className={cn(
-          "grid justify-center items-center gap-10 grid-cols-3 px-[10vw] w-full mb-[20vw]"
+          "grid grid-cols-3 gap-10 justify-center items-center w-full px-[10vw] mb-[20vw]"
         )}
       >
         {(gender === "male" ? maleImages : femaleImages).map(
@@ -155,7 +154,7 @@ function Avatar() {
               key={index}
               className={cn(
                 "group relative w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden cursor-none",
-                avatar === selectedImage ? "border-4 border-blue-500" : ""
+                avatar === selectedImage ? "border-4 border-zinc-200" : ""
               )}
               onClick={() => setSelectedImage(avatar)}
             >
@@ -168,7 +167,7 @@ function Avatar() {
                 />
               </div>
               {avatar === selectedImage && (
-                <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-xl">
+                <div className="overflow-hidden absolute inset-0 rounded-xl pointer-events-none">
                   <div className="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shine_1.5s_infinite]"></div>
                 </div>
               )}
@@ -178,68 +177,15 @@ function Avatar() {
       </div>
 
       {/* Swap Button */}
-      <button
+      <AnimatedButton
+        text={loading ? "Loading..." : "Swap"}
         onClick={handleSwap}
-        disabled={!selectedImage || loading}
-        className={cn(
-          "relative capitalize text-zinc-200 tracking-tight font-light py-2 px-5 rounded-full border-2 border-transparent overflow-hidden transition-all duration-300 cursor-none",
-          selectedImage || loading
-            ? "bg-indigo-600 hover:bg-indigo-800 hover:border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.8)]"
-            : "bg-gray-500 cursor-not-allowed",
-          loading && "opacity-50 cursor-not-allowed"
-        )}
-      >
-        {/* Sparkles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(6)].map((_, i) => (
-            <span
-              key={i}
-              className="absolute block bg-white rounded-full opacity-50"
-              style={{
-                width: `${Math.random() * 4 + 2}px`,
-                height: `${Math.random() * 4 + 2}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animation: `sparkle-animation ${
-                  Math.random() * 3 + 2
-                }s linear infinite`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Button Text */}
-        {loading ? (
-          <span className="animate-pulse">Loading...</span>
-        ) : (
-          <span className="tracking-wide font-extrabold text-[4vw] px-8">
-            Swap
-          </span>
-        )}
-
-        <style>
-          {`
-      @keyframes sparkle-animation {
-        0% { transform: translate(0, 0) scale(1); opacity: 1; }
-        100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
-      }
-      @keyframes pulse-glow {
-        0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8); }
-        50% { box-shadow: 0 0 20px rgba(99, 102, 241, 1); }
-        100% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8); }
-      }
-    `}
-        </style>
-      </button>
-
-      <style>
-        {`
-          @keyframes sparkle-animation {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(300%, -50%) scale(0.5); opacity: 0; }
-          }
-        `}
-      </style>
+        className={
+          !selectedImage || loading
+            ? "bg-gray-500 cursor-not-allowed opacity-50"
+            : ""
+        }
+      />
     </div>
   );
 }
