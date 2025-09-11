@@ -127,7 +127,7 @@ function Capture() {
         )}
         {countdown && (
           <div className="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 rounded-2xl">
-            <p className="text-9xl font-bold text-white animate-ping font-grotesk">
+            <p className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 animate-ping font-grotesk">
               {countdown}
             </p>
           </div>

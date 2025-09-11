@@ -1,5 +1,6 @@
 import Logo from "../component/Logo";
-import { IoHome, IoPrintSharp, IoQrCode } from "react-icons/io5";
+import { IoHome, IoQrCode } from "react-icons/io5";
+import { ImPrinter } from "react-icons/im";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 // import toast from "react-hot-toast";
@@ -104,15 +105,15 @@ function Preview() {
   };
 
   return loading ? (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen">
       <LoadingSwapping visibility={swaploader} src={printingVideo} />
     </div>
   ) : (
     <div
-      className="flex flex-col items-center w-full h-screen min-h-screen text-white bg-center bg-cover justify-evenly"
+      className="flex flex-col justify-evenly items-center w-full h-screen min-h-screen text-white bg-center bg-cover"
       style={{ backgroundImage: `url(${BGImage})` }}
     >
-      <div className="flex flex-col items-center w-full h-screen px-4 mx-auto justify-evenly ">
+      <div className="flex flex-col justify-evenly items-center px-4 mx-auto w-full h-screen">
         <Logo />
         <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
           {finalUrl && (
@@ -135,12 +136,12 @@ function Preview() {
         )} */}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-10 text-zinc-200 ">
+        <div className="flex flex-wrap gap-10 justify-center text-zinc-200">
           <button
             onClick={printImageAsPDF}
             className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-none"
           >
-            <IoPrintSharp className="text-3xl md:text-5xl" />
+            <ImPrinter className="text-3xl md:text-5xl" />
           </button>
 
           <button
