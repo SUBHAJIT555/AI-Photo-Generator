@@ -117,7 +117,7 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4 mb-[15vw]">
-        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">
+        <span className="text-[3.5vw] text-white font-golonto tracking-wide">
           Male
         </span>
         <div
@@ -146,7 +146,7 @@ function Avatar() {
             <div className="absolute inset-0 bg-white rounded-full opacity-20"></div>
           </div>
         </div>
-        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">
+        <span className="text-[3.5vw] text-white font-golonto tracking-wide">
           Female
         </span>
       </div>
