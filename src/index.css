@@ -13,6 +13,10 @@
   src: url("../public/Fonts/SpaceGrotesk-VariableFont_wght.ttf")
     format("truetype");
 }
+@font-face{
+  font-family: "golonto";
+  src: url("../public/Fonts/Glonto-Regular.woff2") format("woff2");
+}
 
 /* Font utility classes */
 .font-cornea {
@@ -21,6 +25,9 @@
 
 .font-grotesk {
   font-family: "grotesk", sans-serif;
+}
+.font-golonto {
+  font-family: "golonto", sans-serif;
 }
 body {
   font-family: "cornea";

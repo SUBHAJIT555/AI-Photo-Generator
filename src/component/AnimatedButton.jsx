@@ -128,7 +128,7 @@ const AnimatedButton = ({
       {/* Button Text with Professional Shadow */}
       <span
         className={`
-        relative ${currentSize.textSize} font-grotesk uppercase tracking-wide font-extrabold z-10 
+        relative ${currentSize.textSize} font-golonto uppercase tracking-widest font-extrabold z-10 
         transition-transform duration-200 
         text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100
         drop-shadow-[0_2px_3px_rgba(0,0,0,0.2)]

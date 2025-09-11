@@ -39,7 +39,7 @@ function Instruction() {
           {/* Content Layer */}
           <div className="flex relative z-10 flex-col items-center animate-fadeIn">
             {/* Stylish Heading with Gradient */}
-            <h1 className="text-[4vw]  font-grotesk font-bold tracking-wide bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg ">
+            <h1 className="text-[4vw]  font-golonto tracking-widest font-bold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg ">
               INSTRUCTIONS
             </h1>
 
@@ -49,7 +49,7 @@ function Instruction() {
             {instructions.map((text, index) => (
               <p
                 key={index}
-                className={`text-[3vw]  text-zinc text-center font-grotesk transition-all duration-300 mb-[4vw] drop-shadow-md leading-[3.5vw]  ${
+                className={`text-[3vw]  text-zinc text-center font-golonto tracking-wide transition-all duration-300 mb-[4vw] drop-shadow-md leading-[3.5vw]  ${
                   activeIndex === index
                     ? "scale-105 bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text font-extrabold"
                     : ""
@@ -65,7 +65,7 @@ function Instruction() {
           <AnimatedButton
             text="Click Here to Start"
             to="/capture"
-            className="text-[4vw] tracking-widest font-grotesk uppercase font-extrabold"
+            className="text-[4vw] tracking-widest font-golonto uppercase font-extrabold"
           />
         </div>
       </div>
