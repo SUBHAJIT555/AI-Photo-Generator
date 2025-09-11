@@ -25,6 +25,10 @@ function Avatar() {
   const buttonRef = useRef(null);
   const publicAxios = useAxiosPublic();
   const [swaploader, setswaloader] = useState("none");
+  // TODO: avatarMap from constant/avatar.ts
+  const avatarMap = avatarMap;
+  const avatarKey = gender === "male" ? "male" : "female";
+  const avatarId = avatarMap[avatarKey];
 
   const navigate = useNavigate();
 
@@ -64,7 +68,7 @@ function Avatar() {
     try {
       setLoading(true);
       if (selectedImage) {
-        const targetBase64 = await convertToBase64(selectedImage);
+        // const avatar_id = ;
         const capturedImage = await getData("capturedImage");
 
         if (!capturedImage) {
@@ -74,9 +78,10 @@ function Avatar() {
 
         const formData = new FormData();
         formData.append("source", capturedImage);
-        formData.append("target", targetBase64);
+        formData.append("avatar_id", targetBase64);
 
-        const data = await publicAxios.post("faceswap_handler.php", formData);
+        // const data = await publicAxios.post("faceswap_handler.php", formData);
+        const data = await publicAxios.post("swap.php", formData);
 
         if (data?.data?.result_url) {
           navigate(`/preview?resultUrl=${data.data.result_url}`, {
@@ -112,14 +117,16 @@ function Avatar() {
 
       {/* Magical Toggle Button */}
       <div className="flex items-center gap-4 mb-[15vw]">
-        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">Male</span>
+        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">
+          Male
+        </span>
         <div
           ref={buttonRef}
           // onMouseDown={handleMouseDown}
           // onTouchStart={handleTouchStart}
           className={`relative w-[15vw] h-[5vw] flex items-center bg-gradient-to-r from-blue-600 to-pink-500 rounded-full transition-all duration-300 overflow-hidden cursor-pointer ${
             gender === "female"
-              ? "shadow-[0_0_15px_rgba(236,72,153,0.5)]" 
+              ? "shadow-[0_0_15px_rgba(236,72,153,0.5)]"
               : "shadow-[0_0_15px_rgba(37,99,235,0.5)]"
           }`}
         >
@@ -139,7 +146,9 @@ function Avatar() {
             <div className="absolute inset-0 bg-white rounded-full opacity-20"></div>
           </div>
         </div>
-        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">Female</span>
+        <span className="text-[3.5vw] text-white font-bold font-grotesk uppercase">
+          Female
+        </span>
       </div>
 
       {/* Avatar Grid */}
