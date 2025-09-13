@@ -83,7 +83,7 @@ const AnimatedButton = ({
       ref={buttonRef}
       className={`
         relative ${currentSize.padding} z-[2] font-light tracking-tight capitalize 
-        border-2 border-transparent rounded-xl text-zinc-200 
+        border-2 border-transparent rounded-full text-zinc-200 
         bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 
         transition-all duration-300 overflow-hidden
         shadow-[0_0_20px_rgba(99,102,241,0.6)] 

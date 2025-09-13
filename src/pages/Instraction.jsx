@@ -29,7 +29,7 @@ function Instruction() {
     >
       <div className="flex flex-col justify-evenly items-center w-full h-screen">
         <Logo />
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-3xl left-10 top-[50vw] animate-float-scale"></div>
+        {/* <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-3xl left-10 top-[50vw] animate-float-scale"></div> */}
 
         <div className="flex flex-col border-2 border-zinc-300/30 items-center justify-center w-[60vw] gap-6 px-10  shadow-lg py-14  rounded-3xl backdrop-blur-md relative overflow-hidden">
           {/* Background Animation Layer */}
@@ -39,7 +39,7 @@ function Instruction() {
           {/* Content Layer */}
           <div className="flex relative z-10 flex-col items-center animate-fadeIn">
             {/* Stylish Heading with Gradient */}
-            <h1 className="text-[4vw]  font-golonto tracking-widest font-bold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg ">
+            <h1 className="text-[4vw]  font-golonto tracking-widest font-bold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg mb-[3vw]">
               INSTRUCTIONS
             </h1>
 
@@ -49,10 +49,10 @@ function Instruction() {
             {instructions.map((text, index) => (
               <p
                 key={index}
-                className={`text-[3vw]  text-zinc text-center font-golonto tracking-wide transition-all duration-300 mb-[4vw] drop-shadow-md leading-[3.5vw]  ${
+                className={`text-[3vw]  text-zinc text-center font-golonto tracking-wider transition-all duration-300 mb-[4vw] drop-shadow-md leading-[3.5vw] capitalize  ${
                   activeIndex === index
-                    ? "scale-105 bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text font-extrabold"
-                    : ""
+                    ? "scale-105 font-extrabold"
+                    : "bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text"
                 }`}
               >
                 {text}
