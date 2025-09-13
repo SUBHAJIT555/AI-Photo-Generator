@@ -14,6 +14,7 @@ function Capture() {
   const [columns, setColumns] = useState([]);
   const canvasRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [isRestarting, setIsRestarting] = useState(false);
 
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -26,12 +27,35 @@ function Capture() {
   const startCamera = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: "user",
+        },
         audio: false,
       });
+
       if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setVideoStream(stream);
+        return new Promise((resolve) => {
+          // Set the stream
+          videoRef.current.srcObject = stream;
+
+          // Wait for both metadata and first frame to be ready
+          const handleCanPlay = () => {
+            videoRef.current.removeEventListener("canplay", handleCanPlay);
+            setVideoStream(stream);
+            resolve();
+          };
+
+          videoRef.current.addEventListener("canplay", handleCanPlay);
+
+          // Fallback timeout
+          setTimeout(() => {
+            videoRef.current.removeEventListener("canplay", handleCanPlay);
+            setVideoStream(stream);
+            resolve();
+          }, 2000);
+        });
       }
     } catch (error) {
       console.error("Error accessing the camera:", error);
@@ -45,15 +69,27 @@ function Capture() {
     }
   }, [videoStream]);
 
-  const stopVideoAndClear = useCallback(() => {
-    if (videoStream) {
-      videoStream.getTracks().forEach((track) => track.stop());
-      setVideoStream(null);
-    }
-    // Clear the video element's srcObject to prevent visual glitches
-    if (videoRef.current) {
-      videoRef.current.srcObject = null;
-    }
+  const stopVideoAndClear = useCallback(async () => {
+    return new Promise((resolve) => {
+      if (videoStream) {
+        videoStream.getTracks().forEach((track) => track.stop());
+        setVideoStream(null);
+      }
+
+      if (videoRef.current) {
+        // Pause first, then clear
+        videoRef.current.pause();
+        videoRef.current.srcObject = null;
+
+        // Force a repaint and wait for the video element to fully clear
+        videoRef.current.load();
+
+        // Wait for the video element to be completely cleared
+        setTimeout(resolve, 100);
+      } else {
+        resolve();
+      }
+    });
   }, [videoStream]);
 
   const captureImage = () => {
@@ -117,6 +153,11 @@ function Capture() {
             className="w-full max-w-2xl bg-black rounded-2xl shadow-lg"
             autoPlay
             muted
+            playsInline
+            style={{
+              opacity: isRestarting ? 0.5 : 1,
+              transition: "opacity 0.3s ease",
+            }}
           />
         ) : (
           <img
@@ -143,20 +184,35 @@ function Capture() {
         ) : (
           <>
             <AnimatedButton
-              text="Retake"
+              text={isRestarting ? "Starting..." : "Retake"}
               onClick={async () => {
-                // Reset the captured image first
-                setCapturedImage(null);
+                if (isRestarting) return;
 
-                // Stop the current video stream and clear the video element
-                stopVideoAndClear();
+                setIsRestarting(true);
 
-                // Wait a bit longer for the stream to fully stop before restarting
-                setTimeout(() => {
-                  startCamera();
-                }, 300);
+                try {
+                  // Reset the captured image first
+                  setCapturedImage(null);
+
+                  // Stop and clear the current video stream completely
+                  await stopVideoAndClear();
+
+                  // Wait a bit more for complete cleanup
+                  await new Promise((resolve) => setTimeout(resolve, 200));
+
+                  // Start the camera again and wait for it to be ready
+                  await startCamera();
+                } catch (error) {
+                  console.error("Error restarting camera:", error);
+                } finally {
+                  setIsRestarting(false);
+                }
               }}
-              className="bg-gray-600 hover:bg-gray-700"
+              className={`${
+                isRestarting
+                  ? "bg-gray-500 opacity-75 cursor-not-allowed"
+                  : "bg-gray-600 hover:bg-gray-700"
+              }`}
             />
 
             <AnimatedButton
