@@ -7,7 +7,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import QRModal from "../component/QRModal";
 import { useEffect, useState } from "react";
 import { PDFDocument } from "pdf-lib";
-// import download from "downloadjs";
+import download from "downloadjs";
 import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 import printingVideo from "../assets/printing.webm";
@@ -48,8 +48,8 @@ function Preview() {
 
       // Embed the image into the PDF
       const image = await pdfDoc.embedJpg(imageArrayBuffer);
-      // const { width, height } = image.scale(0.25);
-      const { width, height } = image.scale(0);
+      const { width, height } = image.scale(0.25);
+      // const { width, height } = image.scale(0);
 
       // Calculate position to center the image
       const x = (page.getWidth() - width) / 2;
@@ -60,8 +60,11 @@ function Preview() {
 
       // Convert PDF to Uint8Array
       const pdfBytes = await pdfDoc.save();
+      // console.log("pdf", pdfBytes);
       const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes)); // Proper encoding
+      // console.log("pdfbase64", pdfBase64);
 
+      download(pdfBytes, `face_swap_${Date.now()}.pdf`, "application/pdf");
       // console.log(pdfBase64);
 
       // download(pdfBytes, generateUniqueFilename("pdf"));
@@ -76,9 +79,9 @@ function Preview() {
         contentType: "pdf_base64",
         content: pdfBase64,
         source: "React Web App",
-        options: {
-          fit_to_page: true,
-        },
+        // options: {
+        //   fit_to_page: true,
+        // },
       };
 
       const responsePrint = await fetch("https://api.printnode.com/printjobs", {
