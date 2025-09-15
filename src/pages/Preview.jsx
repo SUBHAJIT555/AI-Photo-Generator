@@ -2,12 +2,12 @@ import Logo from "../component/Logo";
 import { IoHome, IoQrCode } from "react-icons/io5";
 import { ImPrinter } from "react-icons/im";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { saveAs } from "file-saver";
+// import { saveAs } from "file-saver";
 // import toast from "react-hot-toast";
 import QRModal from "../component/QRModal";
 import { useEffect, useState } from "react";
 import { PDFDocument } from "pdf-lib";
-import download from "downloadjs";
+// import download from "downloadjs";
 import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 import printingVideo from "../assets/printing.webm";
@@ -17,7 +17,7 @@ function Preview() {
   const { resultUrl } = useLocation()?.state || {};
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const [swaploader, setswaloader] = useState("none");
+  const [swapLoader, setswaloader] = useState("none");
   const url = searchParams.get("resultUrl");
 
   const finalUrl = resultUrl || url;
@@ -63,7 +63,7 @@ function Preview() {
 
       // console.log(pdfBase64);
 
-      //  download(pdfBytes, generateUniqueFilename("pdf"));
+      // download(pdfBytes, generateUniqueFilename("pdf"));
 
       // Send the PDF to PrintNode
       const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY; // Replace with actual API key
@@ -97,7 +97,7 @@ function Preview() {
     } catch (error) {
       console.error("Error processing print job:", error);
     } finally {
-      // This for loading 40sec
+      // This for loading 35sec
       setTimeout(() => {
         setLoading(false);
       }, 35000);
@@ -106,7 +106,7 @@ function Preview() {
 
   return loading ? (
     <div className="w-full h-screen">
-      <LoadingSwapping visibility={swaploader} src={printingVideo} />
+      <LoadingSwapping visibility={swapLoader} src={printingVideo} />
     </div>
   ) : (
     <div

@@ -83,7 +83,8 @@ $targetUrl = $scheme . $host . '/avatars/' . $avatarMap[$avatarId];
 
 // Call Magic API
 $apiKey = 'cmfe0ajp50009l404yumr7caq';
-$apiUrl = 'https://prod.api.market/api/v1/magicapi/faceswap-v2/faceswap/image/run';
+// $apiUrl = 'https://prod.api.market/api/v1/magicapi/faceswap-v2/faceswap/image/run';
+$apiUrl = 'https://prod.api.market/api/v1/magicapi/faceswap-image-v3/run';
 
 $payload = json_encode([
     "input" => [
@@ -123,7 +124,7 @@ $requestId = $responseData['id'];
 
 // Poll (up to 10 minutes)
 $resultUrl = null;
-$maxRetries = 50;
+$maxRetries = 60;
 
 for ($i = 0; $i < $maxRetries; $i++) {
     $delay = ($i + 1); // seconds
@@ -131,7 +132,7 @@ for ($i = 0; $i < $maxRetries; $i++) {
 
     $statusCh = curl_init();
     curl_setopt_array($statusCh, [
-        CURLOPT_URL => "https://prod.api.market/api/v1/magicapi/faceswap-v2/faceswap/image/status/{$requestId}",
+        CURLOPT_URL => "https://prod.api.market/api/v1/magicapi/faceswap-image-v3/status/{$requestId}",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => [
             'accept: application/json',
@@ -152,7 +153,7 @@ for ($i = 0; $i < $maxRetries; $i++) {
     }
 
     if ($statusData['status'] === 'COMPLETED') {
-        $resultUrl = $statusData['result_url'] ?? $statusData['output'] ?? null;
+        $resultUrl = $statusData['output']['image_url'] ?? null;
         $executionTime = $statusData["executionTime"] ?? null;
         $delayTime = $statusData["delayTime"] ?? null;
    
