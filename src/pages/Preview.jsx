@@ -48,7 +48,8 @@ function Preview() {
 
       // Embed the image into the PDF
       const image = await pdfDoc.embedJpg(imageArrayBuffer);
-      const { width, height } = image.scale(0.25);
+      // const { width, height } = image.scale(0.25);
+      const { width, height } = image.scale(0);
 
       // Calculate position to center the image
       const x = (page.getWidth() - width) / 2;
