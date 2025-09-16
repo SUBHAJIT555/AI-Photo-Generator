@@ -82,7 +82,7 @@ $sourceUrl = $scheme . $host . '/uploads/' . basename($sourcePath);
 $targetUrl = $scheme . $host . '/avatars/' . $avatarMap[$avatarId];
 
 // Call Magic API
-$apiKey = 'cmfe0ajp50009l404yumr7caq';
+$apiKey = 'cmfkoz59j0009jw04mzgnxf8x';
 // $apiUrl = 'https://prod.api.market/api/v1/magicapi/faceswap-v2/faceswap/image/run';
 $apiUrl = 'https://prod.api.market/api/v1/magicapi/faceswap-image-v3/run';
 
