@@ -25,15 +25,113 @@ function Preview() {
     setswaloader(loading ? "block" : "none");
   }, [loading]);
 
-  const uint8ArrayToBase64 = (uint8Array) => {
-    let binary = "";
-    const len = uint8Array.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(uint8Array[i]);
-    }
-    return btoa(binary);
-  };
+  // const uint8ArrayToBase64 = (uint8Array) => {
+  //   let binary = "";
+  //   const len = uint8Array.byteLength;
+  //   for (let i = 0; i < len; i++) {
+  //     binary += String.fromCharCode(uint8Array[i]);
+  //   }
+  //   return btoa(binary);
+  // };
 
+  // const printImage = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(finalUrl);
+  //     const blob = await response.blob();
+  //     const url = URL.createObjectURL(blob);
+
+  //     const iframe = document.createElement("iframe");
+  //     iframe.style.display = "none";
+  //     iframe.srcdoc = `
+  //     <html>
+  //       <head>
+  //         <style>
+  //           @page { margin: 0; size: 4in 6in; }
+  //           body { margin: 0; }
+  //           img { width: 100%; height: 100%; object-fit: cover; }
+  //         </style>
+  //       </head>
+  //       <body onload="window.print();">
+  //         <img src="${url}" />
+  //       </body>
+  //     </html>
+  //   `;
+  //     document.body.appendChild(iframe);
+  //   } catch (error) {
+  //     console.error("Error processing print job:", error);
+  //   } finally {
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 35000);
+  //   }
+  // };
+
+  // const printImageAsPDF = async () => {
+  //   try {
+  //     setLoading(true);
+
+  //     // Fetch the image as a Blob
+  //     const response = await fetch(finalUrl);
+  //     const imageBlob = await response.blob();
+  //     const imageArrayBuffer = await imageBlob.arrayBuffer();
+
+  //     // Create a new PDF document
+  //     const pdfDoc = await PDFDocument.create();
+  //     const page = pdfDoc.addPage([288, 432]); // 4x6 inches in points
+
+  //     // Embed the image into the PDF
+  //     const image = await pdfDoc.embedJpg(imageArrayBuffer);
+  //     // const { width, height } = image.scale(0.25);
+  //     const { width: imgW, height: imgH } = image.size();
+
+  //     // Center the image
+  //     // Target page size (4x6 in pts)
+  //     const pageWidth = 288;
+  //     const pageHeight = 432;
+
+  //     // Scale proportionally to fit
+  //     const scale = Math.min(pageWidth / imgW, pageHeight / imgH);
+  //     const scaledW = imgW * scale;
+  //     const scaledH = imgH * scale;
+
+  //     // Center image
+  //     const x = (pageWidth - scaledW) / 2;
+  //     const y = (pageHeight - scaledH) / 2;
+
+  //     page.drawImage(image, { x, y, width: scaledW, height: scaledH });
+  //     // const x = (page.getWidth() - width) / 2;
+  //     // const y = (page.getHeight() - height) / 2;
+  //     // page.drawImage(image, { x, y, width, height });
+
+  //     // Save PDF as Uint8Array
+  //     const pdfBytes = await pdfDoc.save();
+
+  //     // ---- Print ----
+
+  //     const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  //     const url = URL.createObjectURL(blob);
+
+  //     const iframe = document.createElement("iframe");
+  //     iframe.style.display = "none";
+  //     iframe.src = url;
+  //     document.body.appendChild(iframe);
+
+  //     iframe.onload = () => {
+  //       iframe.contentWindow.focus();
+  //       iframe.contentWindow.print();
+  //     };
+
+  //     // ---- Download with downloadjs ----
+  //     // download(pdfBytes, `document-${Date.now()}.pdf`, "application/pdf");
+  //   } catch (error) {
+  //     console.error("Error processing print job:", error);
+  //   } finally {
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 35000);
+  //   }
+  // };
   const printImageAsPDF = async () => {
     try {
       setLoading(true);
@@ -139,6 +237,7 @@ function Preview() {
         <div className="flex flex-wrap gap-10 justify-center text-zinc-200">
           <button
             onClick={printImageAsPDF}
+        
             className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-none"
           >
             <ImPrinter className="text-3xl md:text-5xl" />
