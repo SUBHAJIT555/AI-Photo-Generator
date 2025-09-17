@@ -2,11 +2,12 @@ import Logo from "../component/Logo";
 import { IoHome, IoQrCode } from "react-icons/io5";
 import { ImPrinter } from "react-icons/im";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
+import * as LidtaDrp from "lidta-drp";
 // import { saveAs } from "file-saver";
 // import toast from "react-hot-toast";
 import QRModal from "../component/QRModal";
 import { useEffect, useState } from "react";
-import { PDFDocument } from "pdf-lib";
+// import { PDFDocument } from "pdf-lib";
 // import download from "downloadjs";
 import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
@@ -132,73 +133,110 @@ function Preview() {
   //     }, 35000);
   //   }
   // };
+  // const printImageAsPDF = async () => {
+  //   try {
+  //     setLoading(true);
+  //     // Fetch the image as a Blob
+  //     const response = await fetch(finalUrl);
+  //     const imageBlob = await response.blob();
+  //     const imageArrayBuffer = await imageBlob.arrayBuffer();
+
+  //     // Create a new PDF document
+  //     const pdfDoc = await PDFDocument.create();
+  //     const page = pdfDoc.addPage([288, 432]); // 4x6 inches in points (1 inch = 72 points)
+
+  //     // Embed the image into the PDF
+  //     const image = await pdfDoc.embedJpg(imageArrayBuffer);
+  //     const { width, height } = image.scale(0.25);
+
+  //     // Calculate position to center the image
+  //     const x = (page.getWidth() - width) / 2;
+  //     const y = (page.getHeight() - height) / 2;
+
+  //     // Draw image on PDF
+  //     page.drawImage(image, { x, y, width, height });
+
+  //     // Convert PDF to Uint8Array
+  //     const pdfBytes = await pdfDoc.save();
+  //     const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes)); // Proper encoding
+
+  //     // console.log(pdfBase64);
+
+  //     //  download(pdfBytes, generateUniqueFilename("pdf"));
+
+  //     // Send the PDF to PrintNode
+  //     const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY; // Replace with actual API key
+  //     const printerId = import.meta.env.VITE_PRINTNODE_PRINTER_ID; // Replace with actual printer ID
+
+  //     const printJob = {
+  //       printerId: printerId,
+  //       title: "PDF Print Job",
+  //       contentType: "pdf_base64",
+  //       content: pdfBase64,
+  //       source: "React Web App",
+  //       options: {
+  //         fit_to_page: true,
+  //       },
+  //     };
+
+  //     const responsePrint = await fetch("https://api.printnode.com/printjobs", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Basic ${btoa(apiKey + ":")}`,
+  //       },
+  //       body: JSON.stringify(printJob),
+  //     });
+
+  //     if (responsePrint.ok) {
+  //       console.log("Print job sent successfully!");
+  //     } else {
+  //       console.error("Print failed:", await responsePrint.json());
+  //     }
+  //   } catch (error) {
+  //     console.error("Error processing print job:", error);
+  //   } finally {
+  //     // This for loading 40sec
+  //     setTimeout(() => {
+  //       setLoading(false);
+  //     }, 35000);
+  //   }
+  // };
+
   const printImageAsPDF = async () => {
     try {
       setLoading(true);
-      // Fetch the image as a Blob
+
+      // Fetch image as blob
       const response = await fetch(finalUrl);
       const imageBlob = await response.blob();
-      const imageArrayBuffer = await imageBlob.arrayBuffer();
 
-      // Create a new PDF document
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage([288, 432]); // 4x6 inches in points (1 inch = 72 points)
+      // Convert to base64
+      const reader = new FileReader();
+      reader.readAsDataURL(imageBlob);
 
-      // Embed the image into the PDF
-      const image = await pdfDoc.embedJpg(imageArrayBuffer);
-      const { width, height } = image.scale(0.25);
+      reader.onloadend = async () => {
+        const base64Image = reader.result;
 
-      // Calculate position to center the image
-      const x = (page.getWidth() - width) / 2;
-      const y = (page.getHeight() - height) / 2;
+        // Build HTML with the base64 image
+        const htmlContent = `
+        <div style="width: 4in; height: 6in; display: flex; justify-content: center; align-items: center;">
+          <img src="${base64Image}" style="max-width:100%; max-height:100%;" />
+        </div>
+      `;
 
-      // Draw image on PDF
-      page.drawImage(image, { x, y, width, height });
+        // Optionally list available printers
+        const printers = await LidtaDrp.getPrinters();
+        console.log("Available printers:", printers);
 
-      // Convert PDF to Uint8Array
-      const pdfBytes = await pdfDoc.save();
-      const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes)); // Proper encoding
-
-      // console.log(pdfBase64);
-
-      //  download(pdfBytes, generateUniqueFilename("pdf"));
-
-      // Send the PDF to PrintNode
-      const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY; // Replace with actual API key
-      const printerId = import.meta.env.VITE_PRINTNODE_PRINTER_ID; // Replace with actual printer ID
-
-      const printJob = {
-        printerId: printerId,
-        title: "PDF Print Job",
-        contentType: "pdf_base64",
-        content: pdfBase64,
-        source: "React Web App",
-        options: {
-          fit_to_page: true,
-        },
-      };
-
-      const responsePrint = await fetch("https://api.printnode.com/printjobs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${btoa(apiKey + ":")}`,
-        },
-        body: JSON.stringify(printJob),
-      });
-
-      if (responsePrint.ok) {
+        // Send HTML to printer (replace with your target printer name)
+        await LidtaDrp.printHtml(htmlContent, [printers[0]]);
         console.log("Print job sent successfully!");
-      } else {
-        console.error("Print failed:", await responsePrint.json());
-      }
+      };
     } catch (error) {
       console.error("Error processing print job:", error);
     } finally {
-      // This for loading 40sec
-      setTimeout(() => {
-        setLoading(false);
-      }, 35000);
+      setTimeout(() => setLoading(false), 35000);
     }
   };
 
@@ -237,7 +275,6 @@ function Preview() {
         <div className="flex flex-wrap gap-10 justify-center text-zinc-200">
           <button
             onClick={printImageAsPDF}
-        
             className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-none"
           >
             <ImPrinter className="text-3xl md:text-5xl" />
