@@ -1,72 +1,129 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useInView } from "framer-motion";
 import Logo from "../component/Logo";
-import BGImage from "../assets/logo/BG.webp";
-import AnimatedButton from "../component/AnimatedButton";
+import { ShinyButton } from "./shiny-button";
+import { AnimatedText } from "@/components/ui/AnimatedShinyText";
+import {
+  UserScanIcon,
+  ClockPauseIcon,
+  EyeIcon,
+} from "@/components/ui/InstructionIcons";
+// import InstructionImage from "../assets/logo/instruction_bg.jpg";
 
 function Instruction() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  // const buttonRef = useRef(null);
+  const navigate = useNavigate();
+  const listRef = useRef(null);
+  const iconsInView = useInView(listRef, { once: true, margin: "-80px" });
   const instructions = [
     "Only one person should be in the photo.",
     "Stay still for a few seconds after tapping the screen for a clear photo.",
     "Keep your eye open for the best photo.",
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % instructions.length);
-    }, 2000); // Change every 2 seconds
-
-    return () => clearInterval(interval);
-  }, [instructions.length]);
-
-  
-
   return (
-    <div
-      className="flex flex-col justify-evenly items-center w-full h-screen min-h-screen text-white bg-center bg-cover"
-      style={{ backgroundImage: `url(${BGImage})` }}
-    >
-      <div className="flex flex-col justify-evenly items-center w-full h-screen">
+    <div className="min-h-screen w-full bg-white relative flex flex-col justify-evenly items-center overflow-hidden">
+      {/* Dashed Bottom Fade Grid - on top of glow so it's visible */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, #FF5900 1px, transparent 1px),
+        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
+      `,
+          backgroundSize: "10px 10px",
+          backgroundPosition: "0 0, 0 0",
+          opacity: 0.3,
+          maskImage: `
+         repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          WebkitMaskImage: `
+  repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+        }}
+      />
+
+      {/* Amber-style glow background - base #FF5900 */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #FF5900 100%)
+          `,
+          backgroundSize: "100% 100%",
+        }}
+      />
+
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
         <Logo />
         {/* <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-3xl left-10 top-[50vw] animate-float-scale"></div> */}
 
-        <div className="flex flex-col border-2 border-zinc-300/30 items-center justify-center w-[60vw] gap-6 px-10  shadow-lg py-14  rounded-3xl backdrop-blur-md relative overflow-hidden">
-          {/* Background Animation Layer */}
-          {/* glass effect background for instraction  */}
-          <div className="absolute inset-0 z-0 bg-gradient-to-br to-transparent backdrop-blur-3xl from-white/10 via-white/5 bg-zinc-800/20 animate-gradient" />
-
-          {/* Content Layer */}
-          <div className="flex relative z-10 flex-col items-center animate-fadeIn">
-            {/* Stylish Heading with Gradient */}
-            <h1 className="text-[4vw]  font-golonto tracking-widest font-bold bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text drop-shadow-lg mb-[3vw]">
-              INSTRUCTIONS
-            </h1>
-
-            <div className="w-full h-px bg-zinc-300/30 mb-[5vw]"></div>
-
-            {/* Instruction Text with a Soft Glow Effect */}
-            {instructions.map((text, index) => (
-              <p
-                key={index}
-                className={`text-[3vw]  text-zinc text-center font-golonto tracking-wider transition-all duration-300 mb-[4vw] drop-shadow-md leading-[3.5vw] capitalize  ${
-                  activeIndex === index
-                    ? "scale-105 font-extrabold"
-                    : "bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text"
-                }`}
-              >
-                {text}
-              </p>
+        <div className="flex flex-col items-center max-w-2xl px-6 py-8 rounded-2xl bg-[#F4EDE3] border border-neutral-200 ring-1 ring-offset-8 ring-neutral-300">
+          <AnimatedText
+            text="Instructions"
+            className="mb-2"
+            textClassName="text-[3rem] md:text-[4rem] font-bold"
+            gradientColors="linear-gradient(90deg, #FF5900, #411517, #ff8c4d, #FF5900)"
+            gradientAnimationDuration={2.5}
+          />
+          <ul
+            ref={listRef}
+            className="space-y-10 text-left w-full list-none pl-0"
+          >
+            {[
+              { text: instructions[0], Icon: UserScanIcon },
+              { text: instructions[1], Icon: ClockPauseIcon },
+              { text: instructions[2], Icon: EyeIcon },
+            ].map(({ text, Icon }, i) => (
+              <li key={i} className="flex items-center gap-5">
+                <span className="flex shrink-0 items-center justify-center w-9 h-9 rounded-xl bg-neutral-100 border border-neutral-200 ring-1 ring-offset-2 ring-neutral-300 text-[#FF5900]">
+                  <Icon isInView={iconsInView} />
+                </span>
+                <span className="text-[#FF5900] text-3xl font-cornea font-semibold leading-snug flex-1 min-w-0">
+                  {text}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="flex justify-center items-center">
-          <AnimatedButton
-            text="Click Here to Start"
-            to="/capture"
-            className="text-[4vw] tracking-widest font-golonto uppercase font-extrabold"
-          />
+          <ShinyButton
+            onClick={() => navigate("/capture")}
+            className="text-[4vw]  uppercase font-extrabold"
+          >
+            Click Here to Start
+          </ShinyButton>
         </div>
       </div>
     </div>

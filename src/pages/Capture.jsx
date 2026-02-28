@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import Logo from "../component/Logo";
-import AnimatedButton from "../component/AnimatedButton";
-import { saveData } from "../utils/localStorageDB";
 import { useNavigate } from "react-router-dom";
-import BGImage from "../assets/logo/BG.webp";
+import Logo from "../component/Logo";
+import { ShinyButton } from "./shiny-button";
+import { saveData } from "../utils/localStorageDB";
 
 function Capture() {
   const videoRef = useRef(null);
@@ -140,17 +139,76 @@ function Capture() {
   }, [columns, videoStream, startCamera]);
 
   return (
-    <div
-      className="flex flex-col justify-evenly items-center w-full h-screen"
-      style={{ backgroundImage: `url(${BGImage})` }}
-    >
+    <div className="min-h-screen w-full bg-white relative flex flex-col justify-evenly items-center overflow-hidden">
+      {/* Dashed grid - same as Instruction */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, #FF5900 1px, transparent 1px),
+        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
+      `,
+          backgroundSize: "10px 10px",
+          backgroundPosition: "0 0, 0 0",
+          opacity: 0.3,
+          maskImage: `
+         repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          WebkitMaskImage: `
+  repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+        }}
+      />
+
+      {/* Orange glow - same as Instruction */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #FF5900 100%)
+          `,
+          backgroundSize: "100% 100%",
+        }}
+      />
+
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
       <Logo />
       <canvas ref={canvasRef} style={{ display: "none" }} />
-      <div className="flex relative justify-center items-center w-3/4">
+      <div className="flex relative justify-center items-center w-fit max-w-[90vw] rounded-3xl ring-1 ring-offset-8 ring-neutral-300">
         {!capturedImage ? (
           <video
             ref={videoRef}
-            className="w-full max-w-2xl bg-black rounded-2xl shadow-lg"
+            className="w-full max-w-2xl min-h-[45vh] object-cover bg-black rounded-3xl shadow-lg"
             autoPlay
             muted
             playsInline
@@ -163,12 +221,12 @@ function Capture() {
           <img
             src={capturedImage}
             alt="Captured"
-            className="w-full max-w-2xl rounded-2xl border-4 border-white shadow-lg"
+            className="w-full max-w-2xl min-h-[45vh] object-cover rounded-3xl border-4 border-white shadow-lg"
           />
         )}
         {countdown && (
-          <div className="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 rounded-2xl">
-            <p className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 animate-ping font-grotesk">
+          <div className="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 rounded-3xl">
+            <p className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff5900] to-[#df8859] animate-ping ">
               {countdown}
             </p>
           </div>
@@ -176,31 +234,22 @@ function Capture() {
       </div>
       <div className="flex gap-x-10 mt-8">
         {!capturedImage ? (
-          <AnimatedButton
-            text={loading ? "Capturing..." : "Capture"}
-            onClick={captureImage}
-            className={loading ? "opacity-50 cursor-not-allowed" : ""}
-          />
+          <ShinyButton
+            onClick={loading ? undefined : captureImage}
+            className={loading ? "opacity-50 pointer-events-none" : ""}
+          >
+            {loading ? "Capturing..." : "Click to Capture"}
+          </ShinyButton>
         ) : (
           <>
-            <AnimatedButton
-              text={isRestarting ? "Starting..." : "Retake"}
+            <ShinyButton
               onClick={async () => {
                 if (isRestarting) return;
-
                 setIsRestarting(true);
-
                 try {
-                  // Reset the captured image first
                   setCapturedImage(null);
-
-                  // Stop and clear the current video stream completely
                   await stopVideoAndClear();
-
-                  // Wait a bit more for complete cleanup
                   await new Promise((resolve) => setTimeout(resolve, 200));
-
-                  // Start the camera again and wait for it to be ready
                   await startCamera();
                 } catch (error) {
                   console.error("Error restarting camera:", error);
@@ -208,20 +257,15 @@ function Capture() {
                   setIsRestarting(false);
                 }
               }}
-              className={`${
-                isRestarting
-                  ? "bg-gray-500 opacity-75 cursor-not-allowed"
-                  : "bg-gray-600 hover:bg-gray-700"
-              }`}
-            />
+              className={isRestarting ? "opacity-75 pointer-events-none" : ""}
+            >
+              {isRestarting ? "Starting..." : "Retake"}
+            </ShinyButton>
 
-            <AnimatedButton
-              text="Submit"
-              onClick={submitImage}
-              className="bg-blue-600 hover:bg-blue-700"
-            />
+            <ShinyButton onClick={submitImage}>Submit</ShinyButton>
           </>
         )}
+      </div>
       </div>
     </div>
   );

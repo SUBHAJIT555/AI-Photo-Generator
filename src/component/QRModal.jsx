@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
-import blackLogo from "../assets/logo/SprinklrIcon.svg";
+import blackLogo from "../assets/logo/talabat-icon.svg";
 
 const QRModal = ({ isOpen, onClose, data }) => {
   useEffect(() => {
@@ -29,12 +29,12 @@ const QRModal = ({ isOpen, onClose, data }) => {
       onClick={onClose}
     >
       <div
-        className="relative max-w-4xl p-12 transition-all transform bg-[#e1e1e1]  rounded-lg shadow-xl"
+        className="relative max-w-4xl p-12 transition-all transform bg-[#F4EDE3]  rounded-2xl border-2 border-[#FF5900] ring-1 ring-offset-8 ring-[#FF5900]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute p-2 bg-[#000000] rounded-full border-2 border-[#fff] text-[#fff] top-4 right-4 hover:text-[#000000] hover:bg-[#fff] hover:border-[#000000]"
+          className="absolute p-2 bg-[#FF5900] rounded-xl border-2 border-[#fff] text-[#fff] top-4 right-4 hover:text-[#FF5900] hover:bg-[#fff] hover:border-[#FF5900]"
         >
           <IoMdClose />
         </button>
@@ -45,8 +45,8 @@ const QRModal = ({ isOpen, onClose, data }) => {
             <QRCodeSVG
               size={600}
               value={data}
-              fgColor="#000000"
-              bgColor="#e1e1e1"
+              fgColor="#FF5900"
+              bgColor="#F4EDE3"
               imageSettings={{
                 src: blackLogo,
                 x: undefined,

@@ -2,13 +2,9 @@ import Logo from "../component/Logo";
 import { IoHome, IoQrCode } from "react-icons/io5";
 import { ImPrinter } from "react-icons/im";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-// import { saveAs } from "file-saver";
-// import toast from "react-hot-toast";
 import QRModal from "../component/QRModal";
 import { useEffect, useState } from "react";
 import { PDFDocument } from "pdf-lib";
-// import download from "downloadjs";
-import BGImage from "../assets/logo/BG.webp";
 import LoadingSwapping from "../component/LoadingSwapping";
 import printingVideo from "../assets/printing.webm";
 
@@ -207,11 +203,69 @@ function Preview() {
       <LoadingSwapping visibility={swaploader} src={printingVideo} />
     </div>
   ) : (
-    <div
-      className="flex flex-col justify-evenly items-center w-full h-screen min-h-screen text-white bg-center bg-cover"
-      style={{ backgroundImage: `url(${BGImage})` }}
-    >
-      <div className="flex flex-col justify-evenly items-center px-4 mx-auto w-full h-screen">
+    <div className="min-h-screen w-full bg-white relative flex flex-col justify-evenly items-center overflow-hidden">
+      {/* Dashed Bottom Fade Grid - on top of glow */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          backgroundImage: `
+        linear-gradient(to right, #FF5900 1px, transparent 1px),
+        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
+      `,
+          backgroundSize: "10px 10px",
+          backgroundPosition: "0 0, 0 0",
+          opacity: 0.3,
+          maskImage: `
+         repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          WebkitMaskImage: `
+  repeating-linear-gradient(
+              to right,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            repeating-linear-gradient(
+              to bottom,
+              black 0px,
+              black 3px,
+              transparent 3px,
+              transparent 8px
+            ),
+            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
+      `,
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+        }}
+      />
+
+      {/* Amber-style glow background */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #FF5900 100%)
+          `,
+          backgroundSize: "100% 100%",
+        }}
+      />
+
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 min-h-screen">
         <Logo />
         <div className="group mx-auto w-full  rounded-xl overflow-hidden max-w-[400px]">
           {finalUrl && (
@@ -238,21 +292,21 @@ function Preview() {
           <button
             onClick={printImageAsPDF}
         
-            className="border-[2px] border-zinc-300 p-3 rounded-2xl hover:bg-zinc-800 cursor-none"
+            className="border-[1px] border-zinc-300 p-3 rounded-2xl bg-neutral-100 hover:bg-[#FF5900] cursor-none group transition-all duration-300 ring-1 ring-offset-4 ring-neutral-300"
           >
-            <ImPrinter className="text-3xl md:text-5xl" />
+            <ImPrinter className="text-3xl md:text-5xl text-[#FF5900] group-hover:text-[#ffffff]" />
           </button>
 
           <button
             onClick={() => setIsQRModalOpen(true)}
-            className="border-[2px] border-zinc-300 p-2 px-3 rounded-2xl hover:bg-zinc-800 cursor-none"
+            className="border-[1px] border-zinc-300 p-2 px-3 rounded-2xl bg-neutral-100 hover:bg-[#FF5900] cursor-none group transition-all duration-300 ring-1 ring-offset-4 ring-neutral-300"
           >
-            <IoQrCode className="text-3xl md:text-5xl" />
+            <IoQrCode className="text-3xl md:text-5xl text-[#FF5900] group-hover:text-[#ffffff]" />
           </button>
 
           <Link to="/">
-            <button className="border-[2px] border-zinc-300 p-2 rounded-2xl hover:bg-zinc-800 cursor-none">
-              <IoHome className="text-3xl md:text-6xl" />
+            <button className="border-[1px] border-zinc-300 p-2 rounded-2xl bg-neutral-100 hover:bg-[#FF5900] cursor-none group transition-all duration-300 ring-1 ring-offset-4 ring-neutral-300">
+              <IoHome className="text-3xl md:text-6xl text-[#FF5900] group-hover:text-[#ffffff]" />
             </button>
           </Link>
         </div>
