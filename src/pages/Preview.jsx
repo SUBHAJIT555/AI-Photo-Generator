@@ -9,7 +9,7 @@ import { PDFDocument } from "pdf-lib";
 import LoadingSwapping from "../component/LoadingSwapping";
 import printingVideo from "../assets/printing.webm";
 import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
-import { GlassIconButton } from "@/components/ui/GlassIconButton";
+import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 
 function Preview() {
   const navigate = useNavigate();
@@ -132,17 +132,32 @@ function Preview() {
         </CameraGlassFrame>
 
         <div className="flex flex-wrap gap-10 justify-center">
-          <GlassIconButton onClick={printImageAsPDF}>
-            <ImPrinter className="text-3xl md:text-5xl" />
-          </GlassIconButton>
+          <LiquidMetalButton
+            viewMode="icon"
+            large
+            label="Print"
+            onClick={printImageAsPDF}
+          >
+            <ImPrinter className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+          </LiquidMetalButton>
 
-          <GlassIconButton onClick={() => setIsQRModalOpen(true)}>
-            <IoQrCode className="text-3xl md:text-5xl" />
-          </GlassIconButton>
+          <LiquidMetalButton
+            viewMode="icon"
+            large
+            label="QR Code"
+            onClick={() => setIsQRModalOpen(true)}
+          >
+            <IoQrCode className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+          </LiquidMetalButton>
 
-          <GlassIconButton onClick={() => navigate("/")}>
-            <IoHome className="text-3xl md:text-6xl" />
-          </GlassIconButton>
+          <LiquidMetalButton
+            viewMode="icon"
+            large
+            label="Home"
+            onClick={() => navigate("/")}
+          >
+            <IoHome className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+          </LiquidMetalButton>
         </div>
 
         <QRModal

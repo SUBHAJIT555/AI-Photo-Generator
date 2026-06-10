@@ -3,27 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { useInView } from "framer-motion";
 import Logo from "../component/Logo";
 import Lightfall from "../component/Lightfall";
-import { GlassButton, LiquidGlassPanel } from "@/components/ui/GlassButton";
+import LightRays from "../component/LightRays";
+import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import {
   UserScanIcon,
   ClockPauseIcon,
   EyeIcon,
 } from "@/components/ui/InstructionIcons";
-import { GlassIconWrap } from "@/components/ui/GlassIconWrap";
-// import InstructionImage from "../assets/logo/instruction_bg.jpg";
+
+const instructionItems = [
+  { text: "Only one person should be in the photo.", Icon: UserScanIcon },
+  {
+    text: "Stay still for a few seconds after tapping the screen for a clear photo.",
+    Icon: ClockPauseIcon,
+  },
+  { text: "Keep your eye open for the best photo.", Icon: EyeIcon },
+];
 
 function Instruction() {
   const navigate = useNavigate();
   const listRef = useRef(null);
   const iconsInView = useInView(listRef, { once: true, margin: "-80px" });
-  const instructions = [
-    "Only one person should be in the photo.",
-    "Stay still for a few seconds after tapping the screen for a clear photo.",
-    "Keep your eye open for the best photo.",
-  ];
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col justify-evenly items-center overflow-hidden">
+    <div className="min-h-screen w-full relative flex flex-col items-center overflow-x-hidden">
       <div className="absolute inset-0 z-[-1]">
         <Lightfall
           colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
@@ -44,44 +47,56 @@ function Instruction() {
         />
       </div>
 
-      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
+      <div className="flex flex-col items-center w-full flex-1 relative z-[2] text-white px-4 py-6 gap-[6vw]">
         <Logo />
-        {/* <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-3xl left-10 top-[50vw] animate-float-scale"></div> */}
 
-        <LiquidGlassPanel className="flex flex-col items-center max-w-2xl w-full rounded-3xl">
-          <h1 className="w-full py-6 text-center text-[3rem] md:text-[4rem] font-bold text-[#4F758B] font-cornea leading-tight">
-            Instruction
-          </h1>
-          <ul
-            ref={listRef}
-            className="space-y-10 text-left w-full list-none px-6 pb-8"
-          >
-            {[
-              { text: instructions[0], Icon: UserScanIcon },
-              { text: instructions[1], Icon: ClockPauseIcon },
-              { text: instructions[2], Icon: EyeIcon },
-            ].map(({ text, Icon }, i) => (
-              <li key={i} className="flex items-center gap-5">
-                <GlassIconWrap>
-                  <Icon isInView={iconsInView} />
-                </GlassIconWrap>
-                <span className="text-[#4F758B] text-3xl font-cornea font-semibold leading-snug flex-1 min-w-0">
-                  {text}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </LiquidGlassPanel>
+        <div className="relative w-full max-w-2xl shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-[#050a0e] shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+          <LightRays
+            className="mix-blend-screen opacity-100"
+            raysOrigin="top-center"
+            raysColor="#ffffff"
+            raysSpeed={1}
+            lightSpread={0.5}
+            rayLength={3}
+            followMouse
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+            fadeDistance={1}
+          />
 
-        <div className="flex justify-center items-center">
-          <GlassButton
-            onClick={() => navigate("/capture")}
-            size="lg"
-            contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
-          >
-            Click Here to Start
-          </GlassButton>
+          <div className="relative z-[2] px-6 py-8">
+            <h1 className="mb-8 text-center text-[3rem] font-bold font-cornea leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] md:text-[4rem]">
+              Instruction
+            </h1>
+
+            <ul
+              ref={listRef}
+              className="flex list-none flex-col gap-4"
+            >
+              {instructionItems.map(({ text, Icon }) => (
+                <li
+                  key={text}
+                  className="flex items-start gap-4 rounded-2xl border border-white/10 bg-black/30 px-4 py-4 backdrop-blur-[2px]"
+                >
+                  <span className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white [&_svg]:mt-0 [&_svg]:h-7 [&_svg]:w-7">
+                    <Icon isInView={iconsInView} />
+                  </span>
+                  <span className="flex-1 pt-1.5 text-2xl font-cornea font-semibold leading-snug md:text-3xl">
+                    {text}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+
+        <LiquidMetalButton
+          label="Click Here to Start"
+          large
+          onClick={() => navigate("/capture")}
+          labelClassName="uppercase tracking-widest font-extrabold"
+        />
       </div>
     </div>
   );

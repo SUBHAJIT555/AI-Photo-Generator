@@ -484,6 +484,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@paper-design/shaders@^0.0.76":
+  version "0.0.76"
+  resolved "https://registry.yarnpkg.com/@paper-design/shaders/-/shaders-0.0.76.tgz#85788f66ac94067af284d3ba4ccb33f8df6b531c"
+  integrity sha512-AcNDY4J66YQHUfQYFInkCP7M9VOje0od7wLpOR7LtCmc532opJy6ll+h1W9zBovz8tt9U7OADUmJ/qKEXyOX/A==
+
 "@pdf-lib/standard-fonts@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@pdf-lib/standard-fonts/-/standard-fonts-1.0.0.tgz"

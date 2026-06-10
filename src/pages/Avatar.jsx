@@ -10,7 +10,8 @@ import loadingVideo from "../assets/loading.webm";
 import LoadingSwapping from "../component/LoadingSwapping";
 import { avatarMap } from "../constant/avatar";
 import { ShamayimGenderToggle } from "@/components/ui/shamayim-toggle-switch";
-import { GlassButton, LiquidGlassPanel } from "@/components/ui/GlassButton";
+import { LiquidGlassPanel } from "@/components/ui/GlassButton";
+import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { AvatarGlassCard } from "@/components/ui/AvatarGlassCard";
 
 // Dynamically import all avatars
@@ -286,8 +287,9 @@ function Avatar() {
         </div>
       </div> */}
 
-        {/* Swap / Generate Button */}
-        <GlassButton
+        <LiquidMetalButton
+          label={loading ? "Loading..." : "Click to Generate"}
+          large
           onClick={() => {
             if (loading) return;
             if (!selectedAvatarId || selectedAvatarId === null) {
@@ -297,12 +299,8 @@ function Avatar() {
             handleSwap();
           }}
           disabled={loading}
-          size="lg"
-          contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
-          className={cn(loading && "opacity-60 cursor-not-allowed pointer-events-none")}
-        >
-          {loading ? "Loading..." : "Click to generate"}
-        </GlassButton>
+          labelClassName="uppercase tracking-widest font-extrabold"
+        />
 
         {/* Centered popup when clicking generate without selecting an avatar */}
         {showSelectAvatarPrompt && (
@@ -325,14 +323,13 @@ function Avatar() {
                   Please select one avatar to generate.
                 </span>
               </p>
-              <GlassButton
+              <LiquidMetalButton
+                label="OK"
+                large
                 onClick={() => setShowSelectAvatarPrompt(false)}
-                size="lg"
-                contentClassName="w-full py-3 px-4 uppercase font-semibold"
-                className="w-full"
-              >
-                OK
-              </GlassButton>
+                labelClassName="uppercase tracking-widest font-extrabold"
+                className="w-full flex justify-center"
+              />
               </LiquidGlassPanel>
             </div>
           </div>

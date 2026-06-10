@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../component/Logo";
 import Lightfall from "../component/Lightfall";
-import { GlassButton } from "@/components/ui/GlassButton";
+import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
 import { saveData } from "../utils/localStorageDB";
 
@@ -196,50 +196,45 @@ function Capture() {
         </CameraGlassFrame>
 
         <div className="flex gap-x-10 mt-8">
-        {!capturedImage ? (
-          <GlassButton
-            onClick={captureImage}
-            disabled={loading}
-            size="lg"
-            contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
-            className={loading ? "opacity-50 pointer-events-none" : ""}
-          >
-            {loading ? "Capturing..." : "Click to Capture"}
-          </GlassButton>
-        ) : (
-          <>
-            <GlassButton
-              onClick={async () => {
-                if (isRestarting) return;
-                setIsRestarting(true);
-                try {
-                  setCapturedImage(null);
-                  await stopVideoAndClear();
-                  await new Promise((resolve) => setTimeout(resolve, 200));
-                  await startCamera();
-                } catch (error) {
-                  console.error("Error restarting camera:", error);
-                } finally {
-                  setIsRestarting(false);
-                }
-              }}
-              disabled={isRestarting}
-              size="lg"
-              contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
-              className={isRestarting ? "opacity-75 pointer-events-none" : ""}
-            >
-              {isRestarting ? "Starting..." : "Retake"}
-            </GlassButton>
+          {!capturedImage ? (
+            <LiquidMetalButton
+              label={loading ? "Capturing..." : "Click to Capture"}
+              large
+              onClick={captureImage}
+              disabled={loading}
+              labelClassName="uppercase tracking-widest font-extrabold"
+            />
+          ) : (
+            <>
+              <LiquidMetalButton
+                label={isRestarting ? "Starting..." : "Retake"}
+                large
+                onClick={async () => {
+                  if (isRestarting) return;
+                  setIsRestarting(true);
+                  try {
+                    setCapturedImage(null);
+                    await stopVideoAndClear();
+                    await new Promise((resolve) => setTimeout(resolve, 200));
+                    await startCamera();
+                  } catch (error) {
+                    console.error("Error restarting camera:", error);
+                  } finally {
+                    setIsRestarting(false);
+                  }
+                }}
+                disabled={isRestarting}
+                labelClassName="uppercase tracking-widest font-extrabold"
+              />
 
-            <GlassButton
-              onClick={submitImage}
-              size="lg"
-              contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
-            >
-              Submit
-            </GlassButton>
-          </>
-        )}
+              <LiquidMetalButton
+                label="Submit"
+                large
+                onClick={submitImage}
+                labelClassName="uppercase tracking-widest font-extrabold"
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -2,9 +2,16 @@ import { useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
-import blackLogo from "../assets/logo/talabat-icon.svg";
+import blackLogo from "../assets/logo/fabicon.png";
 import { LiquidGlassPanel } from "@/components/ui/GlassButton";
 import { GlassIconButton } from "@/components/ui/GlassIconButton";
+
+const LOGO_NATURAL_WIDTH = 79;
+const LOGO_NATURAL_HEIGHT = 145;
+const LOGO_DISPLAY_HEIGHT = 96;
+const LOGO_DISPLAY_WIDTH = Math.round(
+  (LOGO_NATURAL_WIDTH / LOGO_NATURAL_HEIGHT) * LOGO_DISPLAY_HEIGHT
+);
 
 const QRModal = ({ isOpen, onClose, data }) => {
   useEffect(() => {
@@ -49,10 +56,8 @@ const QRModal = ({ isOpen, onClose, data }) => {
                 bgColor="#F4EDE3"
                 imageSettings={{
                   src: blackLogo,
-                  x: undefined,
-                  y: undefined,
-                  height: 90,
-                  width: 90,
+                  height: LOGO_DISPLAY_HEIGHT,
+                  width: LOGO_DISPLAY_WIDTH,
                   opacity: 1,
                   excavate: true,
                 }}

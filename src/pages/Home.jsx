@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../component/Logo";
 import Lightfall from "../component/Lightfall";
-import { GlassButton } from "@/components/ui/GlassButton";
+import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 
 function Home() {
   const navigate = useNavigate();
@@ -34,13 +34,12 @@ function Home() {
 
       {/* Start Button */}
       <div className="flex justify-center items-center z-[2] mt-[90vw]">
-        <GlassButton
+        <LiquidMetalButton
+          label="Start"
+          large
           onClick={() => navigate("/instruction")}
-          size="lg"
-          contentClassName="px-10 py-5 text-[5vw] tracking-widest uppercase font-extrabold"
-        >
-          Start
-        </GlassButton>
+          labelClassName="uppercase tracking-widest font-extrabold"
+        />
       </div>
     </div>
   );
