@@ -1,0 +1,64 @@
+.animated-gradient-text {
+  position: relative;
+  margin: 0 auto;
+  display: inline-flex;
+  max-width: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  font-weight: inherit;
+  transition: box-shadow 0.5s ease-out;
+  overflow: hidden;
+}
+
+.animated-gradient-text.with-border {
+  padding: 0.35rem 0.75rem;
+}
+
+.animated-gradient-text.block {
+  display: block;
+  max-width: none;
+  width: 100%;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gradient-overlay::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  transform: translate(-50%, -50%);
+  border-radius: inherit;
+  background-color: #ffffff;
+  z-index: -1;
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.animated-gradient-text.block .text-content {
+  display: block;
+  width: 100%;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-content {
+    color: #4F758B;
+  }
+}

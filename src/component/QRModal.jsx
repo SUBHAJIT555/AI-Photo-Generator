@@ -3,6 +3,8 @@ import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
 import blackLogo from "../assets/logo/talabat-icon.svg";
+import { LiquidGlassPanel } from "@/components/ui/GlassButton";
+import { GlassIconButton } from "@/components/ui/GlassIconButton";
 
 const QRModal = ({ isOpen, onClose, data }) => {
   useEffect(() => {
@@ -25,40 +27,38 @@ const QRModal = ({ isOpen, onClose, data }) => {
 
   return (
     <div
-      className="flex fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-70"
+      className="flex fixed inset-0 z-50 justify-center items-center p-4 bg-black/70"
       onClick={onClose}
     >
-      <div
-        className="relative max-w-4xl p-12 transition-all transform bg-[#F4EDE3]  rounded-2xl border-2 border-[#FF5900] ring-1 ring-offset-8 ring-[#FF5900]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute p-2 bg-[#FF5900] rounded-xl border-2 border-[#fff] text-[#fff] top-4 right-4 hover:text-[#FF5900] hover:bg-[#fff] hover:border-[#FF5900]"
-        >
-          <IoMdClose />
-        </button>
-
-        <div className="mt-2">
-          <div className="flex flex-col items-center space-y-4">
-            {/*  */}
-            <QRCodeSVG
-              size={600}
-              value={data}
-              fgColor="#FF5900"
-              bgColor="#F4EDE3"
-              imageSettings={{
-                src: blackLogo,
-                x: undefined,
-                y: undefined,
-                height: 90,
-                width: 90,
-                opacity: 1,
-                excavate: true,
-              }}
-            />
+      <div onClick={(e) => e.stopPropagation()}>
+        <LiquidGlassPanel className="relative w-full max-w-4xl items-stretch rounded-3xl px-8 pb-8 pt-5">
+          <div className="flex w-full items-start justify-between gap-4 mb-6">
+            <h2 className="flex-1 min-w-0 text-left text-[#4F758B] text-xl md:text-2xl font-cornea font-semibold leading-snug">
+              Scan this QR for your soft copy
+            </h2>
+            <GlassIconButton onClick={onClose} className="shrink-0">
+              <IoMdClose className="text-2xl" />
+            </GlassIconButton>
           </div>
-        </div>
+
+          <div className="flex w-full justify-center">
+            <QRCodeSVG
+                size={600}
+                value={data}
+                fgColor="#4F758B"
+                bgColor="#F4EDE3"
+                imageSettings={{
+                  src: blackLogo,
+                  x: undefined,
+                  y: undefined,
+                  height: 90,
+                  width: 90,
+                  opacity: 1,
+                  excavate: true,
+                }}
+              />
+          </div>
+        </LiquidGlassPanel>
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../component/Logo";
-import { ShinyButton } from "./shiny-button";
+import Lightfall from "../component/Lightfall";
+import { GlassButton } from "@/components/ui/GlassButton";
+import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
 import { saveData } from "../utils/localStorageDB";
 
 function Capture() {
@@ -139,110 +141,74 @@ function Capture() {
   }, [columns, videoStream, startCamera]);
 
   return (
-    <div className="min-h-screen w-full bg-white relative flex flex-col justify-evenly items-center overflow-hidden">
-      {/* Dashed grid - same as Instruction */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage: `
-        linear-gradient(to right, #FF5900 1px, transparent 1px),
-        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
-      `,
-          backgroundSize: "10px 10px",
-          backgroundPosition: "0 0, 0 0",
-          opacity: 0.3,
-          maskImage: `
-         repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-      `,
-          WebkitMaskImage: `
-  repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-      `,
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in",
-        }}
-      />
-
-      {/* Orange glow - same as Instruction */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #FF5900 100%)
-          `,
-          backgroundSize: "100% 100%",
-        }}
-      />
+    <div className="min-h-screen w-full relative flex flex-col justify-evenly items-center overflow-hidden">
+      <div className="absolute inset-0 z-[-1]">
+        <Lightfall
+          colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
+          backgroundColor="#4F758B"
+          speed={0.5}
+          streakCount={2}
+          streakWidth={1}
+          streakLength={1}
+          glow={1}
+          density={0.6}
+          twinkle={1}
+          zoom={3}
+          backgroundGlow={0.5}
+          opacity={1}
+          mouseInteraction
+          mouseStrength={0.5}
+          mouseRadius={1}
+        />
+      </div>
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
-      <Logo />
-      <canvas ref={canvasRef} style={{ display: "none" }} />
-      <div className="flex relative justify-center items-center w-fit max-w-[90vw] rounded-3xl ring-1 ring-offset-8 ring-neutral-300">
+        <Logo />
+        <canvas ref={canvasRef} style={{ display: "none" }} />
+
+        <CameraGlassFrame>
+          {!capturedImage ? (
+            <video
+              ref={videoRef}
+              className="w-full max-w-2xl min-h-[45vh] object-cover bg-black"
+              autoPlay
+              muted
+              playsInline
+              style={{
+                opacity: isRestarting ? 0.5 : 1,
+                transition: "opacity 0.3s ease",
+              }}
+            />
+          ) : (
+            <img
+              src={capturedImage}
+              alt="Captured"
+              className="w-full max-w-2xl min-h-[45vh] object-cover"
+            />
+          )}
+          {countdown && (
+            <div className="flex absolute inset-0 z-10 justify-center items-center bg-black/50">
+              <p className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#4F758B] to-[#9CB8C8] animate-ping">
+                {countdown}
+              </p>
+            </div>
+          )}
+        </CameraGlassFrame>
+
+        <div className="flex gap-x-10 mt-8">
         {!capturedImage ? (
-          <video
-            ref={videoRef}
-            className="w-full max-w-2xl min-h-[45vh] object-cover bg-black rounded-3xl shadow-lg"
-            autoPlay
-            muted
-            playsInline
-            style={{
-              opacity: isRestarting ? 0.5 : 1,
-              transition: "opacity 0.3s ease",
-            }}
-          />
-        ) : (
-          <img
-            src={capturedImage}
-            alt="Captured"
-            className="w-full max-w-2xl min-h-[45vh] object-cover rounded-3xl border-4 border-white shadow-lg"
-          />
-        )}
-        {countdown && (
-          <div className="flex absolute inset-0 justify-center items-center bg-black bg-opacity-50 rounded-3xl">
-            <p className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#ff5900] to-[#df8859] animate-ping ">
-              {countdown}
-            </p>
-          </div>
-        )}
-      </div>
-      <div className="flex gap-x-10 mt-8">
-        {!capturedImage ? (
-          <ShinyButton
-            onClick={loading ? undefined : captureImage}
+          <GlassButton
+            onClick={captureImage}
+            disabled={loading}
+            size="lg"
+            contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
             className={loading ? "opacity-50 pointer-events-none" : ""}
           >
             {loading ? "Capturing..." : "Click to Capture"}
-          </ShinyButton>
+          </GlassButton>
         ) : (
           <>
-            <ShinyButton
+            <GlassButton
               onClick={async () => {
                 if (isRestarting) return;
                 setIsRestarting(true);
@@ -257,15 +223,24 @@ function Capture() {
                   setIsRestarting(false);
                 }
               }}
+              disabled={isRestarting}
+              size="lg"
+              contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
               className={isRestarting ? "opacity-75 pointer-events-none" : ""}
             >
               {isRestarting ? "Starting..." : "Retake"}
-            </ShinyButton>
+            </GlassButton>
 
-            <ShinyButton onClick={submitImage}>Submit</ShinyButton>
+            <GlassButton
+              onClick={submitImage}
+              size="lg"
+              contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
+            >
+              Submit
+            </GlassButton>
           </>
         )}
-      </div>
+        </div>
       </div>
     </div>
   );

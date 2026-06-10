@@ -1,69 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../component/Logo";
-
-import { ShinyButton } from "./shiny-button";
-import BackgroundCamImage from "../assets/logo/vector-dslr-camera.png";
+import Lightfall from "../component/Lightfall";
+import { GlassButton } from "@/components/ui/GlassButton";
 
 function Home() {
   const navigate = useNavigate();
   return (
     <div className="flex overflow-hidden relative flex-col justify-evenly items-center w-full h-screen min-h-screen text-white">
-      {/* Dashed grid - behind image so it doesn't overlay the camera */}
-      <div
-        className="absolute inset-0 z-[-1] pointer-events-none"
-        style={{
-          backgroundImage: `
-        linear-gradient(to right, #FF5900 1px, transparent 1px),
-        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
-      `,
-          backgroundSize: "2px 2px",
-          backgroundPosition: "0 0, 0 0",
-          maskImage: `
-        repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-      `,
-          WebkitMaskImage: `
- repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)
-      `,
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in",
-        }}
-      />
-
-      {/* Background image - on top of grid */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src={BackgroundCamImage}
-          alt=""
-          className="w-full h-full min-h-full object-cover object-top translate-y-[8%]"
-          aria-hidden
+      <div className="absolute inset-0 z-[-1]">
+        <Lightfall
+          colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
+          backgroundColor="#4F758B"
+          speed={0.5}
+          streakCount={2}
+          streakWidth={1}
+          streakLength={1}
+          glow={1}
+          density={0.6}
+          twinkle={1}
+          zoom={3}
+          backgroundGlow={0.5}
+          opacity={1}
+          mouseInteraction
+          mouseStrength={0.5}
+          mouseRadius={1}
         />
       </div>
 
@@ -74,9 +34,13 @@ function Home() {
 
       {/* Start Button */}
       <div className="flex justify-center items-center z-[2] mt-[90vw]">
-        <ShinyButton onClick={() => navigate("/instruction")}>
-          <span className="tracking-widest uppercase font-extrabold">Start</span>
-        </ShinyButton>
+        <GlassButton
+          onClick={() => navigate("/instruction")}
+          size="lg"
+          contentClassName="px-10 py-5 text-[5vw] tracking-widest uppercase font-extrabold"
+        >
+          Start
+        </GlassButton>
       </div>
     </div>
   );

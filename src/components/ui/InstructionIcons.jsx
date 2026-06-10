@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 
-const iconClass = "w-6 h-6 shrink-0 mt-0.5 text-[#FF5900]";
+const iconClass = "w-6 h-6 shrink-0 mt-0.5";
 const REPEAT_DELAY = 3;
 
 function pathProps(isInView, duration, delay) {

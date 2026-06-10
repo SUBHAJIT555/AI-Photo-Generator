@@ -83,12 +83,12 @@ body {
   align-items: center;
   align-self: center;
   column-gap: 0.5rem;
-  color: #374151;
+  color: #ffffff;
 }
 .shamayim-gender-wrapper .shamayim-gender-icon,
 .shamayim-gender-wrapper .shamayim-gender-icon svg {
-  color: #374151;
-  stroke: #374151;
+  color: #ffffff;
+  stroke: #ffffff;
 }
 .shamayim-gender-checkbox {
   -webkit-appearance: none;
@@ -107,8 +107,8 @@ body {
   width: 4.05em;
   height: 1.5em;
   background-image:
-    radial-gradient(circle at 2px 2px, #ff8c4d 1.5px, transparent 0),
-    radial-gradient(circle at 6px 6px, #ff5900 1.5px, transparent 0);
+    radial-gradient(circle at 2px 2px, #9cb8c8 1.5px, transparent 0),
+    radial-gradient(circle at 6px 6px, #4f758b 1.5px, transparent 0);
   background-size: 8px 8px;
   box-shadow:
     inset 0 0.125em 0.25em rgba(0, 9, 38, 0.25),
@@ -126,7 +126,7 @@ body {
   width: 2.55em;
   height: calc(100% - 0.125em);
   transition: left 0.4s ease;
-  background-image: linear-gradient(to right, #ff8c4d, #c2410c);
+  background-image: linear-gradient(to right, #9cb8c8, #3a5868);
   box-shadow: 0 0.125em 0.25em rgb(0 0 0 / 0.4);
 }
 .shamayim-gender-button::before {
@@ -136,7 +136,7 @@ body {
   border-radius: inherit;
   width: calc(100% - 0.375em);
   height: inherit;
-  background-image: linear-gradient(to right, #ff5900, #ff8c4d, #ffb088);
+  background-image: linear-gradient(to right, #4f758b, #9cb8c8, #b8d4e3);
 }
 .shamayim-gender-button::after {
   content: "";
@@ -145,8 +145,8 @@ body {
   height: 38%;
   background-image: repeating-linear-gradient(
     to right,
-    #fff5f0 0 0.0625em,
-    #ff8c4d 0.0625em 0.125em,
+    #f0f6fa 0 0.0625em,
+    #9cb8c8 0.0625em 0.125em,
     transparent 0.125em 0.1875em
   );
 }

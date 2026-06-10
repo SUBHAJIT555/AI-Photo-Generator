@@ -1,4 +1,5 @@
 import Logo from "../component/Logo";
+import Lightfall from "../component/Lightfall";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { cn } from "../utils/cn";
@@ -9,7 +10,8 @@ import loadingVideo from "../assets/loading.webm";
 import LoadingSwapping from "../component/LoadingSwapping";
 import { avatarMap } from "../constant/avatar";
 import { ShamayimGenderToggle } from "@/components/ui/shamayim-toggle-switch";
-import { ShinyButton } from "./shiny-button";
+import { GlassButton, LiquidGlassPanel } from "@/components/ui/GlassButton";
+import { AvatarGlassCard } from "@/components/ui/AvatarGlassCard";
 
 // Dynamically import all avatars
 const maleAvatars = import.meta.glob("../assets/Avatars/male-*.png", {
@@ -136,107 +138,53 @@ function Avatar() {
       <LoadingSwapping visibility={swaploader} src={loadingVideo} />
     </div>
   ) : (
-    <div className="min-h-screen w-full bg-white relative flex flex-col justify-center items-center overflow-hidden">
-      {/* Dashed Bottom Fade Grid - on top of glow */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage: `
-        linear-gradient(to right, #FF5900 1px, transparent 1px),
-        linear-gradient(to bottom, #FF5900 1px, transparent 1px)
-      `,
-          backgroundSize: "10px 10px",
-          backgroundPosition: "0 0, 0 0",
-          opacity: 0.3,
-          maskImage: `
-         repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-      `,
-          WebkitMaskImage: `
-  repeating-linear-gradient(
-              to right,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            repeating-linear-gradient(
-              to bottom,
-              black 0px,
-              black 3px,
-              transparent 3px,
-              transparent 8px
-            ),
-            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-      `,
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in",
-        }}
-      />
+    <div className="min-h-screen w-full relative flex flex-col justify-center items-center overflow-hidden">
+      <div className="absolute inset-0 z-[-1]">
+        <Lightfall
+          colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
+          backgroundColor="#4F758B"
+          speed={0.5}
+          streakCount={2}
+          streakWidth={1}
+          streakLength={1}
+          glow={1}
+          density={0.6}
+          twinkle={1}
+          zoom={3}
+          backgroundGlow={0.5}
+          opacity={1}
+          mouseInteraction
+          mouseStrength={0.5}
+          mouseRadius={1}
+        />
+      </div>
 
-      {/* Amber-style glow background */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #FF5900 100%)
-          `,
-          backgroundSize: "100% 100%",
-        }}
-      />
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] px-4 py-4">
+        <Logo />
 
-      <div className="flex flex-col gap-10 justify-center items-center py-10 w-full flex-1 relative z-[2] px-4">
-        <div className="mb-[4vw]">
-          <Logo />
-        </div>
-
-        {/* Gender toggle – Shamayim style, orange dots, Male/Female icons */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-[15vw] w-full">
-          <span className="text-[3.5vw] font-golonto tracking-wide text-neutral-700">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-[90vw] px-[10vw] mb-[15vw]">
+          <span className="text-[3.5vw] font-golonto tracking-wide text-white justify-self-end pr-3">
             Male
           </span>
           <ShamayimGenderToggle
             checked={gender === "female"}
             onChange={(isFemale) => setGender(isFemale ? "female" : "male")}
           />
-          <span className="text-[3.5vw] font-golonto tracking-wide text-neutral-700">
+          <span className="text-[3.5vw] font-golonto tracking-wide text-white justify-self-start pl-3">
             Female
           </span>
         </div>
 
-        {/* Avatar Grid */}
-        <div
-          className={cn(
-            "grid grid-cols-3 gap-10 justify-center items-center w-full px-[10vw] mb-[20vw]",
-          )}
-        >
+        <div className="grid grid-cols-3 gap-10 justify-items-center items-start w-full px-[10vw] mb-[20vw]">
           {(gender === "male" ? maleImages : femaleImages).map(
             (avatar, index) => (
-              <div
+              <AvatarGlassCard
                 key={index}
-                className={cn(
-                  "group relative w-full max-w-[400px] mx-auto rounded-2xl cursor-none",
-                  avatar.id === selectedAvatarId
-                    ? "ring-2 ring-offset-8 ring-orange-500 ring-offset-orange-500"
-                    : "ring-1 ring-offset-8 ring-neutral-300",
-                )}
+                selected={avatar.id === selectedAvatarId}
                 onClick={() => handleAvatarSelect(avatar.id)}
               >
-                <div className="relative rounded-2xl overflow-hidden">
-                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-2xl border border-neutral-300">
+                <div className="relative rounded-xl overflow-hidden border-[4px] border-white">
+                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-lg">
                     <img
                       src={avatar.url}
                       alt={`Avatar ${index + 1}`}
@@ -246,27 +194,25 @@ function Avatar() {
                   </div>
                   {avatar.id === selectedAvatarId && (
                     <>
-                      {/* Dotted / dither pattern overlay (3px grid like GlowButton backdrop) */}
                       <div
-                        className="absolute inset-0 rounded-2xl pointer-events-none"
+                        className="absolute inset-0 rounded-xl pointer-events-none"
                         style={{
                           backgroundImage:
-                            "radial-gradient(circle at 1.5px 1.5px, rgba(255, 89, 0, 0.4) 1px, transparent 0)",
+                            "radial-gradient(circle at 1.5px 1.5px, rgba(79, 117, 139, 0.45) 1px, transparent 0)",
                           backgroundSize: "3px 3px",
                           backgroundPosition: "0 0",
                         }}
                       />
                       <div className="overflow-hidden absolute inset-0 rounded-xl pointer-events-none">
-                        <div className="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shine_1.5s_infinite]"></div>
+                        <div className="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shine_1.5s_infinite]" />
                       </div>
                     </>
                   )}
                 </div>
-              </div>
+              </AvatarGlassCard>
             ),
           )}
         </div>
-        {/* Avatar Grid */}
         {/* <div className="w-full px-[10vw] mb-[20vw]">
 
         <div
@@ -341,7 +287,7 @@ function Avatar() {
       </div> */}
 
         {/* Swap / Generate Button */}
-        <ShinyButton
+        <GlassButton
           onClick={() => {
             if (loading) return;
             if (!selectedAvatarId || selectedAvatarId === null) {
@@ -350,10 +296,13 @@ function Avatar() {
             }
             handleSwap();
           }}
+          disabled={loading}
+          size="lg"
+          contentClassName="px-10 py-5 text-[4vw] uppercase font-extrabold tracking-wide"
           className={cn(loading && "opacity-60 cursor-not-allowed pointer-events-none")}
         >
           {loading ? "Loading..." : "Click to generate"}
-        </ShinyButton>
+        </GlassButton>
 
         {/* Centered popup when clicking generate without selecting an avatar */}
         {showSelectAvatarPrompt && (
@@ -365,26 +314,26 @@ function Avatar() {
             aria-modal="true"
             aria-labelledby="select-avatar-title"
           >
-            <div
-              className="bg-white rounded-2xl shadow-xl max-w-xl w-full p-6 text-center border-2 border-[#FF5900] ring-2 ring-offset-8 ring-[#FF5900]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <p id="select-avatar-title" className="text-neutral-800 text-2xl font-semibold mb-10 text-center">
+            <div onClick={(e) => e.stopPropagation()}>
+              <LiquidGlassPanel className="max-w-xl w-full rounded-3xl p-6 text-center">
+              <p id="select-avatar-title" className="text-[#4F758B] text-2xl font-semibold mb-10 text-center font-cornea">
                 <span className="inline-flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="shrink-0 inline-block align-middle text-[#FF5900]" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="shrink-0 inline-block align-middle text-[#4F758B]" aria-hidden="true">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
                   </svg>
                   Please select one avatar to generate.
                 </span>
               </p>
-              <button
-                type="button"
+              <GlassButton
                 onClick={() => setShowSelectAvatarPrompt(false)}
-                className="w-full py-3 px-4 rounded-xl bg-[#FF5900] text-white font-semibold hover:opacity-90 transition-opacity"
+                size="lg"
+                contentClassName="w-full py-3 px-4 uppercase font-semibold"
+                className="w-full"
               >
                 OK
-              </button>
+              </GlassButton>
+              </LiquidGlassPanel>
             </div>
           </div>
         )}
