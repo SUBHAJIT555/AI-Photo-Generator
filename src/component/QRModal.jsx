@@ -10,10 +10,11 @@ const LOGO_NATURAL_WIDTH = 79;
 const LOGO_NATURAL_HEIGHT = 145;
 const LOGO_DISPLAY_HEIGHT = 96;
 const LOGO_DISPLAY_WIDTH = Math.round(
-  (LOGO_NATURAL_WIDTH / LOGO_NATURAL_HEIGHT) * LOGO_DISPLAY_HEIGHT
+  (LOGO_NATURAL_WIDTH / LOGO_NATURAL_HEIGHT) * LOGO_DISPLAY_HEIGHT,
 );
 
 const QRModal = ({ isOpen, onClose, data }) => {
+  // console.log(data);
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") onClose();
@@ -50,18 +51,18 @@ const QRModal = ({ isOpen, onClose, data }) => {
 
           <div className="flex w-full justify-center">
             <QRCodeSVG
-                size={600}
-                value={data}
-                fgColor="#4F758B"
-                bgColor="#F4EDE3"
-                imageSettings={{
-                  src: blackLogo,
-                  height: LOGO_DISPLAY_HEIGHT,
-                  width: LOGO_DISPLAY_WIDTH,
-                  opacity: 1,
-                  excavate: true,
-                }}
-              />
+              size={600}
+              value={data}
+              fgColor="#4F758B"
+              bgColor="#F4EDE3"
+              imageSettings={{
+                src: blackLogo,
+                height: LOGO_DISPLAY_HEIGHT,
+                width: LOGO_DISPLAY_WIDTH,
+                opacity: 1,
+                excavate: true,
+              }}
+            />
           </div>
         </LiquidGlassPanel>
       </div>

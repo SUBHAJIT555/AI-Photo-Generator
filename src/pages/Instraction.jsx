@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInView } from "framer-motion";
 import Logo from "../component/Logo";
-import Lightfall from "../component/Lightfall";
+import PageBackground from "../component/PageBackground";
 import LightRays from "../component/LightRays";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import {
@@ -27,25 +27,7 @@ function Instruction() {
 
   return (
     <div className="min-h-screen w-full relative flex flex-col items-center overflow-x-hidden">
-      <div className="absolute inset-0 z-[-1]">
-        <Lightfall
-          colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
-          backgroundColor="#4F758B"
-          speed={0.5}
-          streakCount={2}
-          streakWidth={1}
-          streakLength={1}
-          glow={1}
-          density={0.6}
-          twinkle={1}
-          zoom={3}
-          backgroundGlow={0.5}
-          opacity={1}
-          mouseInteraction
-          mouseStrength={0.5}
-          mouseRadius={1}
-        />
-      </div>
+      <PageBackground />
 
       <div className="flex flex-col items-center w-full flex-1 relative z-[2] text-white px-4 py-6 gap-[6vw]">
         <Logo />
@@ -70,10 +52,7 @@ function Instruction() {
               Instruction
             </h1>
 
-            <ul
-              ref={listRef}
-              className="flex list-none flex-col gap-4"
-            >
+            <ul ref={listRef} className="flex list-none flex-col gap-4">
               {instructionItems.map(({ text, Icon }) => (
                 <li
                   key={text}

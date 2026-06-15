@@ -1,39 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../component/Logo";
-import Lightfall from "../component/Lightfall";
+import PageBackground from "../component/PageBackground";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="flex overflow-hidden relative flex-col justify-evenly items-center w-full h-screen min-h-screen text-white">
-      <div className="absolute inset-0 z-[-1]">
-        <Lightfall
-          colors={["#9CB8C8", "#4F758B", "#FFFFFF"]}
-          backgroundColor="#4F758B"
-          speed={0.5}
-          streakCount={2}
-          streakWidth={1}
-          streakLength={1}
-          glow={1}
-          density={0.6}
-          twinkle={1}
-          zoom={3}
-          backgroundGlow={0.5}
-          opacity={1}
-          mouseInteraction
-          mouseStrength={0.5}
-          mouseRadius={1}
-        />
-      </div>
+    <div className="flex overflow-hidden relative flex-col items-center w-full h-screen min-h-screen text-white">
+      <PageBackground />
 
-      {/* Logo */}
-      <div className="z-[2] mb-[15vw] -mt-[10vw]">
+      <div className="z-[2] flex flex-1 flex-col items-center justify-center w-full px-4">
         <Logo />
+        <div className="flex flex-1 justify-center items-center w-full -mt-[15vw]">
+          <img
+            src="/home.webp"
+            alt="Home"
+            className="max-h-full w-auto max-w-[70vw] object-contain"
+          />
+        </div>
       </div>
 
-      {/* Start Button */}
-      <div className="flex justify-center items-center z-[2] mt-[90vw]">
+      <div className="flex justify-center items-center z-[2] w-full pb-10 mb-[5vw]">
         <LiquidMetalButton
           label="Start"
           large
