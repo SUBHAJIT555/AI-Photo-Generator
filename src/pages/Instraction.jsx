@@ -64,7 +64,7 @@ function Instruction() {
                   key={text}
                   className="flex items-center gap-4 rounded-[20px] border border-white/12 bg-white/[0.06] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                 >
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-b from-[#6A93A8] to-[#4F758B] text-white ring-1 ring-inset ring-white/25 [&_svg]:mt-0 [&_svg]:h-7 [&_svg]:w-7">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-b from-tertiary to-primary text-white ring-1 ring-inset ring-white/25 [&_svg]:mt-0 [&_svg]:h-7 [&_svg]:w-7">
                     <Icon isInView={iconsInView} />
                   </span>
                   <span className="flex-1 text-2xl font-cornea font-semibold leading-snug md:text-3xl">

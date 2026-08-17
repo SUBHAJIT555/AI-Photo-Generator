@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#4F758B",
-        tertiary: "#6A93A8",
+        primary: "#003087",
+        tertiary: "#1A4FA3",
       },
       fontFamily: {
         display: ["cornea", "sans-serif"],

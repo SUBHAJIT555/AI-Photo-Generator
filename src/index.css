@@ -107,8 +107,8 @@ body {
   width: 4.05em;
   height: 1.5em;
   background-image:
-    radial-gradient(circle at 2px 2px, #9cb8c8 1.5px, transparent 0),
-    radial-gradient(circle at 6px 6px, #4f758b 1.5px, transparent 0);
+    radial-gradient(circle at 2px 2px, #1A4FA3 1.5px, transparent 0),
+    radial-gradient(circle at 6px 6px, #003087 1.5px, transparent 0);
   background-size: 8px 8px;
   box-shadow:
     inset 0 0.125em 0.25em rgba(0, 9, 38, 0.25),
@@ -126,7 +126,7 @@ body {
   width: 2.55em;
   height: calc(100% - 0.125em);
   transition: left 0.4s ease;
-  background-image: linear-gradient(to right, #9cb8c8, #3a5868);
+  background-image: linear-gradient(to right, #1A4FA3, #003087);
   box-shadow: 0 0.125em 0.25em rgb(0 0 0 / 0.4);
 }
 .shamayim-gender-button::before {
@@ -136,7 +136,7 @@ body {
   border-radius: inherit;
   width: calc(100% - 0.375em);
   height: inherit;
-  background-image: linear-gradient(to right, #4f758b, #9cb8c8, #b8d4e3);
+  background-image: linear-gradient(to right, #003087, #1A4FA3, #3D6BC4);
 }
 .shamayim-gender-button::after {
   content: "";
@@ -146,7 +146,7 @@ body {
   background-image: repeating-linear-gradient(
     to right,
     #f0f6fa 0 0.0625em,
-    #9cb8c8 0.0625em 0.125em,
+    #1A4FA3 0.0625em 0.125em,
     transparent 0.125em 0.1875em
   );
 }
