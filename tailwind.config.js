@@ -6,10 +6,16 @@ export default {
   ],
   theme: {
     extend: {
-      // aspectRatio: {
-      //   '2/3': '2 / 3',
-      // }
-      
+      colors: {
+        primary: "#4F758B",
+        tertiary: "#6A93A8",
+      },
+      fontFamily: {
+        display: ["cornea", "sans-serif"],
+      },
+      scale: {
+        98: "0.98",
+      },
     },
   },
   
