@@ -53,7 +53,9 @@ const QRModal = ({ isOpen, onClose, data }) => {
             <QRCodeSVG
               size={600}
               value={data}
-              fgColor="#4F758B"
+              // fgColor="#4F758B"
+              fgColor="#162127"
+              // fgColor="black"
               bgColor="#F4EDE3"
               imageSettings={{
                 src: blackLogo,
