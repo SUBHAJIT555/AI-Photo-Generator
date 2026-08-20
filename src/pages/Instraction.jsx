@@ -30,7 +30,9 @@ function Instruction() {
       <PageBackground />
 
       <div className="flex flex-col items-center w-full flex-1 relative z-[2] text-white px-4 py-6 gap-[6vw]">
-        <Logo />
+        <div className="w-full">
+          <Logo />
+        </div>
 
         <div className="relative w-full max-w-2xl shrink-0 overflow-hidden rounded-[20px] border border-white/15 bg-[#0b1419]/80 shadow-[0_20px_50px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
           <LightRays

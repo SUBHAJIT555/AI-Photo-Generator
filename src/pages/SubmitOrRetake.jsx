@@ -3,8 +3,10 @@ import Logo from "../component/Logo";
 
 function SubmitOrRetake() {
   return (
-    <div className="flex flex-col items-center w-full h-screen justify-evenly">
-      <Logo />
+    <div className="flex flex-col items-center w-full h-screen justify-evenly px-4">
+      <div className="w-full">
+        <Logo />
+      </div>
       <div className="w-1/2 captureArea h-1/2 bg-zinc-700 rounded-2xl"></div>
 
       <div className="flex items-center justify-center gap-6">

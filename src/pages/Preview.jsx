@@ -101,7 +101,9 @@ function Preview() {
       <PageBackground />
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 min-h-screen">
-        <Logo />
+        <div className="w-full pt-4">
+          <Logo />
+        </div>
 
         <CameraGlassFrame className="mx-auto">
           {finalUrl && (

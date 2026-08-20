@@ -143,9 +143,15 @@ function Avatar() {
       <PageBackground />
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] px-4 py-4">
-        <Logo />
+        <div className="w-full">
+          <Logo />
+        </div>
 
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-[90vw] px-[10vw] mb-[15vw]">
+        <h1 className="w-full text-center text-white text-[5vw] md:text-5xl font-cornea font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] mb-4">
+          Choose Your Avatar
+        </h1>
+
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-[90vw] px-[10vw] mb-[10vw]">
           <span className="text-[3.5vw] font-golonto tracking-wide text-white justify-self-end pr-3">
             Male
           </span>

@@ -145,7 +145,9 @@ function Capture() {
       <PageBackground />
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
-        <Logo />
+        <div className="w-full">
+          <Logo />
+        </div>
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
         <CameraGlassFrame>

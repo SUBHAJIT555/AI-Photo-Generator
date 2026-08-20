@@ -17,7 +17,7 @@ function Home() {
         <source src={homeVideo} type="video/webm" />
       </video>
 
-      <div className="z-[2] flex w-full justify-center pt-[8vw]">
+      <div className="z-[2] flex w-full justify-end px-6 pt-[6vw]">
         <Logo />
       </div>
 
