@@ -15,10 +15,10 @@ import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { AvatarGlassCard } from "@/components/ui/AvatarGlassCard";
 
 // Dynamically import all avatars
-const maleAvatars = import.meta.glob("../assets/Avatars/male-*.png", {
+const maleAvatars = import.meta.glob("../assets/Avatars/male-*.webp", {
   eager: true,
 });
-const femaleAvatars = import.meta.glob("../assets/Avatars/female-*.png", {
+const femaleAvatars = import.meta.glob("../assets/Avatars/female-*.webp", {
   eager: true,
 });
 
