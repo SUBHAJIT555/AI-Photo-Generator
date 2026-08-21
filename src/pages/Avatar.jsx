@@ -8,47 +8,41 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxios";
 import loadingVideo from "../assets/loading.webm";
 import LoadingSwapping from "../component/LoadingSwapping";
-import { avatarMap } from "../constant/avatar";
 import { ShamayimGenderToggle } from "@/components/ui/shamayim-toggle-switch";
 import { LiquidGlassPanel } from "@/components/ui/GlassButton";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { AvatarGlassCard } from "@/components/ui/AvatarGlassCard";
 
-// Dynamically import all avatars
-const maleAvatars = import.meta.glob("../assets/Avatars/male-*.webp", {
-  eager: true,
-});
-const femaleAvatars = import.meta.glob("../assets/Avatars/female-*.webp", {
-  eager: true,
-});
+import male01 from "../assets/Avatars/male-01.webp";
+import male02 from "../assets/Avatars/male-02.webp";
+import male03 from "../assets/Avatars/male-03.webp";
+import male04 from "../assets/Avatars/male-04.webp";
+import male05 from "../assets/Avatars/male-05.webp";
+import male06 from "../assets/Avatars/male-06.webp";
+import female01 from "../assets/Avatars/female-01.webp";
+import female02 from "../assets/Avatars/female-02.webp";
+import female03 from "../assets/Avatars/female-03.webp";
+import female04 from "../assets/Avatars/female-04.webp";
+import female05 from "../assets/Avatars/female-05.webp";
+import female06 from "../assets/Avatars/female-06.webp";
 
-// normalize to filename → url
-function normalizeGlob(globResult) {
-  return Object.fromEntries(
-    Object.entries(globResult).map(([path, mod]) => {
-      const fileName = path.split("/").pop(); // e.g. "male-01.png"
-      return [fileName, mod.default];
-    }),
-  );
-}
+const maleImages = [
+  { id: "male1", url: male01 },
+  { id: "male2", url: male02 },
+  { id: "male3", url: male03 },
+  { id: "male4", url: male04 },
+  { id: "male5", url: male05 },
+  { id: "male6", url: male06 },
+];
 
-const maleAvatarMap = normalizeGlob(maleAvatars);
-const femaleAvatarMap = normalizeGlob(femaleAvatars);
-
-// use avatarMap to build arrays
-const maleImages = Object.entries(avatarMap)
-  .filter(([key]) => key.startsWith("male"))
-  .map(([id, fileName]) => ({
-    id,
-    url: maleAvatarMap[fileName],
-  }));
-
-const femaleImages = Object.entries(avatarMap)
-  .filter(([key]) => key.startsWith("female"))
-  .map(([id, fileName]) => ({
-    id,
-    url: femaleAvatarMap[fileName],
-  }));
+const femaleImages = [
+  { id: "female1", url: female01 },
+  { id: "female2", url: female02 },
+  { id: "female3", url: female03 },
+  { id: "female4", url: female04 },
+  { id: "female5", url: female05 },
+  { id: "female6", url: female06 },
+];
 
 function Avatar() {
   const [gender, setGender] = useState("male");
@@ -180,16 +174,13 @@ function Avatar() {
                 selected={avatar.id === selectedAvatarId}
                 onClick={() => handleAvatarSelect(avatar.id)}
               >
-                <div className="relative rounded-xl overflow-hidden border-[4px] border-white">
-                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-lg">
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl border-[4px] border-white">
                     <img
                       src={avatar.url}
                       alt={`Male avatar ${index + 1}`}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                      style={{ marginBottom: "-75px" }}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       decoding="async"
                     />
-                  </div>
                   {avatar.id === selectedAvatarId && (
                     <>
                       <div
@@ -226,16 +217,13 @@ function Avatar() {
                 selected={avatar.id === selectedAvatarId}
                 onClick={() => handleAvatarSelect(avatar.id)}
               >
-                <div className="relative rounded-xl overflow-hidden border-[4px] border-white">
-                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-lg">
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl border-[4px] border-white">
                     <img
                       src={avatar.url}
                       alt={`Female avatar ${index + 1}`}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                      style={{ marginBottom: "-75px" }}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       decoding="async"
                     />
-                  </div>
                   {avatar.id === selectedAvatarId && (
                     <>
                       <div
