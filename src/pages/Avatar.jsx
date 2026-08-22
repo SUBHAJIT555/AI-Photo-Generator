@@ -181,12 +181,11 @@ function Avatar() {
                 onClick={() => handleAvatarSelect(avatar.id)}
               >
                 <div className="relative rounded-xl overflow-hidden border-[4px] border-white">
-                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-lg">
+                  <div className="aspect-[3/4] w-full overflow-hidden rounded-lg">
                     <img
                       src={avatar.url}
                       alt={`Male avatar ${index + 1}`}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                      style={{ marginBottom: "-75px" }}
+                      className="object-cover object-top w-full h-full transition-transform duration-300 group-hover:scale-105"
                       decoding="async"
                     />
                   </div>
@@ -227,12 +226,11 @@ function Avatar() {
                 onClick={() => handleAvatarSelect(avatar.id)}
               >
                 <div className="relative rounded-xl overflow-hidden border-[4px] border-white">
-                  <div className="h-[calc(85%-75px)] w-full overflow-hidden rounded-lg">
+                  <div className="aspect-[3/4] w-full overflow-hidden rounded-lg">
                     <img
                       src={avatar.url}
                       alt={`Female avatar ${index + 1}`}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                      style={{ marginBottom: "-75px" }}
+                      className="object-cover object-top w-full h-full transition-transform duration-300 group-hover:scale-105"
                       decoding="async"
                     />
                   </div>
