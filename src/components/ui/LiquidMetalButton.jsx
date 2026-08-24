@@ -25,12 +25,12 @@ export function LiquidMetalButton({
         baseClasses,
         isIcon
           ? large
-            ? "h-[4.5rem] w-[4.5rem] p-0"
+            ? "h-[6.75rem] w-[6.75rem] p-0 rounded-[1.125rem] ring-offset-[3px]"
             : "h-12 w-12 p-0"
           : large
-            ? "px-8 py-4 text-lg"
+            ? "px-12 py-6 text-[3rem] rounded-[1.125rem] ring-offset-[3px]"
             : "px-4 py-2 text-base",
-        className
+        className,
       )}
     >
       {isIcon ? (
@@ -40,7 +40,7 @@ export function LiquidMetalButton({
           className={cn(
             "select-none whitespace-nowrap",
             large && "uppercase tracking-widest font-extrabold",
-            labelClassName
+            labelClassName,
           )}
         >
           {label}

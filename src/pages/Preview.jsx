@@ -122,7 +122,7 @@ function Preview() {
             label="Print"
             onClick={printImageAsPDF}
           >
-            <ImPrinter className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+            <ImPrinter className="text-5xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-6xl" />
           </LiquidMetalButton>
 
           <LiquidMetalButton
@@ -131,7 +131,7 @@ function Preview() {
             label="QR Code"
             onClick={() => setIsQRModalOpen(true)}
           >
-            <IoQrCode className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+            <IoQrCode className="text-5xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-6xl" />
           </LiquidMetalButton>
 
           <LiquidMetalButton
@@ -140,7 +140,7 @@ function Preview() {
             label="Home"
             onClick={() => navigate("/")}
           >
-            <IoHome className="text-3xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-4xl" />
+            <IoHome className="text-5xl text-[#e8e8e8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] md:text-6xl" />
           </LiquidMetalButton>
         </div>
 

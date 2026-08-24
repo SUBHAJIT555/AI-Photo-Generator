@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useInView } from "framer-motion";
 import Logo from "../component/Logo";
 import PageBackground from "../component/PageBackground";
-import LightRays from "../component/LightRays";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import {
   UserScanIcon,
@@ -26,61 +25,44 @@ function Instruction() {
   const iconsInView = useInView(listRef, { once: true, margin: "-80px" });
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col items-center overflow-x-hidden">
+    <div className="flex overflow-hidden relative flex-col items-center w-full h-screen min-h-screen text-white">
       <PageBackground />
 
-      <div className="flex flex-col items-center w-full flex-1 relative z-[2] text-white px-4 py-6 gap-[6vw]">
-        <div className="w-full">
-          <Logo />
-        </div>
+      <div className="pointer-events-none absolute z-[3] top-0 right-0 w-full px-6 pt-[6vw]">
+        <Logo />
+      </div>
 
-        <div className="relative w-full max-w-2xl shrink-0 overflow-hidden rounded-[20px] border border-white/15 bg-[#0b1419]/80 shadow-[0_20px_50px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md">
-          <LightRays
-            className="mix-blend-screen opacity-70"
-            raysOrigin="top-center"
-            raysColor="#ffffff"
-            raysSpeed={1}
-            lightSpread={0.5}
-            rayLength={3}
-            followMouse
-            mouseInfluence={0.1}
-            noiseAmount={0}
-            distortion={0}
-            fadeDistance={1}
-          />
+      <div className="relative z-[2] min-h-0 w-full flex-1 overflow-y-auto px-6">
+        <div className="flex min-h-full w-full items-center justify-center py-4">
+          <div className="flex w-full max-w-3xl flex-col items-center justify-center">
+            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-[0.28em] text-white/70">
+              Photo Booth
+            </p>
+            <h1 className="text-center text-5xl font-bold font-cornea leading-tight md:text-6xl">
+              Instruction
+            </h1>
+            <div className="mx-auto mt-3 mb-8 h-px w-24 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
 
-          <div className="relative z-[2] px-6 py-8">
-            <div className="mb-8 text-center">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.28em] text-white/55">
-                Photo Booth
-              </p>
-              <h1 className="text-[3rem] font-bold font-cornea leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] md:text-[4rem]">
-                Instruction
-              </h1>
-              <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-            </div>
-
-            <ul ref={listRef} className="flex list-none flex-col gap-4">
-              {instructionItems.map(({ text, Icon }, index) => (
-                <li
-                  key={text}
-                  className="flex items-center gap-4 rounded-[20px] border border-white/12 bg-white/[0.06] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
-                >
+            <ul
+              ref={listRef}
+              className="flex w-full max-w-3xl list-none flex-col gap-6"
+            >
+              {instructionItems.map(({ text, Icon }) => (
+                <li key={text} className="flex items-center gap-5 text-left">
                   <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-b from-tertiary to-primary text-white ring-1 ring-inset ring-white/25 [&_svg]:mt-0 [&_svg]:h-7 [&_svg]:w-7">
                     <Icon isInView={iconsInView} />
                   </span>
-                  <span className="flex-1 text-2xl font-cornea font-semibold leading-snug md:text-3xl">
+                  <span className="text-2xl font-cornea font-semibold leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)] md:text-3xl">
                     {text}
-                  </span>
-                  <span className="hidden shrink-0 text-sm font-bold tracking-widest text-white/30 sm:block">
-                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
+      </div>
 
+      <div className="flex shrink-0 justify-center items-center z-[2] w-full pb-10 mb-[5vw]">
         <LiquidMetalButton
           label="Click Here to Start"
           large
