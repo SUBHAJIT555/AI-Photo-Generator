@@ -5,6 +5,8 @@ import PageBackground from "../component/PageBackground";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
 import { saveData } from "../utils/localStorageDB";
+import { composeLabeledPhoto } from "../utils/composeLabeledPhoto";
+import { uploadPhotoForSoftCopy } from "../utils/uploadPhoto";
 
 function Capture() {
   const videoRef = useRef(null);
@@ -16,6 +18,7 @@ function Capture() {
   const canvasRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [isRestarting, setIsRestarting] = useState(false);
+  const [isProcessingOriginal, setIsProcessingOriginal] = useState(false);
 
   async function getDevices() {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -38,10 +41,8 @@ function Capture() {
 
       if (videoRef.current) {
         return new Promise((resolve) => {
-          // Set the stream
           videoRef.current.srcObject = stream;
 
-          // Wait for both metadata and first frame to be ready
           const handleCanPlay = () => {
             videoRef.current.removeEventListener("canplay", handleCanPlay);
             setVideoStream(stream);
@@ -50,7 +51,6 @@ function Capture() {
 
           videoRef.current.addEventListener("canplay", handleCanPlay);
 
-          // Fallback timeout
           setTimeout(() => {
             videoRef.current.removeEventListener("canplay", handleCanPlay);
             setVideoStream(stream);
@@ -78,14 +78,9 @@ function Capture() {
       }
 
       if (videoRef.current) {
-        // Pause first, then clear
         videoRef.current.pause();
         videoRef.current.srcObject = null;
-
-        // Force a repaint and wait for the video element to fully clear
         videoRef.current.load();
-
-        // Wait for the video element to be completely cleared
         setTimeout(resolve, 100);
       } else {
         resolve();
@@ -98,10 +93,44 @@ function Capture() {
     setCountdown(5);
   };
 
-  const submitImage = () => {
+  const continueWithAvatar = () => {
     stopVideo();
     saveData("capturedImage", capturedImage);
     navigate("/avatar");
+  };
+
+  const useOriginalPhoto = async () => {
+    if (!capturedImage || isProcessingOriginal) return;
+
+    try {
+      setIsProcessingOriginal(true);
+      stopVideo();
+
+      const labeledImage = await composeLabeledPhoto(capturedImage);
+      saveData("capturedImage", capturedImage);
+      saveData("labeledOriginalImage", labeledImage);
+
+      // Upload so QR can use a real http URL (same as swap.php result_url)
+      const softCopyUrl = await uploadPhotoForSoftCopy(labeledImage);
+      if (softCopyUrl) {
+        saveData("softCopyUrl", softCopyUrl);
+      }
+
+      navigate("/preview", {
+        state: {
+          // Soft-copy http URL for display/QR when available
+          resultUrl: softCopyUrl || labeledImage,
+          softCopyUrl: softCopyUrl || null,
+          // Always keep local labeled JPEG for PrintNode (reliable print)
+          printUrl: labeledImage,
+          mode: "original",
+        },
+      });
+    } catch (error) {
+      console.error("Error creating labeled original photo:", error);
+    } finally {
+      setIsProcessingOriginal(false);
+    }
   };
 
   useEffect(() => {
@@ -111,7 +140,6 @@ function Capture() {
         const video = videoRef.current;
         const canvas = canvasRef.current;
 
-        // Set canvas to the same size as the video frame
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
 
@@ -146,7 +174,13 @@ function Capture() {
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
         <div className="w-full">
-          <Logo />
+          <Logo
+            onBack={() => {
+              stopVideo();
+              navigate("/instruction");
+            }}
+            backDisabled={loading || isProcessingOriginal}
+          />
         </div>
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
@@ -179,7 +213,7 @@ function Capture() {
           )}
         </CameraGlassFrame>
 
-        <div className="flex gap-x-10 mt-8">
+        <div className="flex flex-col items-center gap-3 mt-6 w-full max-w-[90vw] px-2">
           {!capturedImage ? (
             <LiquidMetalButton
               label={loading ? "Capturing..." : "Click to Capture"}
@@ -190,11 +224,30 @@ function Capture() {
             />
           ) : (
             <>
+              <div className="flex items-center justify-center gap-3 w-full">
+                <LiquidMetalButton
+                  label={
+                    isProcessingOriginal ? "Preparing..." : "Use Original Photo"
+                  }
+                  onClick={useOriginalPhoto}
+                  disabled={isProcessingOriginal}
+                  className="min-w-0 flex-1 max-w-[44%] px-3 py-3 text-[clamp(0.75rem,2.6vw,1.15rem)] rounded-xl ring-offset-2"
+                  labelClassName="uppercase tracking-wide font-extrabold whitespace-normal text-center leading-tight"
+                />
+
+                <LiquidMetalButton
+                  label="Continue with Avatar"
+                  onClick={continueWithAvatar}
+                  disabled={isProcessingOriginal}
+                  className="min-w-0 flex-1 max-w-[44%] px-3 py-3 text-[clamp(0.75rem,2.6vw,1.15rem)] rounded-xl ring-offset-2"
+                  labelClassName="uppercase tracking-wide font-extrabold whitespace-normal text-center leading-tight"
+                />
+              </div>
+
               <LiquidMetalButton
                 label={isRestarting ? "Starting..." : "Retake"}
-                large
                 onClick={async () => {
-                  if (isRestarting) return;
+                  if (isRestarting || isProcessingOriginal) return;
                   setIsRestarting(true);
                   try {
                     setCapturedImage(null);
@@ -207,15 +260,9 @@ function Capture() {
                     setIsRestarting(false);
                   }
                 }}
-                disabled={isRestarting}
-                labelClassName="uppercase tracking-widest font-extrabold"
-              />
-
-              <LiquidMetalButton
-                label="Submit"
-                large
-                onClick={submitImage}
-                labelClassName="uppercase tracking-widest font-extrabold"
+                disabled={isRestarting || isProcessingOriginal}
+                className="px-8 py-3 text-[clamp(0.75rem,2.6vw,1.15rem)] rounded-xl ring-offset-2"
+                labelClassName="uppercase tracking-wide font-extrabold"
               />
             </>
           )}

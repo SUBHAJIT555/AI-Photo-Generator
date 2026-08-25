@@ -10,45 +10,148 @@ import LoadingSwapping from "../component/LoadingSwapping";
 import printingVideo from "../assets/printing.webm";
 import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
+import { getData } from "../utils/localStorageDB";
+
+function isHttpUrl(value) {
+  return typeof value === "string" && /^https?:\/\//i.test(value);
+}
+
+function detectImageFormat(bytes, hintUrl = "") {
+  if (bytes?.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+    return "jpg";
+  }
+  if (
+    bytes?.length >= 8 &&
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47
+  ) {
+    return "png";
+  }
+  if (typeof hintUrl === "string") {
+    if (hintUrl.startsWith("data:image/png") || /\.png(\?|$)/i.test(hintUrl)) {
+      return "png";
+    }
+    if (
+      hintUrl.startsWith("data:image/jpeg") ||
+      hintUrl.startsWith("data:image/jpg") ||
+      /\.jpe?g(\?|$)/i.test(hintUrl)
+    ) {
+      return "jpg";
+    }
+  }
+  return "jpg";
+}
+
+async function loadImageBytes(source) {
+  if (!source || typeof source !== "string") {
+    throw new Error("No image source for print");
+  }
+
+  if (source.startsWith("data:")) {
+    const comma = source.indexOf(",");
+    if (comma < 0) throw new Error("Invalid data URL");
+    const base64 = source.slice(comma + 1);
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return { bytes, hintUrl: source };
+  }
+
+  const response = await fetch(source);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image (${response.status})`);
+  }
+  const buffer = await response.arrayBuffer();
+  return { bytes: new Uint8Array(buffer), hintUrl: source };
+}
 
 function Preview() {
   const navigate = useNavigate();
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
-  const { resultUrl } = useLocation()?.state || {};
+  const { resultUrl, softCopyUrl, printUrl, mode } = useLocation()?.state || {};
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [swaploader, setswaloader] = useState("none");
+  const [displayUrl, setDisplayUrl] = useState(null);
+  const [qrUrl, setQrUrl] = useState(null);
+  const [printSource, setPrintSource] = useState(null);
   const url = searchParams.get("resultUrl");
 
-  const finalUrl = resultUrl || url;
+  useEffect(() => {
+    const fromStateOrQuery = resultUrl || url;
+    if (fromStateOrQuery) {
+      setDisplayUrl(fromStateOrQuery);
+    } else if (mode === "original") {
+      const labeled = getData("labeledOriginalImage");
+      if (labeled) setDisplayUrl(labeled);
+    }
+
+    // Original prints must use the local labeled image (data URL), not only the soft-copy host URL.
+    if (mode === "original") {
+      const labeled =
+        printUrl ||
+        getData("labeledOriginalImage") ||
+        (!isHttpUrl(fromStateOrQuery) ? fromStateOrQuery : null);
+      setPrintSource(labeled || fromStateOrQuery || null);
+    } else {
+      setPrintSource(fromStateOrQuery || null);
+    }
+
+    const hosted =
+      softCopyUrl ||
+      (isHttpUrl(fromStateOrQuery) ? fromStateOrQuery : null) ||
+      getData("softCopyUrl") ||
+      null;
+    setQrUrl(hosted || fromStateOrQuery || null);
+  }, [resultUrl, softCopyUrl, printUrl, url, mode]);
+
+  const finalUrl = displayUrl;
+
   useEffect(() => {
     setswaloader(loading ? "block" : "none");
   }, [loading]);
 
   const uint8ArrayToBase64 = (uint8Array) => {
+    const chunkSize = 0x8000;
     let binary = "";
-    const len = uint8Array.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(uint8Array[i]);
+    for (let i = 0; i < uint8Array.length; i += chunkSize) {
+      const chunk = uint8Array.subarray(i, i + chunkSize);
+      binary += String.fromCharCode(...chunk);
     }
     return btoa(binary);
   };
 
   const printImageAsPDF = async () => {
+    const source = printSource || finalUrl;
+    if (!source) return;
+
     try {
       setLoading(true);
-      const response = await fetch(finalUrl);
-      const imageBlob = await response.blob();
-      const imageArrayBuffer = await imageBlob.arrayBuffer();
+      const { bytes, hintUrl } = await loadImageBytes(source);
+      const format = detectImageFormat(bytes, hintUrl);
 
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage([288, 432]);
 
-      const image = await pdfDoc.embedJpg(imageArrayBuffer);
-      const { width, height } = image.scale(0.25);
+      const image =
+        format === "png"
+          ? await pdfDoc.embedPng(bytes)
+          : await pdfDoc.embedJpg(bytes);
 
-      const x = (page.getWidth() - width) / 2;
-      const y = (page.getHeight() - height) / 2;
+      const pageWidth = page.getWidth();
+      const pageHeight = page.getHeight();
+      const scale = Math.min(
+        pageWidth / image.width,
+        pageHeight / image.height
+      );
+      const width = image.width * scale;
+      const height = image.height * scale;
+      const x = (pageWidth - width) / 2;
+      const y = (pageHeight - height) / 2;
 
       page.drawImage(image, { x, y, width, height });
 
@@ -56,10 +159,10 @@ function Preview() {
       const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes));
 
       const apiKey = import.meta.env.VITE_PRINTNODE_API_KEY;
-      const printerId = import.meta.env.VITE_PRINTNODE_PRINTER_ID;
+      const printerId = Number(import.meta.env.VITE_PRINTNODE_PRINTER_ID);
 
       const printJob = {
-        printerId: printerId,
+        printerId,
         title: "PDF Print Job",
         contentType: "pdf_base64",
         content: pdfBase64,
@@ -82,14 +185,18 @@ function Preview() {
         console.log("Print job sent successfully!");
       } else {
         console.error("Print failed:", await responsePrint.json());
+        setLoading(false);
+        return;
       }
     } catch (error) {
       console.error("Error processing print job:", error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 35000);
+      setLoading(false);
+      return;
     }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 35000);
   };
 
   return loading ? (
@@ -102,7 +209,11 @@ function Preview() {
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 min-h-screen">
         <div className="w-full pt-4">
-          <Logo />
+          <Logo
+            onBack={() =>
+              navigate(mode === "original" ? "/capture" : "/avatar")
+            }
+          />
         </div>
 
         <CameraGlassFrame className="mx-auto">
@@ -110,7 +221,7 @@ function Preview() {
             <img
               src={finalUrl}
               alt="Generated result"
-              className="block w-full max-w-2xl min-h-[40vh] object-cover"
+              className="block w-full max-w-2xl min-h-[40vh] object-contain bg-black"
             />
           )}
         </CameraGlassFrame>
@@ -147,7 +258,7 @@ function Preview() {
         <QRModal
           isOpen={isQRModalOpen}
           onClose={() => setIsQRModalOpen(false)}
-          data={finalUrl}
+          data={qrUrl || finalUrl}
         />
       </div>
     </div>

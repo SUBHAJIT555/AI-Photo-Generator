@@ -138,7 +138,7 @@ function Avatar() {
 
       <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] px-4 py-4">
         <div className="w-full">
-          <Logo />
+          <Logo onBack={() => navigate("/capture")} />
         </div>
 
         <h1 className="w-full text-center text-white text-[5vw] md:text-5xl font-cornea font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] mb-4">

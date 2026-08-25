@@ -28,8 +28,10 @@ function Instruction() {
     <div className="flex overflow-hidden relative flex-col items-center w-full h-screen min-h-screen text-white">
       <PageBackground />
 
-      <div className="pointer-events-none absolute z-[3] top-0 right-0 w-full px-6 pt-[6vw]">
-        <Logo />
+      <div className="absolute z-[3] top-0 right-0 w-full px-6 pt-[6vw] pointer-events-none">
+        <div className="pointer-events-auto">
+          <Logo onBack={() => navigate("/")} />
+        </div>
       </div>
 
       <div className="relative z-[2] min-h-0 w-full flex-1 overflow-y-auto px-6">
