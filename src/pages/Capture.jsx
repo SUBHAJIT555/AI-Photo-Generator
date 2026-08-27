@@ -7,6 +7,21 @@ import { CameraGlassFrame } from "@/components/ui/CameraGlassFrame";
 import { saveData } from "../utils/localStorageDB";
 import { composeLabeledPhoto } from "../utils/composeLabeledPhoto";
 import { uploadPhotoForSoftCopy } from "../utils/uploadPhoto";
+import {
+  detectFaces,
+  initializeFaceDetector,
+} from "../utils/faceDetector";
+import { cropPrimaryFace } from "../utils/cropPrimaryFace";
+
+const AVATAR_PATH_MESSAGES = {
+  NO_FACE: "Please position one face in the camera and retake the photo.",
+  FACE_TOO_SMALL: "Please move closer to the camera and retake the photo.",
+  AMBIGUOUS_MULTIPLE_FACES:
+    "Only one person should be close to the camera. Please retake the photo.",
+  DETECTOR_FAILURE: "Could not check the photo. Please retake the photo.",
+  UNSAFE_CROP:
+    "Only one person should be close to the camera. Please retake the photo.",
+};
 
 function Capture() {
   const videoRef = useRef(null);
@@ -14,8 +29,12 @@ function Capture() {
   const [countdown, setCountdown] = useState(null);
   const [videoStream, setVideoStream] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [swapImage, setSwapImage] = useState(null);
+  const [swapCropReason, setSwapCropReason] = useState(null);
+  const [isCheckingPhoto, setIsCheckingPhoto] = useState(false);
   const [columns, setColumns] = useState([]);
   const canvasRef = useRef(null);
+  const captureIdRef = useRef(0);
   const [loading, setLoading] = useState(false);
   const [isRestarting, setIsRestarting] = useState(false);
   const [isProcessingOriginal, setIsProcessingOriginal] = useState(false);
@@ -94,8 +113,10 @@ function Capture() {
   };
 
   const continueWithAvatar = () => {
-    stopVideo();
-    saveData("capturedImage", capturedImage);
+    if (isCheckingPhoto || isProcessingOriginal) return;
+    if (!swapImage) return;
+
+    saveData("capturedImage", swapImage);
     navigate("/avatar");
   };
 
@@ -134,11 +155,17 @@ function Capture() {
   };
 
   useEffect(() => {
+    initializeFaceDetector().catch((error) => {
+      console.error("Face detector preload failed:", error);
+    });
+  }, []);
+
+  useEffect(() => {
     if (countdown === null) return;
     if (countdown === 0) {
-      if (videoRef.current && canvasRef.current) {
+      const canvas = canvasRef.current;
+      if (videoRef.current && canvas) {
         const video = videoRef.current;
-        const canvas = canvasRef.current;
 
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -147,6 +174,47 @@ function Capture() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         const image = canvas.toDataURL("image/png");
         setCapturedImage(image);
+
+        const captureId = ++captureIdRef.current;
+        setSwapImage(null);
+        setSwapCropReason(null);
+        setIsCheckingPhoto(true);
+
+        void (async () => {
+          try {
+            const detection = await detectFaces(canvas);
+            if (captureId !== captureIdRef.current) return;
+            if (!detection.ok) {
+              setSwapImage(null);
+              setSwapCropReason(detection.reason);
+              return;
+            }
+
+            const crop = cropPrimaryFace({
+              faces: detection.faces,
+              sourceCanvas: canvas,
+              imageWidth: canvas.width,
+              imageHeight: canvas.height,
+            });
+            if (captureId !== captureIdRef.current) return;
+            if (crop.ok) {
+              setSwapImage(crop.cropDataUrl);
+              setSwapCropReason(null);
+            } else {
+              setSwapImage(null);
+              setSwapCropReason(crop.reason);
+            }
+          } catch (error) {
+            console.error("Error checking captured photo:", error);
+            if (captureId !== captureIdRef.current) return;
+            setSwapImage(null);
+            setSwapCropReason("DETECTOR_FAILURE");
+          } finally {
+            if (captureId === captureIdRef.current) {
+              setIsCheckingPhoto(false);
+            }
+          }
+        })();
       }
       setLoading(false);
       setCountdown(null);
@@ -167,6 +235,11 @@ function Capture() {
       startCamera();
     }
   }, [columns, videoStream, startCamera]);
+
+  const avatarPathMessage = swapCropReason
+    ? AVATAR_PATH_MESSAGES[swapCropReason] ||
+      AVATAR_PATH_MESSAGES.DETECTOR_FAILURE
+    : null;
 
   return (
     <div className="min-h-screen w-full relative flex flex-col justify-evenly items-center overflow-hidden">
@@ -224,6 +297,11 @@ function Capture() {
             />
           ) : (
             <>
+              {avatarPathMessage && (
+                <p className="max-w-[90vw] text-center text-white text-[clamp(0.9rem,2.4vw,1.25rem)] font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]">
+                  {avatarPathMessage}
+                </p>
+              )}
               <div className="flex items-center justify-center gap-3 w-full">
                 <LiquidMetalButton
                   label={
@@ -236,9 +314,13 @@ function Capture() {
                 />
 
                 <LiquidMetalButton
-                  label="Continue with Avatar"
+                  label={
+                    isCheckingPhoto ? "Checking photo..." : "Continue with Avatar"
+                  }
                   onClick={continueWithAvatar}
-                  disabled={isProcessingOriginal}
+                  disabled={
+                    isProcessingOriginal || isCheckingPhoto || !swapImage
+                  }
                   className="min-w-0 flex-1 max-w-[44%] px-3 py-3 text-[clamp(0.75rem,2.6vw,1.15rem)] rounded-xl ring-offset-2"
                   labelClassName="uppercase tracking-wide font-extrabold whitespace-normal text-center leading-tight"
                 />
@@ -248,9 +330,13 @@ function Capture() {
                 label={isRestarting ? "Starting..." : "Retake"}
                 onClick={async () => {
                   if (isRestarting || isProcessingOriginal) return;
+                  captureIdRef.current += 1;
                   setIsRestarting(true);
                   try {
                     setCapturedImage(null);
+                    setSwapImage(null);
+                    setSwapCropReason(null);
+                    setIsCheckingPhoto(false);
                     await stopVideoAndClear();
                     await new Promise((resolve) => setTimeout(resolve, 200));
                     await startCamera();
