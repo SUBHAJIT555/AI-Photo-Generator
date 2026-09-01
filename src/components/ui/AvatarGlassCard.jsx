@@ -13,7 +13,7 @@ export function AvatarGlassCard({ selected, onClick, className, children }) {
       <LiquidGlass
         className={cn(
           "w-full rounded-2xl p-1.5",
-          selected && "shadow-[0_0_0_2px_#4F758B,0_0_12px_rgba(79,117,139,0.35)]"
+          selected && "shadow-[0_0_0_2px_#ee3139,0_0_12px_rgba(238,49,57,0.35)]"
         )}
         blur={2}
         refraction={12}

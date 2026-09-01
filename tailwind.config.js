@@ -7,11 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#003087",
-        tertiary: "#1A4FA3",
+        primary: "#C21820",
+        tertiary: "#ee3139",
       },
       fontFamily: {
-        display: ["cornea", "sans-serif"],
+        display: ["Orbitron", "cornea", "sans-serif"],
+        cornea: ["Orbitron", "cornea", "sans-serif"],
+        golonto: ["Orbitron", "golonto", "sans-serif"],
       },
       scale: {
         98: "0.98",

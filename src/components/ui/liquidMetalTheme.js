@@ -1,9 +1,12 @@
-export const FAB_TEAL = {
-  light: "#5E8FA3",
-  base: "#4F758B",
-  dark: "#3A5868",
-  deeper: "#2D454F",
+export const FAB_RED = {
+  light: "#F2555C",
+  base: "#ee3139",
+  dark: "#C21820",
+  deeper: "#9A181F",
 };
+
+/** @deprecated use FAB_RED */
+export const FAB_TEAL = FAB_RED;
 
 export const LIQUID_METAL_STYLE_ID = "shader-canvas-style-liquid-metal";
 
@@ -46,12 +49,12 @@ export function ensureLiquidMetalStyles() {
 
 export function createLiquidMetalUniforms(shape = 1) {
   return {
-    u_colorBack: hexToVec4(FAB_TEAL.deeper, 1),
-    u_colorTint: hexToVec4(FAB_TEAL.base, 0.92),
+    u_colorBack: hexToVec4(FAB_RED.deeper, 1),
+    u_colorTint: hexToVec4(FAB_RED.base, 0.92),
     u_repetition: 4,
     u_softness: 0.5,
-    u_shiftRed: 0.15,
-    u_shiftBlue: 0.45,
+    u_shiftRed: 0.35,
+    u_shiftBlue: 0.12,
     u_distortion: 0,
     u_contour: 0,
     u_angle: 45,

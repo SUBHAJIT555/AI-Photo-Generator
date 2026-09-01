@@ -45,13 +45,13 @@ export async function composeLabeledPhoto(photoSrc) {
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas not supported");
 
-  ctx.fillStyle = "#003087";
+  ctx.fillStyle = "#ee3139";
   ctx.fillRect(0, 0, OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
   ctx.drawImage(top, 0, 0, OUTPUT_WIDTH, TOP_HEIGHT);
   drawCover(ctx, photo, 0, TOP_HEIGHT, OUTPUT_WIDTH, PHOTO_HEIGHT);
 
-  // Keep a small blue safe pad under the footer so print doesn't clip the text
+  // Keep a small red safe pad under the footer so print doesn't clip the text
   const BOTTOM_SAFE_PAD = 24;
   ctx.drawImage(
     bottom,

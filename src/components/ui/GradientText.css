@@ -59,6 +59,6 @@
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
   .text-content {
-    color: #4F758B;
+    color: #ee3139;
   }
 }

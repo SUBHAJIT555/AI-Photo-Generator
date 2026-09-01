@@ -180,7 +180,7 @@ const AnimatedButton = ({
           @media (hover: none) and (pointer: coarse) {
             button:active {
               transform: scale(0.98);
-              background: linear-gradient(135deg, #4338ca, #6d28d9);
+              background: linear-gradient(135deg, #ee3139, #C21820);
             }
           }
 

@@ -1,4 +1,4 @@
-import boothBackground from "../assets/logo/Fab-Photobooth_Background.png";
+import boothBackground from "../assets/logo/background.webp";
 import "./PageBackground.css";
 
 function PageBackground() {
@@ -9,7 +9,6 @@ function PageBackground() {
         alt=""
         className="page-background__image"
       />
-      <div className="page-background__overlay" />
     </div>
   );
 }

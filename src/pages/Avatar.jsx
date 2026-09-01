@@ -141,19 +141,19 @@ function Avatar() {
           <Logo onBack={() => navigate("/capture")} />
         </div>
 
-        <h1 className="w-full text-center text-white text-[5vw] md:text-5xl font-cornea font-bold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] mb-4">
+        <h1 className="w-full text-center text-[#ee3139] text-[5vw] md:text-5xl font-cornea font-bold tracking-wide mb-4">
           Choose Your Avatar
         </h1>
 
         <div className="grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-[90vw] px-[10vw] mb-[10vw]">
-          <span className="text-[3.5vw] font-golonto tracking-wide text-white justify-self-end pr-3">
+          <span className="text-[3.5vw] font-golonto tracking-wide text-[#ee3139] justify-self-end pr-3">
             Male
           </span>
           <ShamayimGenderToggle
             checked={gender === "female"}
             onChange={(isFemale) => setGender(isFemale ? "female" : "male")}
           />
-          <span className="text-[3.5vw] font-golonto tracking-wide text-white justify-self-start pl-3">
+          <span className="text-[3.5vw] font-golonto tracking-wide text-[#ee3139] justify-self-start pl-3">
             Female
           </span>
         </div>
@@ -187,7 +187,7 @@ function Avatar() {
                         className="absolute inset-0 rounded-xl pointer-events-none"
                         style={{
                           backgroundImage:
-                            "radial-gradient(circle at 1.5px 1.5px, rgba(79, 117, 139, 0.45) 1px, transparent 0)",
+                            "radial-gradient(circle at 1.5px 1.5px, rgba(238, 49, 57, 0.45) 1px, transparent 0)",
                           backgroundSize: "3px 3px",
                           backgroundPosition: "0 0",
                         }}
@@ -230,7 +230,7 @@ function Avatar() {
                         className="absolute inset-0 rounded-xl pointer-events-none"
                         style={{
                           backgroundImage:
-                            "radial-gradient(circle at 1.5px 1.5px, rgba(79, 117, 139, 0.45) 1px, transparent 0)",
+                            "radial-gradient(circle at 1.5px 1.5px, rgba(238, 49, 57, 0.45) 1px, transparent 0)",
                           backgroundSize: "3px 3px",
                           backgroundPosition: "0 0",
                         }}
@@ -277,7 +277,7 @@ function Avatar() {
               <LiquidGlassPanel className="max-w-xl w-full rounded-3xl p-6 text-center">
                 <p
                   id="select-avatar-title"
-                  className="text-[#4F758B] text-2xl font-semibold mb-10 text-center font-cornea"
+                  className="text-[#ee3139] text-2xl font-semibold mb-10 text-center font-cornea"
                 >
                   <span className="inline-flex items-center gap-2">
                     <svg
@@ -286,7 +286,7 @@ function Avatar() {
                       height="24"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="shrink-0 inline-block align-middle text-[#4F758B]"
+                      className="shrink-0 inline-block align-middle text-[#ee3139]"
                       aria-hidden="true"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
