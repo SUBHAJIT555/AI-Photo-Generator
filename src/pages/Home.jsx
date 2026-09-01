@@ -10,9 +10,7 @@ function Home() {
     <div className="flex overflow-hidden relative flex-col items-center w-full h-screen min-h-screen text-white">
       <PageBackground />
 
-      <div className="z-[2] flex w-full justify-start px-6 pt-[6vw]">
-        <Logo />
-      </div>
+      <Logo />
 
       <div className="z-[2] flex flex-1 items-center justify-center w-full px-6">
         <img

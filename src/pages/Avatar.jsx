@@ -133,14 +133,12 @@ function Avatar() {
       <LoadingSwapping visibility={swaploader} src={loadingVideo} />
     </div>
   ) : (
-    <div className="min-h-screen w-full relative flex flex-col justify-center items-center overflow-hidden">
+    <div className="min-h-screen w-full relative flex flex-col items-center overflow-hidden">
       <PageBackground />
 
-      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] px-4 py-4">
-        <div className="w-full">
-          <Logo onBack={() => navigate("/capture")} />
-        </div>
+      <Logo onBack={() => navigate("/capture")} />
 
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] px-4 pb-4 min-h-0">
         <h1 className="w-full text-center text-[#ee3139] text-[5vw] md:text-5xl font-cornea font-bold tracking-wide mb-4">
           Choose Your Avatar
         </h1>

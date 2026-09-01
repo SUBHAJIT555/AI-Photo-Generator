@@ -169,19 +169,18 @@ function Capture() {
   }, [columns, videoStream, startCamera]);
 
   return (
-    <div className="min-h-screen w-full relative flex flex-col justify-evenly items-center overflow-hidden">
+    <div className="min-h-screen w-full relative flex flex-col items-center overflow-hidden">
       <PageBackground />
 
-      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 py-4">
-        <div className="w-full">
-          <Logo
-            onBack={() => {
-              stopVideo();
-              navigate("/instruction");
-            }}
-            backDisabled={loading || isProcessingOriginal}
-          />
-        </div>
+      <Logo
+        onBack={() => {
+          stopVideo();
+          navigate("/instruction");
+        }}
+        backDisabled={loading || isProcessingOriginal}
+      />
+
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 pb-4 min-h-0">
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
         <CameraGlassFrame>

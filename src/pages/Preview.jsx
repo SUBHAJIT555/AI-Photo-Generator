@@ -204,18 +204,14 @@ function Preview() {
       <LoadingSwapping visibility={swaploader} src={printingVideo} />
     </div>
   ) : (
-    <div className="min-h-screen w-full relative flex flex-col justify-evenly items-center overflow-hidden">
+    <div className="min-h-screen w-full relative flex flex-col items-center overflow-hidden">
       <PageBackground />
 
-      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 min-h-screen">
-        <div className="w-full pt-4">
-          <Logo
-            onBack={() =>
-              navigate(mode === "original" ? "/capture" : "/avatar")
-            }
-          />
-        </div>
+      <Logo
+        onBack={() => navigate(mode === "original" ? "/capture" : "/avatar")}
+      />
 
+      <div className="flex flex-col justify-evenly items-center w-full flex-1 relative z-[2] text-white px-4 min-h-0">
         <CameraGlassFrame className="mx-auto">
           {finalUrl && (
             <img

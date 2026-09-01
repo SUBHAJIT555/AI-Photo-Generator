@@ -3,14 +3,12 @@ import { BackButton } from "./BackButton";
 
 function Logo({ onBack, backDisabled = false }) {
   return (
-    <div
-      className={`flex w-full items-center gap-4 ${
-        onBack ? "justify-between" : "justify-start"
-      }`}
-    >
+    <div className="relative z-[3] flex w-full shrink-0 items-center px-6 pt-[6vw]">
       <img src={LogoImage} alt="FAB" className="w-[28vw] max-w-[220px]" />
       {onBack ? (
-        <BackButton onClick={onBack} disabled={backDisabled} />
+        <div className="ml-auto">
+          <BackButton onClick={onBack} disabled={backDisabled} />
+        </div>
       ) : null}
     </div>
   );
