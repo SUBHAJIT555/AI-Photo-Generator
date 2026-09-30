@@ -1,17 +1,19 @@
-import LogoImage from "../assets/logo/Fab-reward.png";
+import LogoImage from "../assets/logo/Title.png";
 import { BackButton } from "./BackButton";
 
 function Logo({ onBack, backDisabled = false }) {
   return (
-    <div
-      className={`flex w-full items-center gap-4 ${
-        onBack ? "justify-between" : "justify-end"
-      }`}
-    >
+    <div className="relative flex w-full items-center justify-center">
       {onBack ? (
-        <BackButton onClick={onBack} disabled={backDisabled} />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2">
+          <BackButton onClick={onBack} disabled={backDisabled} />
+        </div>
       ) : null}
-      <img src={LogoImage} alt="FAB" className="w-[28vw] max-w-[220px]" />
+      <img
+        src={LogoImage}
+        alt="Navya's Birthday"
+        className="h-auto w-[72vw] max-w-[520px] object-contain"
+      />
     </div>
   );
 }

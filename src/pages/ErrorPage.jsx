@@ -19,7 +19,7 @@ const ErrorPage = () => {
           </p>
           <Link
             to="/"
-            className="my-4 inline-flex rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="my-4 inline-flex rounded-lg bg-[#C44B78] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#A33A62] focus:outline-none focus:ring-4 focus:ring-[#D15A86]/40"
           >
             Back to Homepage
           </Link>
