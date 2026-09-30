@@ -34,7 +34,7 @@ function Instruction() {
         </div>
       </div>
 
-      <div className="relative z-[2] min-h-0 w-full flex-1 overflow-y-auto px-6">
+      <div className="relative z-[2] min-h-0 w-full flex-1 overflow-y-auto px-6 mt-24">
         <div className="flex min-h-full w-full items-center justify-center py-4">
           <div className="flex w-full max-w-3xl flex-col items-center justify-center">
             <p className="mb-1 text-center text-sm font-semibold uppercase tracking-[0.28em] text-[#A33A62]/80">
@@ -47,7 +47,7 @@ function Instruction() {
 
             <ul
               ref={listRef}
-              className="flex w-full max-w-3xl list-none flex-col gap-6"
+              className="flex w-full max-w-xl list-none flex-col gap-6"
             >
               {instructionItems.map(({ text, Icon }) => (
                 <li key={text} className="flex items-center gap-5 text-left">

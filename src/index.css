@@ -83,12 +83,12 @@ body {
   align-items: center;
   align-self: center;
   column-gap: 0.5rem;
-  color: #ffffff;
+  color: #ee3139;
 }
 .shamayim-gender-wrapper .shamayim-gender-icon,
 .shamayim-gender-wrapper .shamayim-gender-icon svg {
-  color: #ffffff;
-  stroke: #ffffff;
+  color: #ee3139;
+  stroke: #ee3139;
 }
 .shamayim-gender-checkbox {
   -webkit-appearance: none;
