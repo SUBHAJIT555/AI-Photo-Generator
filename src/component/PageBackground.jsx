@@ -1,4 +1,4 @@
-import boothBackground from "../assets/logo/background.webp";
+import boothBackground from "../assets/logo/UI-bg.png";
 import "./PageBackground.css";
 
 function PageBackground() {

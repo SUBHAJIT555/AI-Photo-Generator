@@ -28,18 +28,22 @@ function Instruction() {
     <div className="flex overflow-hidden relative flex-col items-center w-full h-screen min-h-screen">
       <PageBackground />
 
-      <Logo onBack={() => navigate("/")} />
+      <div className="absolute z-[3] top-0 right-0 w-full px-6 pt-[6vw] pointer-events-none">
+        <div className="pointer-events-auto">
+          <Logo onBack={() => navigate("/")} />
+        </div>
+      </div>
 
       <div className="relative z-[2] min-h-0 w-full flex-1 overflow-y-auto px-6">
         <div className="flex min-h-full w-full items-center justify-center py-4">
           <div className="flex w-full max-w-3xl flex-col items-center justify-center">
-            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-[0.28em] text-[#ee3139]/80">
+            <p className="mb-1 text-center text-sm font-semibold uppercase tracking-[0.28em] text-[#A33A62]/80">
               Photo Booth
             </p>
-            <h1 className="text-center text-5xl font-bold font-cornea leading-tight text-[#ee3139] md:text-6xl">
+            <h1 className="text-center text-5xl font-bold font-cornea leading-tight text-[#A33A62] md:text-6xl">
               Instruction
             </h1>
-            <div className="mx-auto mt-3 mb-8 h-px w-24 bg-gradient-to-r from-transparent via-[#ee3139]/60 to-transparent" />
+            <div className="mx-auto mt-3 mb-8 h-px w-24 bg-gradient-to-r from-transparent via-[#C44B78]/70 to-transparent" />
 
             <ul
               ref={listRef}
@@ -50,7 +54,7 @@ function Instruction() {
                   <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-b from-tertiary to-primary text-white ring-1 ring-inset ring-white/25 [&_svg]:mt-0 [&_svg]:h-7 [&_svg]:w-7">
                     <Icon isInView={iconsInView} />
                   </span>
-                  <span className="text-2xl font-cornea font-semibold leading-snug text-[#ee3139] md:text-3xl">
+                  <span className="text-2xl font-cornea font-semibold leading-snug text-[#A33A62] md:text-3xl">
                     {text}
                   </span>
                 </li>

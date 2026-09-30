@@ -2,17 +2,9 @@ import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
-import brandLogo from "../assets/logo/logo.webp";
 import { LiquidGlassPanel } from "@/components/ui/GlassButton";
 import { GlassIconButton } from "@/components/ui/GlassIconButton";
 import { uploadPhotoForSoftCopy } from "../utils/uploadPhoto";
-
-const LOGO_NATURAL_WIDTH = 3508;
-const LOGO_NATURAL_HEIGHT = 2481;
-const LOGO_DISPLAY_HEIGHT = 80;
-const LOGO_DISPLAY_WIDTH = Math.round(
-  (LOGO_NATURAL_WIDTH / LOGO_NATURAL_HEIGHT) * LOGO_DISPLAY_HEIGHT
-);
 
 function isHttpUrl(value) {
   return typeof value === "string" && /^https?:\/\//i.test(value);
@@ -90,25 +82,25 @@ const QRModal = ({ isOpen, onClose, data }) => {
       onClick={onClose}
     >
       <div onClick={(e) => e.stopPropagation()}>
-        <LiquidGlassPanel className="relative w-full max-w-4xl items-stretch rounded-3xl px-8 pb-8 pt-5 !bg-[#1a1f24]/92 border border-white/15">
+        <LiquidGlassPanel className="relative w-full max-w-4xl items-stretch rounded-3xl px-8 pb-8 pt-5">
           <div className="flex w-full items-start justify-between gap-4 mb-6">
-            <h2 className="flex-1 min-w-0 text-left text-[#ee3139] text-xl md:text-2xl font-cornea font-semibold leading-snug">
+            <h2 className="flex-1 min-w-0 text-left text-[#4F758B] text-xl md:text-2xl font-cornea font-semibold leading-snug">
               Scan this QR for your soft copy
             </h2>
             <GlassIconButton onClick={onClose} className="shrink-0">
-              <IoMdClose className="text-2xl text-white" />
+              <IoMdClose className="text-2xl" />
             </GlassIconButton>
           </div>
 
-          <div className="flex w-full min-h-[320px] justify-center items-center rounded-2xl bg-white p-4">
+          <div className="flex w-full min-h-[320px] justify-center items-center">
             {status === "uploading" && (
-              <p className="text-[#ee3139] text-xl font-cornea">
+              <p className="text-[#4F758B] text-xl font-cornea">
                 Preparing soft copy QR…
               </p>
             )}
 
             {status === "error" && (
-              <p className="max-w-md text-center text-[#ee3139] text-lg font-cornea">
+              <p className="max-w-md text-center text-[#4F758B] text-lg font-cornea">
                 {error}
               </p>
             )}
@@ -117,15 +109,8 @@ const QRModal = ({ isOpen, onClose, data }) => {
               <QRCodeSVG
                 size={600}
                 value={qrValue}
-                fgColor="#C21820"
+                fgColor="#A33A62"
                 bgColor="#FFFFFF"
-                imageSettings={{
-                  src: brandLogo,
-                  height: LOGO_DISPLAY_HEIGHT,
-                  width: LOGO_DISPLAY_WIDTH,
-                  opacity: 1,
-                  excavate: true,
-                }}
               />
             )}
           </div>

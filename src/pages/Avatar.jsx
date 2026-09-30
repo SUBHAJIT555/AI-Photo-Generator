@@ -13,18 +13,18 @@ import { LiquidGlassPanel } from "@/components/ui/GlassButton";
 import { LiquidMetalButton } from "@/components/ui/LiquidMetalButton";
 import { AvatarGlassCard } from "@/components/ui/AvatarGlassCard";
 
-import male01 from "../assets/Avatars/male-01.webp";
-import male02 from "../assets/Avatars/male-02.webp";
-import male03 from "../assets/Avatars/male-03.webp";
-import male04 from "../assets/Avatars/male-04.webp";
-import male05 from "../assets/Avatars/male-05.webp";
-import male06 from "../assets/Avatars/male-06.webp";
-import female01 from "../assets/Avatars/female-01.webp";
-import female02 from "../assets/Avatars/female-02.webp";
-import female03 from "../assets/Avatars/female-03.webp";
-import female04 from "../assets/Avatars/female-04.webp";
-import female05 from "../assets/Avatars/female-05.webp";
-import female06 from "../assets/Avatars/female-06.webp";
+import male01 from "../assets/Avatars/male-01.png";
+import male02 from "../assets/Avatars/male-02.png";
+import male03 from "../assets/Avatars/male-03.png";
+import male04 from "../assets/Avatars/male-04.png";
+import male05 from "../assets/Avatars/male-05.png";
+import male06 from "../assets/Avatars/male-06.png";
+import female01 from "../assets/Avatars/female-01.png";
+import female02 from "../assets/Avatars/female-02.png";
+import female03 from "../assets/Avatars/female-03.png";
+import female04 from "../assets/Avatars/female-04.png";
+import female05 from "../assets/Avatars/female-05.png";
+import female06 from "../assets/Avatars/female-06.png";
 
 const maleImages = [
   { id: "male1", url: male01 },
