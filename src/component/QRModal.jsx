@@ -2,17 +2,9 @@ import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
-import blackLogo from "../assets/logo/fabicon.png";
 import { LiquidGlassPanel } from "@/components/ui/GlassButton";
 import { GlassIconButton } from "@/components/ui/GlassIconButton";
 import { uploadPhotoForSoftCopy } from "../utils/uploadPhoto";
-
-const LOGO_NATURAL_WIDTH = 79;
-const LOGO_NATURAL_HEIGHT = 145;
-const LOGO_DISPLAY_HEIGHT = 96;
-const LOGO_DISPLAY_WIDTH = Math.round(
-  (LOGO_NATURAL_WIDTH / LOGO_NATURAL_HEIGHT) * LOGO_DISPLAY_HEIGHT
-);
 
 function isHttpUrl(value) {
   return typeof value === "string" && /^https?:\/\//i.test(value);
@@ -117,15 +109,8 @@ const QRModal = ({ isOpen, onClose, data }) => {
               <QRCodeSVG
                 size={600}
                 value={qrValue}
-                fgColor="#162127"
-                bgColor="#F4EDE3"
-                imageSettings={{
-                  src: blackLogo,
-                  height: LOGO_DISPLAY_HEIGHT,
-                  width: LOGO_DISPLAY_WIDTH,
-                  opacity: 1,
-                  excavate: true,
-                }}
+                fgColor="#A33A62"
+                bgColor="#FFFFFF"
               />
             )}
           </div>
